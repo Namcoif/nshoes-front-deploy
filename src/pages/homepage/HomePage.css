@@ -1,0 +1,53 @@
+.homepage-container {}
+
+.homepage-header {
+
+    /* position: fixed; */
+
+    width: 100%;
+    height: 80px;
+
+    display: flex;
+    flex-direction: row;
+    text-transform: uppercase;
+    font-weight: 700px;
+    align-items: center;
+
+    margin-bottom: 10px;
+
+
+
+}
+
+.homepage-logo {
+    width: 100px;
+    margin: 0 10px;
+
+}
+
+.homepage-navigate {
+    flex: 1;
+    margin: 0 10px;
+
+}
+
+.homepage-search {
+    display: flex;
+    width: 300px;
+    border-radius: 25px;
+    border: 2px solid red;
+    height: 35px;
+    margin: 0 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.homepage-auth {
+    width: 150px;
+    margin: 0 10px;
+}
+
+.homepage-body {
+    /* margin-top: 100px; */
+
+}

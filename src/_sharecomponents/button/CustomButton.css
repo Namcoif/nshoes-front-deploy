@@ -1,0 +1,13 @@
+.custom-button>button {
+    border: none;
+    /* background-color: #d13639; */
+    background-image: linear-gradient(to bottom right, #aa0011, #4b174a);
+    color: #fff;
+    align-content: center;
+    text-transform: uppercase;
+    border-radius: 12px;
+    font-size: 12px;
+    letter-spacing: 0.96px;
+    /* padding: 9.6px 22.4px; */
+    width: 100%;
+}
