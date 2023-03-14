@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "https://nshoes-back.herokuapp.com",
+  "engines": {
+    "npm": "6.x",
+    "node": "12.x"
+  },
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
