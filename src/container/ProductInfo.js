@@ -47,7 +47,9 @@ function ProductInfo(props) {
     })
 
     const _getProduct = async () => {
-        await axios.get(path).then((res) => {
+        let id = path.substring(path.length - 1)
+        console.log(id);
+        await axios.get(listAPI.GET_PRODUCT + '/' + id).then((res) => {
             const product = res.data
             // console.log(product);
             setProduct(product)

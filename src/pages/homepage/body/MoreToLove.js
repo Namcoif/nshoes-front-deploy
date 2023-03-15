@@ -36,7 +36,7 @@ function MoreToLove(props) {
                         rounded-lg'>
                 <NavLink
                     key={item.id + index + randomNum()}
-                    to={listAPI.GET_PRODUCT + '/' + item.id}
+                    to={'/api/v1/products/' + item.id}
                 >
                     <img src={item.productImgUrls[0].url !== undefined ? item.productImgUrls[0].url : null} class='rounded-lg' />
                     <div
