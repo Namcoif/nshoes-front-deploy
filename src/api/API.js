@@ -1,10 +1,12 @@
-const GET_LIST_CATEGORIES = "/api/v1/categories"
-const GET_LIST_PRODUCTS = "/api/v1/products/paging"
-const GET_PRODUCT = "/api/v1/products"
-const ADD_TO_CART = "/api/v1/carts/add-to-card"
-const SIGN_IN = "/api/v1/auth/sign-in"
-const SIGN_UP = "/api/v1/auth/sign-up"
-const GET_LIST_CARTS_BY_USER_ID = "/api/v1/users/user"
+const HOST = "https://nshoes-back.herokuapp.com"
+
+const GET_LIST_CATEGORIES = HOST + "/api/v1/categories"
+const GET_LIST_PRODUCTS = HOST + "/api/v1/products/paging"
+const GET_PRODUCT = HOST + "/api/v1/products"
+const ADD_TO_CART = HOST + "/api/v1/carts/add-to-card"
+const SIGN_IN = HOST + "/api/v1/auth/sign-in"
+const SIGN_UP = HOST + "/api/v1/auth/sign-up"
+const GET_LIST_CARTS_BY_USER_ID = HOST + "/api/v1/users/user"
 
 
 const listAPI = {
