@@ -8,7 +8,6 @@ const SIGN_IN = HOST + "/api/v1/auth/sign-in"
 const SIGN_UP = HOST + "/api/v1/auth/sign-up"
 const GET_LIST_CARTS_BY_USER_ID = HOST + "/api/v1/users/user"
 
-
 const listAPI = {
     GET_LIST_CATEGORIES,
     GET_LIST_PRODUCTS,
