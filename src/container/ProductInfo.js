@@ -47,8 +47,8 @@ function ProductInfo(props) {
     })
 
     const _getProduct = async () => {
-        let id = path.substring(path.length - 1)
-        console.log(id);
+        let id = path.substring(path.lastIndexOf("/") + 1, path.length)
+        console.log("id: " + id);
         await axios.get(listAPI.GET_PRODUCT + '/' + id).then((res) => {
             const product = res.data
             // console.log(product);

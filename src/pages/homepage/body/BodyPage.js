@@ -16,7 +16,7 @@ function BodyPage(props) {
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
 
-    const [linkImgProducts, setLinkImgProducts] = useState([]);
+    const [sellingProducs, setSellingProducs] = useState([]);
 
     const link = [
 
@@ -34,9 +34,14 @@ function BodyPage(props) {
             })
             console.log(products);
             setProducts(products)
-            setLinkImgProducts(img)
         })
 
+    }
+
+    const _getSellingProducts = async () => {
+        await axios.get(listAPI.GET_SELLING_PRODUCTS).then((res) => {
+            setSellingProducs(res.data)
+        })
     }
 
     const _getCategories = async () => {
@@ -56,6 +61,7 @@ function BodyPage(props) {
 
     useEffect(() => {
         _getProducts();
+        _getSellingProducts();
         _getCategories();
 
     }, [])
@@ -119,7 +125,7 @@ function BodyPage(props) {
                     class='
                                 w-96'>
                     <SuggestCarousel
-                        itemCarousel={linkImgProducts}
+                        itemCarousel={sellingProducs}
                     />
                 </div>
             </div>
