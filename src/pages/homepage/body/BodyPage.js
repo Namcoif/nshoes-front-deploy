@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import listAPI from '../../../api/API';
+import listAPI_Back from '../../../api/API';
 import axios from 'axios';
 import CustomLinks from './../../../_sharecomponents/customlinks/CustomLinks';
 import { menuLinks } from '../../../data/Navigation';
@@ -39,13 +39,13 @@ function BodyPage(props) {
     }
 
     const _getSellingProducts = async () => {
-        await axios.get(listAPI.GET_SELLING_PRODUCTS).then((res) => {
+        await axios.get(listAPI_Back.GET_SELLING_PRODUCTS).then((res) => {
             setSellingProducs(res.data)
         })
     }
 
     const _getCategories = async () => {
-        await axios.get(listAPI.GET_LIST_CATEGORIES).then((res) => {
+        await axios.get(listAPI_Back.GET_LIST_CATEGORIES).then((res) => {
             const categoryTemp = res.data.map((item) => {
                 return {
                     id: item.id,
@@ -54,6 +54,7 @@ function BodyPage(props) {
             })
 
             setCategories(categoryTemp)
+            console.log(categoryTemp);
         })
 
     }
@@ -103,8 +104,10 @@ function BodyPage(props) {
                     id='category'
                     class='
                         w-64
+                        flex flex-col
+                        px-2
                         py-2
-                        bg-white
+                        bg-red-300
                         border-2 border-white border-solid
                         rounded-lg'>
 
@@ -114,8 +117,14 @@ function BodyPage(props) {
                     /> */}
                     {
                         categories.map((item) => {
-                            return <Link to={listAPI.GET_LIST_PRODUCTS}>
-
+                            return <Link to={"api/v1/products/search"}>
+                                <div className='link'>
+                                    <span>
+                                        {
+                                            item.categoryName
+                                        }
+                                    </span>
+                                </div>
                             </Link>
                         })
                     }

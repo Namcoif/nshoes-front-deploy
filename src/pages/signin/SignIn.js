@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CustomInput from '../../_sharecomponents/input/CustomInput';
 import { AiOutlineUser, AiOutlineLock, AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import axios from 'axios';
-import listAPI from './../../api/API';
+import listAPI_Back from './../../api/API';
 import { useDispatch } from 'react-redux';
 import userActions from '../../redux/actions/userActions';
 import { Alert } from '@mui/material';
@@ -31,7 +31,7 @@ function SignIn(props) {
     })
 
     const _siginIn = async () => {
-        await axios.post(listAPI.SIGN_IN, signInInfo).then((res) => {
+        await axios.post(listAPI_Back.SIGN_IN, signInInfo).then((res) => {
             localStorage.setItem("role", res.data.role);
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("username", res.data.username);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { } from 'react';
 import { NavLink } from 'react-router-dom';
-import listAPI from '../../../api/API';
+import listAPI_Back from '../../../api/API';
 import ProductInfo from '../../../container/ProductInfo';
 import HandleFunction from '../../../handle_function/HandleFunction';
 import './css/MoreToLove.css'

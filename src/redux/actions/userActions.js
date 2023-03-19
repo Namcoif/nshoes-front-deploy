@@ -1,13 +1,13 @@
 import axios from "axios"
 import actionTypes from "../constant/constant"
-import listAPI from './../../api/API';
+import listAPI_Back from './../../api/API';
 
 const getUserInfo = (userId) => async (dispatch) => {
     dispatch({
         type: actionTypes.GET_CARTS_BY_USER_ID_REQUEST
     })
     try {
-        const response = await axios.get(listAPI.GET_LIST_CARTS_BY_USER_ID, {
+        const response = await axios.get(listAPI_Back.GET_LIST_CARTS_BY_USER_ID, {
             params: {
                 id: userId
             },

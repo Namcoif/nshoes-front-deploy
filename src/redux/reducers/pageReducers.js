@@ -2,7 +2,8 @@ import actionTypes from "../constant/constant";
 
 const initailState = {
     title: 'NShoes',
-    isLoggin: false
+    isLogin: false,
+    isLoading: false
 }
 
 const pageReducers = (state = initailState, action) => {
@@ -15,25 +16,43 @@ const pageReducers = (state = initailState, action) => {
         case actionTypes.LOGGED:
             return {
                 ...state,
-                isLoggin: true
+                isLogin: true
             }
         case actionTypes.LOGOUT:
             return {
                 ...state,
-                isLoggin: false
+                isLogin: false
             }
         case actionTypes.GET_MORE_TO_LOVE_FAIL:
             return {
-                ...state
+                ...state,
+                isLoading: false
             }
 
         case actionTypes.GET_MORE_TO_LOVE_REQUEST:
             return {
-                ...state
+                ...state,
+                isLoading: true
             }
         case actionTypes.GET_MORE_TO_LOVE_SUCCESS:
             return {
-                ...state
+                ...state,
+                isLoading: false
+            }
+        case actionTypes.GET_RECOMMENDED_PRODUCTS_FAIL:
+            return {
+                ...state,
+                isLoading: false
+            }
+        case actionTypes.GET_RECOMMENDED_PRODUCTS_REQUEST:
+            return {
+                ...state,
+                isLoading: true
+            }
+        case actionTypes.GET_RECOMMENDED_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                isLoading: false
             }
 
         default:

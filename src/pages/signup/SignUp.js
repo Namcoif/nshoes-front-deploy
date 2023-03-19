@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import CustomInput from '../../_sharecomponents/input/CustomInput';
 import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineLock, AiOutlineMail, AiOutlineUser } from 'react-icons/ai';
 import axios from 'axios';
-import listAPI from '../../api/API';
+import listAPI_Back from '../../api/API';
 import { useDispatch } from 'react-redux';
 import { Alert } from '@mui/material';
 import userActions from '../../redux/actions/userActions';
@@ -34,7 +34,7 @@ function SignUp(props) {
     })
 
     const _siginUp = async () => {
-        await axios.post(listAPI.SIGN_UP, signUpInfo).then((res) => {
+        await axios.post(listAPI_Back.SIGN_UP, signUpInfo).then((res) => {
 
             setNotification({
                 succeeded: res.data

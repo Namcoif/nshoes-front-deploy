@@ -10,8 +10,9 @@ function Footer(props) {
                 xl:justify-between
                 sm:flex
                 sm flex-col
-
+                py-20
                 px-20
+                bg-red-300
                 '>
             <div
                 id='footer-about-us'>
@@ -25,14 +26,15 @@ function Footer(props) {
                 </div>
             </div>
             <div
-                id='footer-contact'>
+                id='footer-contact'
+                class='justify-around flex flex-col '>
                 <div>
-                    <a href='https://www.instagram.com/nam.coif/'>
+                    <a href='https://www.instagram.com/nam.coif/' target="_blank">
                         <img class='w-5 rounded-circle' src='https://i.postimg.cc/HWP4jRtZ/Contact-instagram-icon-8704817.png' />
                     </a>
                 </div>
                 <div>
-                    <a href='https://www.facebook.com/Nam.coif.Z/'>
+                    <a href='https://www.facebook.com/Nam.coif.Z/' target="_blank">
                         <img class='w-5 rounded-circle' src='https://i.postimg.cc/6QTXnw5P/Contact-facebook.png' />
                     </a>
                 </div>

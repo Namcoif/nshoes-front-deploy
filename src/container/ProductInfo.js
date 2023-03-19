@@ -9,7 +9,7 @@ import '../css/DropDown.css'
 import DropDown from './../_sharecomponents/dropdown/DropDown';
 import ButtonIcon from './../_sharecomponents/button/ButtonIcon';
 import CustomButton from './../_sharecomponents/button/CustomButton';
-import listAPI from './../api/API';
+import listAPI_Back from './../api/API';
 import ButtonTeal from './../_sharecomponents/button/ButtonTeal';
 import { Alert, Dialog, DialogContent } from '@mui/material';
 function ProductInfo(props) {
@@ -26,7 +26,7 @@ function ProductInfo(props) {
 
     const [percent, setPercent] = useState('');
 
-    const sizeCm = [22.5, 23, 23.5, 24, 24, 24.5, 25, 25.5, 26, 26.5, 27, 27.5, 28, 2.5];
+    const sizeCm = [22.5, 23, 23.5, 24, 24.5, 25, 25.5, 26, 26.5, 27, 27.5, 28, 2.5];
 
     const [dropDown, setDropDown] = useState(false);
 
@@ -49,7 +49,7 @@ function ProductInfo(props) {
     const _getProduct = async () => {
         let id = path.substring(path.lastIndexOf("/") + 1, path.length)
         console.log("id: " + id);
-        await axios.get(listAPI.GET_PRODUCT + '/' + id).then((res) => {
+        await axios.get(listAPI_Back.GET_PRODUCT + '/' + id).then((res) => {
             const product = res.data
             // console.log(product);
             setProduct(product)
@@ -98,7 +98,12 @@ function ProductInfo(props) {
     const _addToCart = async (productWillGet) => {
 
         console.log(productWillGet);
-        await axios.post(listAPI.ADD_TO_CART, productWillGet).then((res) => {
+        console.log(`Bearer ${localStorage.token}`);
+        await axios.post(listAPI_Back.ADD_TO_CART, productWillGet, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.token}`
+            }
+        }).then((res) => {
             setResAdd(res.data.resultText)
             console.log(res);
             setToggleAddCart(true)
@@ -223,8 +228,9 @@ function ProductInfo(props) {
                             py-4
                             border-solid 
                             border-red-vio  
+                            text-red-vio underline
                             border-b-2'>
-                    <span>Size: { }</span>
+                    <span>Size: {productWillGet.size}</span>
 
                     <div class='flex'>
                         {
@@ -269,9 +275,9 @@ function ProductInfo(props) {
                         }
                     </div>
                     <div class='text-red-vio underline'>
-                        <span>
+                        {/* <span>
                             Slected: {productWillGet.size}
-                        </span>
+                        </span> */}
                     </div>
                 </div>
                 <div

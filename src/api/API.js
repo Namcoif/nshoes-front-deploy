@@ -1,4 +1,5 @@
-const HOST = "https://nshoes-back.herokuapp.com"
+// const HOST = "https://nshoes-back.herokuapp.com"
+const HOST = "http://localhost:8080"
 
 const GET_LIST_CATEGORIES = HOST + "/api/v1/categories"
 const GET_LIST_PRODUCTS = HOST + "/api/v1/products/paging"
@@ -9,7 +10,7 @@ const SIGN_IN = HOST + "/api/v1/auth/sign-in"
 const SIGN_UP = HOST + "/api/v1/auth/sign-up"
 const GET_LIST_CARTS_BY_USER_ID = HOST + "/api/v1/users/user"
 
-const listAPI = {
+const listAPI_Back = {
     GET_LIST_CATEGORIES,
     GET_LIST_PRODUCTS,
     ADD_TO_CART,
@@ -19,4 +20,4 @@ const listAPI = {
     GET_PRODUCT,
     GET_SELLING_PRODUCTS
 }
-export default listAPI
+export default listAPI_Back
