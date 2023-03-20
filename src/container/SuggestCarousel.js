@@ -19,7 +19,9 @@ function SuggestCarousel(props) {
             >
 
                 {
-                    itemCarousel.map((item) => {
+                    itemCarousel.filter((item) => {
+                        return item.productImgUrls[0].url !== "null"
+                    }).map((item) => {
                         return (
                             <Link to={'/api/v1/products/' + item.id}>
                                 <div class='flex flex-col items-center'>

@@ -1,5 +1,6 @@
 // const HOST = "https://nshoes-back.herokuapp.com"
-const HOST = "http://localhost:8080"
+// const HOST = "http://localhost:8080"
+const HOST = ''
 
 const GET_LIST_CATEGORIES = HOST + "/api/v1/categories"
 const GET_LIST_PRODUCTS = HOST + "/api/v1/products/paging"

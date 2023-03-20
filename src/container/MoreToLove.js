@@ -1,10 +1,7 @@
 import axios from 'axios';
 import React, { } from 'react';
 import { NavLink } from 'react-router-dom';
-import listAPI_Back from '../../../api/API';
-import ProductInfo from '../../../container/ProductInfo';
-import HandleFunction from '../../../handle_function/HandleFunction';
-import './css/MoreToLove.css'
+import HandleFunction from '../handle_function/HandleFunction';
 function MoreToLove(props) {
     const { products } = props;
 
@@ -17,7 +14,10 @@ function MoreToLove(props) {
     }
 
 
-    const listProducts = products.map((item, index) => {
+    const listProducts = products.filter((item) => {
+        return item.productImgUrls[0].url !== "null"
+    }).map((item, index) => {
+
         return (<li
             key={item.id + index + randomNum()}
             class='
@@ -29,11 +29,14 @@ function MoreToLove(props) {
                     m-2
                     hover:shadow-2xl'
         >
+
             <div
                 class='
                         bg-white
                         p-2
                         rounded-lg'>
+
+
                 <NavLink
                     key={item.id + index + randomNum()}
                     to={'/api/v1/products/' + item.id}
@@ -75,6 +78,7 @@ function MoreToLove(props) {
                         </div>
                     </div>
                 </NavLink>
+
             </div >
         </li >
         )

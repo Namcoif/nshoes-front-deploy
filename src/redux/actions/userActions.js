@@ -10,7 +10,8 @@ const getUserInfo = (userId) => async (dispatch) => {
         const response = await axios.get(listAPI_Back.GET_LIST_CARTS_BY_USER_ID, {
             params: {
                 id: userId
-            },
+            }
+            ,
             headers: { "Authorization": `Bearer ${localStorage.token}` }
         })
         dispatch({

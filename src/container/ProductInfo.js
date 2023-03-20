@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { matchRoutes, useLocation, useNavigate } from 'react-router-dom';
+import { matchRoutes, useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import pageActions from '../redux/actions/pageActions';
@@ -15,7 +15,8 @@ import { Alert, Dialog, DialogContent } from '@mui/material';
 function ProductInfo(props) {
 
     const { pr } = props
-    const path = window.location.pathname;
+    // const path = window.location.pathname;
+    const { productId } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [product, setProduct] = useState('');
@@ -47,11 +48,9 @@ function ProductInfo(props) {
     })
 
     const _getProduct = async () => {
-        let id = path.substring(path.lastIndexOf("/") + 1, path.length)
-        console.log("id: " + id);
-        await axios.get(listAPI_Back.GET_PRODUCT + '/' + id).then((res) => {
+
+        await axios.get(listAPI_Back.GET_PRODUCT + '/' + productId).then((res) => {
             const product = res.data
-            // console.log(product);
             setProduct(product)
             setLinkImg(product.productImgUrls[0].url)
             setPercent(Math.floor((1 - product.promotionPrice / product.originalPrice) * 100))

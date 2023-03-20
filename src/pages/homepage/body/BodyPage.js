@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import listAPI_Back from '../../../api/API';
 import axios from 'axios';
-import CustomLinks from './../../../_sharecomponents/customlinks/CustomLinks';
-import { menuLinks } from '../../../data/Navigation';
-import SuggestCarousel from './SuggestCarousel';
-import ProductInfo from './../../../container/ProductInfo';
-import MoreToLove from './MoreToLove';
 import { useDispatch } from 'react-redux';
 import pageActions from './../../../redux/actions/pageActions';
 import { Link } from 'react-router-dom';
+import SuggestCarousel from './../../../container/SuggestCarousel';
+import MoreToLove from './../../../container/MoreToLove';
+import Sidebar from '../../../_sharecomponents/sidebar/Sidebar';
 
 function BodyPage(props) {
 
@@ -16,22 +14,12 @@ function BodyPage(props) {
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
 
-    const [sellingProducs, setSellingProducs] = useState([]);
+    const [sellingProducts, setSellingProducts] = useState([]);
 
-    const link = [
-
-    ]
 
     const _getProducts = () => {
         dispatch(pageActions.getProducts()).then((res) => {
             const products = res.data.content
-            const img = res.data.content.map((item) => {
-                for (const element of item.productImgUrls) {
-                    return {
-                        link: element.url
-                    }
-                }
-            })
             console.log(products);
             setProducts(products)
         })
@@ -40,7 +28,7 @@ function BodyPage(props) {
 
     const _getSellingProducts = async () => {
         await axios.get(listAPI_Back.GET_SELLING_PRODUCTS).then((res) => {
-            setSellingProducs(res.data)
+            setSellingProducts(res.data)
         })
     }
 
@@ -48,8 +36,8 @@ function BodyPage(props) {
         await axios.get(listAPI_Back.GET_LIST_CATEGORIES).then((res) => {
             const categoryTemp = res.data.map((item) => {
                 return {
-                    id: item.id,
-                    categoryName: item.categoryName
+                    link: "api/v1/products/search/" + item.id + "/%20/%20/%20/%20",
+                    itemSidebarName: item.categoryName
                 }
             })
 
@@ -102,39 +90,18 @@ function BodyPage(props) {
                         justify-center'>
                 <div
                     id='category'
-                    class='
-                        w-64
-                        flex flex-col
-                        px-2
-                        py-2
-                        bg-red-300
-                        border-2 border-white border-solid
-                        rounded-lg'>
+                >
 
-                    {/* <CustomLinks
-                        menuLinks={menuLinks}
-                        menuLinks={categories}
-                    /> */}
-                    {
-                        categories.map((item) => {
-                            return <Link to={"api/v1/products/search"}>
-                                <div className='link'>
-                                    <span>
-                                        {
-                                            item.categoryName
-                                        }
-                                    </span>
-                                </div>
-                            </Link>
-                        })
-                    }
+                    <Sidebar
+                        itemsSidebar={categories}
+                    />
 
                 </div>
                 <div id='suggest-carousel'
                     class='
                                 w-96'>
                     <SuggestCarousel
-                        itemCarousel={sellingProducs}
+                        itemCarousel={sellingProducts}
                     />
                 </div>
             </div>

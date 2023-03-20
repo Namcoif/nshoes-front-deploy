@@ -1,6 +1,6 @@
 import './App.css';
 import HomePage from './pages/homepage/HomePage';
-import { Navigate, Outlet, Route, Routes, useParams } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import SignIn from './pages/signin/SignIn';
 import { useEffect } from 'react';
 import ProductInfo from './container/ProductInfo';
@@ -9,14 +9,12 @@ import Cate from './_sharecomponents/demo/Cate';
 import { useSelector } from 'react-redux';
 import ShoppingCart from './container/ShoppingCart';
 import ErrorPage from './pages/error/ErrorPage';
-import { ReduceCapacityRounded } from '@mui/icons-material';
 import SearchProducts from './container/SearchProducts';
 function App() {
 
   const selector = useSelector(state => state);
   const title = selector.page.title
   // localStorage.setItem("isLogged", false)
-  let keySearch = useParams()
   useEffect(() => {
     document.title = title
   }, [title])
@@ -26,10 +24,15 @@ function App() {
       <Routes>
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/' element={<HomePage />} >
+
           <Route path='/' element={<BodyPage />} />
-          <Route path='/api/v1/products/:id' element={<ProductInfo />} />
+          <Route path='/api/v1/products/:productId' element={<ProductInfo />} />
           <Route path='api/v1/carts/:userId' element={<ShoppingCart />} />
-          <Route path='api/v1/products/search:keySearch' element={<SearchProducts />} />
+          {/* <Route path='api/v1/products/search/:categoryId' element={<SearchProducts />} />
+          <Route path='api/v1/products/search/:categoryId/:productName' element={<SearchProducts />} />
+          <Route path='api/v1/products/search/:categoryId/:productName/:maxPrice' element={<SearchProducts />} /> */}
+          <Route path='api/v1/products/search/:categoryId/:productName/:maxPrice/:minPrice/:pageNumber' element={<SearchProducts />} />
+
         </Route>
         <Route path='/api/v1/categories/sneaker' element={<Cate />} />
         <Route element={<ErrorPage />} />
