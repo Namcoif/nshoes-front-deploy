@@ -31,15 +31,15 @@ function App() {
           {/* <Route path='api/v1/products/search/:categoryId' element={<SearchProducts />} />
           <Route path='api/v1/products/search/:categoryId/:productName' element={<SearchProducts />} />
           <Route path='api/v1/products/search/:categoryId/:productName/:maxPrice' element={<SearchProducts />} /> */}
-          <Route path='api/v1/products/search/:categoryId/:productName/:maxPrice/:minPrice/:pageNumber' element={<SearchProducts />} />
+          <Route path='api/v1/products/search/:categoryId/:productName/:minPrice/:maxPrice/:pageNumber' element={<SearchProducts />} />
 
         </Route>
         <Route path='/api/v1/categories/sneaker' element={<Cate />} />
         <Route element={<ErrorPage />} />
-        <Route
+        {/* <Route
           path='*'
           element={<Navigate to={'/'} replace />}
-        />
+        /> */}
       </Routes>
     </div>
   );

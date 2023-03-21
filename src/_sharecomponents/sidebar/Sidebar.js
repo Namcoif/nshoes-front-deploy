@@ -1,12 +1,14 @@
 import React from 'react';
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import './Sidebar.css'
 function Sidebar(props) {
     const { itemsSidebar } = props
+
+    const [itemsSidebarIN, setItemsSidebarIN] = useState([]);
     useEffect(() => {
-        console.log(itemsSidebar);
-    }, [])
+        setItemsSidebarIN(itemsSidebar);
+    }, [itemsSidebar])
     return (
         <div
             class='
@@ -15,11 +17,12 @@ function Sidebar(props) {
                         px-2
                         py-2
                         bg-red-300
+                        h-full
                         border-2 border-white border-solid
                         rounded-lg'>
             {
-                itemsSidebar.map((item) => {
-                    return <Link to={item.link} className='link'                    >
+                itemsSidebarIN.map((item) => {
+                    return <Link to={item.link} className='link' >
                         <span>{item.itemSidebarName}</span>
                     </Link>
                 })

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { matchRoutes, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import pageActions from '../redux/actions/pageActions';

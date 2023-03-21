@@ -1,14 +1,9 @@
-import axios from 'axios';
 import React, { } from 'react';
 import { NavLink } from 'react-router-dom';
 import HandleFunction from '../handle_function/HandleFunction';
 function MoreToLove(props) {
     const { products } = props;
 
-
-    // Chưa hiểu tại sao phải gọi cái hàm này vào onClick mởi navigate được hmmmm
-    // const dontKnowWhy = async () => {
-    // }
     const randomNum = () => {
         return Math.random()
     }
@@ -97,7 +92,14 @@ function MoreToLove(props) {
                         grid-cols-4
                        
                         '>
-                {listProducts}
+
+                {products.length == 0
+                    ?
+                    <div class='w-full bg-teal-400'>
+                        <h1>No matching products found</h1>
+                    </div>
+                    :
+                    listProducts}
             </ul>
         </div>
     );

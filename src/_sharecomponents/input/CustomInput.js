@@ -42,6 +42,9 @@ function CustomInput(props) {
                         border-b-2 border-solid border-red-vio
                         bg-white
                         my-1
+                        mx-1
+                        h-full
+                        w-full
                 '
         >
             {Icon != null ? <Icon /> : null}
