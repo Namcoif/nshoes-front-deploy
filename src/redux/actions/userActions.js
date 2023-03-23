@@ -47,10 +47,17 @@ const getProduct = (url) => async (dispatch) => {
     })
 }
 
+const getProductNameSearch = (keySearch) => {
+    return {
+        type: actionTypes.KEY_SEARCH,
+        payload: keySearch
+    }
+}
 const userActions = {
     getUserInfo,
     toggleSignIn,
     toggleSignUp,
-    getProduct
+    getProduct,
+    getProductNameSearch
 }
 export default userActions;

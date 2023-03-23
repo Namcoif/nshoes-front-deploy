@@ -9,6 +9,7 @@ import DropDown from '../../../_sharecomponents/dropdown/DropDown';
 import ButtonTeal from '../../../_sharecomponents/button/ButtonTeal';
 import pageActions from './../../../redux/actions/pageActions';
 import listAPI_Back from './../../../api/API';
+import CustomInput from './../../../_sharecomponents/input/CustomInput';
 
 function Header(props) {
 
@@ -103,17 +104,16 @@ function Header(props) {
             <div
                 id='customer'
                 class='
-                            mr-1
-                            flex
-                            flex-row
-                            items-center
-                    '
+                        mr-1
+                        flex
+                        flex-row
+                        items-center'
             >
                 <CiShoppingCart
                     class='
-                                h-8
-                                w-8
-                                mr-1'
+                            h-8
+                            w-8
+                            mr-1'
                     onClick={_gotToCarts}
                 />
                 <DropDown

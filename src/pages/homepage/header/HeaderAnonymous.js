@@ -9,7 +9,7 @@ import ButtonTeal from './../../../_sharecomponents/button/ButtonTeal';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import userActions from '../../../redux/actions/userActions';
 import pageActions from './../../../redux/actions/pageActions';
-
+import './Header.css'
 function HeaderAnonymous(props) {
 
 
@@ -22,6 +22,10 @@ function HeaderAnonymous(props) {
 
     const _getSearchValue = (search) => {
         setSearch(search)
+    }
+
+    const _searchProducts = () => {
+        dispatch(userActions.getProductNameSearch(search))
     }
 
     const _siginIn = () => {
@@ -88,18 +92,19 @@ function HeaderAnonymous(props) {
 
             <div
                 className='homepage-search'
-                class="
-                            flex
-                            flex-row
-                            flex-1
-                            items-center
-                            mr-1
-                            md:mr-4"
+            // class="
+            //         flex
+            //         flex-row
+            //         flex-1
+            //         items-center
+            //         mr-1
+            //         md:mr-4"
             >
                 <CustomSearch
                     class='flex-1'
                     placeholder="Search..."
                     _getInputValue={_getSearchValue}
+                    _onClick={_searchProducts}
                 />
             </div>
             <div

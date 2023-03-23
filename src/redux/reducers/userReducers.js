@@ -4,7 +4,8 @@ const initialState = {
     toggleSignIn: false,
     toggleSignUp: false,
     productInfo: {},
-    cartsOfUser: []
+    cartsOfUser: [],
+    keySearch: '%20'
 }
 
 const userReducers = (state = initialState, action) => {
@@ -40,7 +41,12 @@ const userReducers = (state = initialState, action) => {
             }
         case actionTypes.GET_CARTS_BY_USER_ID_FAIL:
             return {
-                ...state
+                ...state,
+            }
+        case actionTypes.KEY_SEARCH:
+            return {
+                ...state,
+                keySearch: action.payload
             }
         default:
             return state

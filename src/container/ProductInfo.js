@@ -33,6 +33,8 @@ function ProductInfo(props) {
 
     const [shipping, setShipping] = useState(30000);
 
+    const [currentSize, setCurrentSize] = useState(40);
+
     const [toggleAddCart, setToggleAddCart] = useState(false);
     const [resAdd, setResAdd] = useState('add');
 
@@ -235,30 +237,62 @@ function ProductInfo(props) {
                         {
                             sizes.map((item) => {
                                 return <DropDown
-                                    Drop={() =>
-                                        <div
+                                    Drop={() => {
+                                        if (item.size == currentSize) {
+                                            return <div
+                                            >
 
+                                                <button
+                                                    class='
+                                                        text-xs
+                                                        border-2 border-solid border-red-vio
+                                                        rounded
+                                                        mr-2
+                                                        p-2
+                                                        hover:border-red-vio'
+                                                    onFocus={() => {
+                                                        setProductWillGet({
+                                                            ...productWillGet,
+                                                            size: item.size
+
+                                                        })
+                                                        setCurrentSize(item.size)
+                                                    }}
+                                                >
+
+                                                    {item.size}
+
+                                                </button>
+                                            </div>
+                                        }
+                                        return <div
                                         >
 
                                             <button
                                                 class='
-                                                    text-xs
-                                                    border-2 border-solid border-gray-500
-                                                    rounded
-                                                    mr-2
-                                                    p-2
-                                                    hover:border-red-vio'
-                                                onFocus={() => setProductWillGet({
-                                                    ...productWillGet,
-                                                    size: item.size
+                                                        text-xs
+                                                        border-2 border-solid border-gray-500
+                                                        rounded
+                                                        mr-2
+                                                        p-2
+                                                        hover:border-red-vio'
+                                                onFocus={() => {
+                                                    setProductWillGet({
+                                                        ...productWillGet,
+                                                        size: item.size
 
-                                                })}
+                                                    })
+                                                    setCurrentSize(item.size)
+                                                }}
                                             >
 
                                                 {item.size}
 
                                             </button>
                                         </div>
+                                    }
+
+
                                     }
                                     DropContent={() =>
                                         <div class='flex flex-col items-center mt-1 p-5 rounded bg-white shadow-black2 text-xs'>

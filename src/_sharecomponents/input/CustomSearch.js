@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CiSearch } from 'react-icons/ci';
 // import './CustomInput.css'
 const CustomSearch = (props) => {
-    const { placeholder, _getInputValue } = props
+    const { placeholder, name, _getInputValue, _onClick } = props
 
     const [value, setValue] = useState('');
 
@@ -22,7 +22,7 @@ const CustomSearch = (props) => {
     }
 
     useEffect(() => {
-        _getInputValue(value);
+        _getInputValue(name, value);
     }, [value])
 
     return (
@@ -81,9 +81,10 @@ const CustomSearch = (props) => {
                             h-full
                             w-8
                             text-white
+                            cursor-pointer
                         "
 
-                // onClick={ }
+                    onClick={_onClick}
                 />
             </div>
 

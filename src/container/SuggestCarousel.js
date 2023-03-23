@@ -5,8 +5,6 @@ function SuggestCarousel(props) {
     const { itemCarousel } = props
     console.log(itemCarousel);
 
-
-
     return (
         <div class='
                     

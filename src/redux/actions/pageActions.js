@@ -27,12 +27,16 @@ const signOut = () => {
 }
 
 
-const getProducts = () => async (dispatch) => {
+const getProducts = (pageNumber) => async (dispatch) => {
     dispatch({
         type: actionTypes.GET_MORE_TO_LOVE_REQUEST
     })
     try {
-        const response = await axios.get(listAPI_Back.GET_LIST_PRODUCTS)
+        const response = await axios.get(listAPI_Back.GET_LIST_PRODUCTS, {
+            params: {
+                pageNumber: pageNumber
+            }
+        })
         dispatch({
             type: actionTypes.GET_MORE_TO_LOVE_SUCCESS
         })

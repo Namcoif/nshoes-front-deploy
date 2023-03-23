@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import listAPI_Back from '../api/API';
 import axios from 'axios';
@@ -9,6 +9,7 @@ import CustomInput from './../_sharecomponents/input/CustomInput';
 
 import { BiDollar } from 'react-icons/bi'
 import { CiSearch } from 'react-icons/ci';
+import CustomSearch from './../_sharecomponents/input/CustomSearch';
 
 function SearchProducts(props) {
 
@@ -18,6 +19,8 @@ function SearchProducts(props) {
     const filterParams = useParams();
 
     const navigate = useNavigate();
+
+    const selector = useSelector(state => state);
 
     const [filter, setFilter] = useState({
         categoryId: '%20',
@@ -31,23 +34,18 @@ function SearchProducts(props) {
 
     const [categories, setCategories] = useState([]);
 
-    const [prices, setPrices] = useState({
-        minPrice: 0,
-        maxPrice: 10000000
-    })
-
-    const _getPricesSearch = (name, value) => {
+    const _getInfoProductsSearch = (name, value) => {
         setFilter({
             ...filter,
             [name]: value
         })
-        if (filter.minPrice == '') {
+        if (filter.minPrice === '') {
             setFilter({
                 ...filter,
                 minPrice: '%20'
             })
         }
-        if (filter.maxPrice == '') {
+        if (filter.maxPrice === '') {
             setFilter({
                 ...filter,
                 maxPrice: '%20'
@@ -55,7 +53,7 @@ function SearchProducts(props) {
         }
     }
     const _getProductsSearch = async (filter) => {
-        console.log(filter.categoryId);
+        // console.log(filter.categoryId);
         await axios.get(listAPI_Back.GET_LIST_PRODUCTS, {
             params: {
                 categoryId: filter.categoryId,
@@ -85,18 +83,36 @@ function SearchProducts(props) {
 
     }
 
+    const ComponentSearch = (onClick) => {
+        return <div
+            class='bg-red-vio text-white flex flex-row items-center justify-center'>
+            <CiSearch size={"30px"} onClick={onClick} />
+        </div>
+    }
+
     const _searchProducts = () => {
         navigate(("/api/v1/products/search/" + filter.categoryId + "/" + filter.productName + "/" + filter.minPrice + "/" + filter.maxPrice + "/" + filter.pageNumber))
     }
 
 
     useEffect(() => {
-        console.log(filterParams.maxPrice);
+        // console.log(filterParams.maxPrice);
         _getProductsSearch(filterParams);
         _getCategories();
-        console.log(useParams);
-        console.log(searchedProducts);
+        // console.log(searchedProducts);
     }, [filterParams])
+
+    // useEffect(() => {
+    //     async function search() {
+    //         await setFilter({
+    //             ...filter,
+    //             productName: selector.user.keySearch
+    //         })
+    //         await _searchProducts()
+    //     }
+    //     search()
+
+    // }, [selector.user.keySearch])
 
     return (
         <div
@@ -104,28 +120,35 @@ function SearchProducts(props) {
                 mt-28
                 flex flex-col
                 items-center'>
+            <div class>
+                <CustomInput
+                    type="text"
+                    Icon={() => ComponentSearch(_searchProducts)}
+                    _getInputValue={_getInfoProductsSearch}
+                    placeholder="Shoes for women..."
+                    name="productName"
+                />
+            </div>
             <div
                 id='search-head'
                 class=''>
-                <h1>{filter.minPrice}</h1>
-                {console.log(filter.minPrice)}
                 <div
                     class='flex flex-row w-52 bg-red-300'>
                     <CustomInput
                         Icon={BiDollar}
                         type="text"
-                        _getInputValue={_getPricesSearch}
+                        _getInputValue={_getInfoProductsSearch}
                         placeholder="Min"
                         name="minPrice"
                     />
                     <CustomInput
                         Icon={BiDollar}
                         type="text"
-                        _getInputValue={_getPricesSearch}
+                        _getInputValue={_getInfoProductsSearch}
                         placeholder="Max"
                         name="maxPrice"
                     />
-                    <CiSearch onClick={_searchProducts} />
+                    {/* <CiSearch onClick={_searchProducts} /> */}
                 </div>
 
 
@@ -134,15 +157,12 @@ function SearchProducts(props) {
                 id='search-body'
                 class='
                     flex flex-row'>
-                <div
-                    class='
-                    t-0
-                    h-fit'
-                >
-
-                    <Sidebar
-                        itemsSidebar={categories}
-                    />
+                <div>
+                    <div class='sticky top-28'>
+                        <Sidebar
+                            itemsSidebar={categories}
+                        />
+                    </div>
                 </div>
                 <div>
                     <MoreToLove

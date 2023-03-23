@@ -85,22 +85,23 @@ function MoreToLove(props) {
                         bg-red-900
                         flex flex-row
                         justify-center'>
-            <ul
-                class='
+            {products.length == 0
+                ?
+                <div class='w-full bg-teal-400 flex flex-row items-center justify-center'>
+                    <span class='text-xs'>No matching products found</span>
+                </div>
+                :
+                <ul
+                    class='
                         grid
                         gap-3
                         grid-cols-4
                        
                         '>
 
-                {products.length == 0
-                    ?
-                    <div class='w-full bg-teal-400'>
-                        <h1>No matching products found</h1>
-                    </div>
-                    :
-                    listProducts}
-            </ul>
+
+                    {listProducts}
+                </ul>}
         </div>
     );
 }

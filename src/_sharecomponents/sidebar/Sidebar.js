@@ -11,15 +11,15 @@ function Sidebar(props) {
     }, [itemsSidebar])
     return (
         <div
-            class='
-                        w-64
-                        flex flex-col
-                        px-2
-                        py-2
-                        bg-red-300
-                        h-full
-                        border-2 border-white border-solid
-                        rounded-lg'>
+            class='    
+                    w-64
+                    flex flex-col
+                    px-2
+                    py-2
+                    bg-red-300
+                    h-min
+                    border-2 border-white border-solid
+                    rounded-lg'>
             {
                 itemsSidebarIN.map((item) => {
                     return <Link to={item.link} className='link' >

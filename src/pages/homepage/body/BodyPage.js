@@ -3,7 +3,6 @@ import listAPI_Back from '../../../api/API';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import pageActions from './../../../redux/actions/pageActions';
-import { Link } from 'react-router-dom';
 import SuggestCarousel from './../../../container/SuggestCarousel';
 import MoreToLove from './../../../container/MoreToLove';
 import Sidebar from '../../../_sharecomponents/sidebar/Sidebar';
@@ -16,12 +15,17 @@ function BodyPage(props) {
 
     const [sellingProducts, setSellingProducts] = useState([]);
 
+    const [currentPage, setCurrentPage] = useState(0);
 
-    const _getProducts = () => {
-        dispatch(pageActions.getProducts()).then((res) => {
+    const [totalPages, setTotalPages] = useState([]);
+
+    const _getProducts = (pageNumber = 0) => {
+        dispatch(pageActions.getProducts(pageNumber)).then((res) => {
             const products = res.data.content
             console.log(products);
             setProducts(products)
+            console.log(res.data)
+            setTotalPages(Array.from(Array(res.data.totalPages).keys()))
         })
 
     }
@@ -46,6 +50,33 @@ function BodyPage(props) {
         })
 
     }
+
+    const navigatePage = totalPages.map((item) => {
+        if (currentPage == item) {
+            return <span
+
+                class='mx-1 cursor-pointer border-solid border-red-vio border-2 text-xs w-5 h-5 text-center'
+                onClick={() => {
+                    _getProducts(item + 1)
+                    setCurrentPage(item)
+                }}
+            >
+                {item + 1}
+            </span>
+        }
+
+        return <span
+            class='mx-1 cursor-pointer border-solid border-gray-600 border-2 text-xs w-5 h-5 text-center'
+            onClick={() => {
+                _getProducts(item + 1)
+                setCurrentPage(item)
+            }}
+        >
+            {item + 1}
+        </span>
+
+    })
+
 
 
     useEffect(() => {
@@ -112,7 +143,11 @@ function BodyPage(props) {
                     products={products}
                 />
             </div>
-
+            <div
+                id='page-number'
+                class='flex flex-row items-center justify-center py-2 bg-white'>
+                {navigatePage}
+            </div>
         </div>
     );
 }
