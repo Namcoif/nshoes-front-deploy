@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CiSearch } from 'react-icons/ci';
+import { useParams } from 'react-router-dom';
 // import './CustomInput.css'
 const CustomSearch = (props) => {
     const { placeholder, name, _getInputValue, _onClick, refSubmit } = props
@@ -8,6 +9,7 @@ const CustomSearch = (props) => {
 
     const [onFocus, setOnFocus] = useState();
 
+    const { productName } = useParams();
 
     const _handleChange = (e) => {
         setValue(e.target.value);
@@ -24,6 +26,17 @@ const CustomSearch = (props) => {
     useEffect(() => {
         _getInputValue(name, value);
     }, [value])
+
+    useEffect(() => {
+        const _changeSearch = () => {
+            if (productName !== '') {
+                setValue(productName);
+            }
+        }
+        _changeSearch()
+    }, [productName])
+
+
 
     return (
         <div

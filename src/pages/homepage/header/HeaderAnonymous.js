@@ -3,7 +3,7 @@ import { CiShoppingCart } from 'react-icons/ci';
 import CustomButton from '../../../_sharecomponents/button/CustomButton';
 import CustomSearch from '../../../_sharecomponents/input/CustomSearch';
 import { CiUser } from 'react-icons/ci';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import DropDown from '../../../_sharecomponents/dropdown/DropDown';
 import ButtonTeal from './../../../_sharecomponents/button/ButtonTeal';
 import { connect, useDispatch, useSelector } from 'react-redux';
@@ -18,9 +18,11 @@ function HeaderAnonymous(props) {
 
     const refSubmit = useRef();
 
+    const params = useParams();
+
     const navigate = useNavigate();
 
-    const [search, setSearch] = useState("%20");
+    const [search, setSearch] = useState("");
 
     const _getSearchValue = (name, value) => {
         setSearch(value)
@@ -112,13 +114,17 @@ function HeaderAnonymous(props) {
             //         mr-1
             //         md:mr-4"
             >
-                <CustomSearch
-                    placeholder="Search..."
-                    _getInputValue={_getSearchValue}
-                    refSubmit={refSubmit}
-                    _onClick={_navigateSearch}
-                    name="search"
-                />
+                {
+                    params.categoryId ? null :
+                        <CustomSearch
+                            placeholder="Search..."
+                            _getInputValue={_getSearchValue}
+                            refSubmit={refSubmit}
+                            _onClick={_navigateSearch}
+                            name="search"
+                        />
+                }
+
             </div>
             <div
                 id='customer'

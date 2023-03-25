@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { CiSearch, CiShoppingCart, CiUser } from "react-icons/ci"
 import CustomButton from '../../../_sharecomponents/button/CustomButton';
 import CustomSearch from '../../../_sharecomponents/input/CustomSearch';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import userActions from '../../../redux/actions/userActions';
 import { connect, useDispatch } from 'react-redux';
 import DropDown from '../../../_sharecomponents/dropdown/DropDown';
@@ -21,7 +21,9 @@ function Header(props) {
 
     const refSubmit = useRef();
 
-    const [search, setSearch] = useState("%20");
+    const { params } = useParams();
+
+    const [search, setSearch] = useState("");
 
     const _getSearchValue = (search) => {
         setSearch(search)
@@ -109,13 +111,15 @@ function Header(props) {
                             mr-1
                             md:mr-4"
             >
-                <CustomSearch
-                    placeholder="Search..."
-                    _getInputValue={_getSearchValue}
-                    refSubmit={_handleKeyDown}
-                    _onClick={_navigateSearch}
-                    name="search"
-                />
+                {
+                    params.categoryId ? null : <CustomSearch
+                        placeholder="Search..."
+                        _getInputValue={_getSearchValue}
+                        refSubmit={refSubmit}
+                        _onClick={_navigateSearch}
+                        name="search"
+                    />
+                }
             </div>
             <div
                 id='customer'

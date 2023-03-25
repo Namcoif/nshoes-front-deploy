@@ -25,9 +25,9 @@ function SearchProducts(props) {
     const selector = useSelector(state => state);
 
     const [filter, setFilter] = useState({
-        categoryId: '%20',
+        categoryId: filterParams.categoryId != '' ? filterParams.categoryId : '%20',
         pageNumber: '%20',
-        productName: '%20',
+        productName: filterParams.productName != '' ? filterParams.productName : '%20',
         minPrice: '%20',
         maxPrice: '%20'
     });
@@ -65,6 +65,7 @@ function SearchProducts(props) {
             }
         }).then((res) => {
             setSearchedProducts(res.data.content)
+
             setTotalPages(Array.from(Array(res.data.totalPages).keys()))
 
             // console.log(res.data.content);
@@ -109,7 +110,6 @@ function SearchProducts(props) {
                         pageNumber: item + 1
                     })
                     setCurrentPage(item)
-                    // _searchProducts()
                 }}
             >
                 {item + 1}
@@ -124,14 +124,12 @@ function SearchProducts(props) {
                     pageNumber: item + 1
                 })
                 setCurrentPage(item)
-                // _searchProducts()
             }}
         >
             {item + 1}
         </span>
 
     })
-
 
     useEffect(() => {
         console.log(filter);
@@ -147,19 +145,15 @@ function SearchProducts(props) {
     useEffect(() => {
         _searchProducts()
 
-    }, [filter.pageNumber])
+    }, [filter.pageNumber, filter.categoryId])
 
     useEffect(() => {
         setFilter({
-            categoryId: '%20',
+            categoryId: filterParams.categoryId != '' ? filterParams.categoryId : '%20',
             pageNumber: '1',
-            productName: '%20',
+            productName: filterParams.productName != '' ? filterParams.productName : '%20',
             minPrice: '%20',
             maxPrice: '%20'
-        })
-        setFilter({
-            ...filter,
-            categoryId: filterParams.categoryId != '' ? filterParams.categoryId : '%20'
         })
 
     }, [])
@@ -195,66 +189,86 @@ function SearchProducts(props) {
             onKeyDown={_handleKeyDown}
             class='
                 mt-28
-                flex flex-col
-                items-center'>
-            <div class>
-                <CustomInput
-                    type="text"
-                    Icon={() => ComponentSearch(_searchProducts)}
-                    _getInputValue={_getInfoProductsSearch}
-                    placeholder="Shoes for women..."
-                    name="productName"
-                />
-            </div>
-            <div
-                id='search-head'
-                class=''>
-                <div
-                    class='flex flex-row w-52 bg-red-300'>
-                    <CustomInput
-                        Icon={BiDollar}
-                        type="text"
-                        _getInputValue={_getInfoProductsSearch}
-                        placeholder="Min"
-                        name="minPrice"
+                flex flex-row
+                justify-center'>
+            <div>
+                <div class='sticky top-28'>
+                    <div
+                        class='
+                            font-bold px-2 hover:shadow-2xl cursor-pointer'
+
+                        onClick={() => setFilter({
+                            ...filter,
+                            categoryId: '%20'
+                        })}
+                    >
+                        <h2
+
+                        >
+                            All
+                        </h2>
+                    </div>
+
+                    <Sidebar
+                        itemsSidebar={categories}
+                        itemActive={filterParams.categoryId}
                     />
-                    <CustomInput
-                        Icon={BiDollar}
-                        type="text"
-                        _getInputValue={_getInfoProductsSearch}
-                        placeholder="Max"
-                        name="maxPrice"
-                    />
-                    {/* <CiSearch onClick={_searchProducts} /> */}
                 </div>
-
-
             </div>
-            <div
-                id='search-body'
-                class='
-                    flex flex-row'>
-                <div>
-                    <div class='sticky top-28'>
-                        <Sidebar
-                            itemsSidebar={categories}
-                            itemActive={filterParams.categoryId}
+            <div>
+
+                <div
+                    id='search-head'
+                    class='w-1/2'>
+                    <div class>
+                        <CustomInput
+                            type="text"
+                            Icon={() => ComponentSearch(_searchProducts)}
+                            _getInputValue={_getInfoProductsSearch}
+                            placeholder="Shoes for women..."
+                            name="productName"
+                        />
+                    </div>
+                    <div
+                        class='flex flex-row'>
+                        <CustomInput
+                            Icon={BiDollar}
+                            type="text"
+                            _getInputValue={_getInfoProductsSearch}
+                            placeholder="Min"
+                            name="minPrice"
+                        />
+                        <div class='w-4'></div>
+                        <CustomInput
+                            Icon={BiDollar}
+                            type="text"
+                            _getInputValue={_getInfoProductsSearch}
+                            placeholder="Max"
+                            name="maxPrice"
+
                         />
                     </div>
                 </div>
-                <div>
-                    <MoreToLove
-                        products={searchedProducts}
-                    />
-                </div>
+                <div
+                    id='search-body'
+                    class='
+                    flex flex-row'>
 
+                    <div>
+                        <MoreToLove
+                            products={searchedProducts}
+                        />
+                    </div>
+
+                </div>
+                <div
+                    id='page-number'
+                    class='flex flex-row items-center justify-center py-2 bg-white'>
+                    {navigatePage}
+                </div>
             </div>
-            <div
-                id='page-number'
-                class='flex flex-row items-center justify-center py-2 bg-white'>
-                {navigatePage}
-            </div>
-        </div>
+        </div >
+
     );
 }
 

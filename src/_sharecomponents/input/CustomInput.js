@@ -42,7 +42,7 @@ function CustomInput(props) {
                         border-b-2 border-solid border-red-vio
                         bg-white
                         my-1
-                        mx-1
+                        
                         h-full
                         w-full
                 '
@@ -54,7 +54,7 @@ function CustomInput(props) {
                     block
                     bg-white
                     w-full
-                    px-3
+                    px-1
                     py-1.5
                     text-base
                     font-normal
@@ -62,7 +62,7 @@ function CustomInput(props) {
                     rounded
                     transition
                     h-full
-                    m-0
+                
                     focus:text-black     
                     forcus: outline-none
                 "
@@ -76,7 +76,7 @@ function CustomInput(props) {
                 ref={refInput}
             />
             {
-                Icon2 != null
+                Icon2 && Icon3 != null
                     ? (isChangeType
                         ?
                         <div onClick={_changeTypeInput}>
@@ -89,6 +89,8 @@ function CustomInput(props) {
                     )
                     : null
             }
+
+
         </div>
     );
 }
