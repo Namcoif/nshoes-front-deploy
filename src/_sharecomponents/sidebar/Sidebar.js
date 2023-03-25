@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import './Sidebar.css'
 function Sidebar(props) {
-    const { itemsSidebar } = props
-
+    const { itemsSidebar, itemActive } = props
     const [itemsSidebarIN, setItemsSidebarIN] = useState([]);
     useEffect(() => {
         setItemsSidebarIN(itemsSidebar);
@@ -22,7 +21,7 @@ function Sidebar(props) {
                     rounded-lg'>
             {
                 itemsSidebarIN.map((item) => {
-                    return <Link to={item.link} className='link' >
+                    return <Link to={item.link} className={itemActive == item.id ? "link link-active" : "link"} >
                         <span>{item.itemSidebarName}</span>
                     </Link>
                 })

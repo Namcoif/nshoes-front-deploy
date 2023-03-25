@@ -7,8 +7,15 @@
 
 }
 
-.link:hover {
+.link:hover,
+.link-active {
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
     font-size: 16px;
     font-weight: 600;
 }
+
+/* .link-active,.link {
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    font-size: 16px;
+    font-weight: 600;
+} */

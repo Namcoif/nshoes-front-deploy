@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { CiShoppingCart } from 'react-icons/ci';
 import CustomButton from '../../../_sharecomponents/button/CustomButton';
 import CustomSearch from '../../../_sharecomponents/input/CustomSearch';
@@ -16,12 +16,14 @@ function HeaderAnonymous(props) {
     const selector = useSelector(state => state)
     const dispatch = useDispatch();
 
+    const refSubmit = useRef();
 
     const navigate = useNavigate();
-    const [search, setSearch] = useState();
 
-    const _getSearchValue = (search) => {
-        setSearch(search)
+    const [search, setSearch] = useState("%20");
+
+    const _getSearchValue = (name, value) => {
+        setSearch(value)
     }
 
     const _searchProducts = () => {
@@ -32,9 +34,19 @@ function HeaderAnonymous(props) {
         navigate('/sign-in');
     }
 
+    const _navigateSearch = () => {
+        navigate("/api/v1/products/search/%20/" + search + "/%20/%20/%20")
+    }
+
+    const _handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            refSubmit.current.focus()
+        }
+    }
 
     return (
         <div
+            onKeyDown={_handleKeyDown}
             class="
                         h-24
                         items-center
@@ -101,10 +113,11 @@ function HeaderAnonymous(props) {
             //         md:mr-4"
             >
                 <CustomSearch
-                    class='flex-1'
                     placeholder="Search..."
                     _getInputValue={_getSearchValue}
-                    _onClick={_searchProducts}
+                    refSubmit={refSubmit}
+                    _onClick={_navigateSearch}
+                    name="search"
                 />
             </div>
             <div

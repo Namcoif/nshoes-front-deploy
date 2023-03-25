@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CiSearch } from 'react-icons/ci';
 // import './CustomInput.css'
 const CustomSearch = (props) => {
-    const { placeholder, name, _getInputValue, _onClick } = props
+    const { placeholder, name, _getInputValue, _onClick, refSubmit } = props
 
     const [value, setValue] = useState('');
 
@@ -36,6 +36,7 @@ const CustomSearch = (props) => {
                         rounded
                         bg-white
                         flex-1
+                        
                         sm:w-48
                 '
         >
@@ -53,13 +54,8 @@ const CustomSearch = (props) => {
                     font-normal
                     bg-inherit bg-clip-padding
                     rounded
-                    transition
-                    ease-in-out
                     h-full
                     m-0
-                    focus:text-black 
-                    focus:bg-white 
-                    focus:border-blue-600 
                     focus:outline-none
                     
                 "
@@ -72,10 +68,11 @@ const CustomSearch = (props) => {
                 onBlur={_onBlur}
             />
 
-            <div
-                class='      
-                    bg-red-vio'
-            >
+
+            <button
+                ref={refSubmit}
+                onClick={_onClick}
+                class=' w-min bg-red-vio focus:outline-none'>
                 <CiSearch
                     class="
                             h-full
@@ -83,11 +80,8 @@ const CustomSearch = (props) => {
                             text-white
                             cursor-pointer
                         "
-
-                    onClick={_onClick}
                 />
-            </div>
-
+            </button>
         </div>
     );
 }

@@ -40,6 +40,7 @@ function BodyPage(props) {
         await axios.get(listAPI_Back.GET_LIST_CATEGORIES).then((res) => {
             const categoryTemp = res.data.map((item) => {
                 return {
+                    id: item.id,
                     link: "/api/v1/products/search/" + item.id + "/%20/%20/%20/%20",
                     itemSidebarName: item.categoryName
                 }

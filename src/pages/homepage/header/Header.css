@@ -1,20 +1,19 @@
 .homepage-search {
-    display: flex;
-    flex-direction: row;
-    animation-name: incrementWidth;
-    animation-duration: 4s;
-    animation-timing-function: cubic-bezier(.99, 1.41, .93, .63);
-    animation-fill-mode: forwards;
-    /* animation: incrementWidth 4s cubic-bezier(0.075, 0.82, 0.165, 1) forwards; */
-
+  display: flex;
+  flex-direction: row;
+  animation-name: incrementWidth;
+  animation-duration: 4s;
+  animation-timing-function: cubic-bezier(0.99, 1.41, 0.93, 0.63);
+  animation-fill-mode: forwards;
+  /* animation: incrementWidth 4s cubic-bezier(0.075, 0.82, 0.165, 1) forwards; */
 }
 
 @keyframes incrementWidth {
-    from {
-        width: 50px;
-    }
+  from {
+    width: 50px;
+  }
 
-    to {
-        width: 500px;
-    }
+  to {
+    flex: 1;
+  }
 }

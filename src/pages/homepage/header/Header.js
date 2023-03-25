@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { CiShoppingCart, CiUser } from "react-icons/ci"
+import React, { useRef, useState } from 'react';
+import { CiSearch, CiShoppingCart, CiUser } from "react-icons/ci"
 import CustomButton from '../../../_sharecomponents/button/CustomButton';
 import CustomSearch from '../../../_sharecomponents/input/CustomSearch';
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ import ButtonTeal from '../../../_sharecomponents/button/ButtonTeal';
 import pageActions from './../../../redux/actions/pageActions';
 import listAPI_Back from './../../../api/API';
 import CustomInput from './../../../_sharecomponents/input/CustomInput';
+import { type } from '@testing-library/user-event/dist/type';
 
 function Header(props) {
 
@@ -17,7 +18,10 @@ function Header(props) {
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
-    const [search, setSearch] = useState();
+
+    const refSubmit = useRef();
+
+    const [search, setSearch] = useState("%20");
 
     const _getSearchValue = (search) => {
         setSearch(search)
@@ -31,8 +35,18 @@ function Header(props) {
         navigate("api/v1/carts/" + localStorage.userId)
     }
 
+    const _navigateSearch = () => {
+        navigate("/api/v1/products/search/%20" + search + "/%20/%20/%20")
+    }
+
+    const _handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            refSubmit.current.focus()
+        }
+    }
     return (
         <div
+            onKeyDown={_handleKeyDown}
             class="
                         h-24
                         items-center
@@ -96,9 +110,11 @@ function Header(props) {
                             md:mr-4"
             >
                 <CustomSearch
-                    class='flex-1'
                     placeholder="Search..."
                     _getInputValue={_getSearchValue}
+                    refSubmit={_handleKeyDown}
+                    _onClick={_navigateSearch}
+                    name="search"
                 />
             </div>
             <div
