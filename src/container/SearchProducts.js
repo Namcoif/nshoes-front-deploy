@@ -10,6 +10,7 @@ import CustomInput from './../_sharecomponents/input/CustomInput';
 import { BiDollar } from 'react-icons/bi'
 import { CiSearch } from 'react-icons/ci';
 import CustomSearch from './../_sharecomponents/input/CustomSearch';
+import NavigatePage from '../_sharecomponents/navigatepage/NavigatePage';
 
 function SearchProducts(props) {
 
@@ -98,38 +99,6 @@ function SearchProducts(props) {
     const _searchProducts = () => {
         navigate(("/api/v1/products/search/" + filter.categoryId + "/" + filter.productName + "/" + filter.minPrice + "/" + filter.maxPrice + "/" + filter.pageNumber))
     }
-
-    const navigatePage = totalPages.map((item) => {
-        if (currentPage == item) {
-            return <span
-
-                class='mx-1 cursor-pointer border-solid border-red-vio border-2 text-xs w-5 h-5 text-center'
-                onClick={() => {
-                    setFilter({
-                        ...filter,
-                        pageNumber: item + 1
-                    })
-                    setCurrentPage(item)
-                }}
-            >
-                {item + 1}
-            </span>
-        }
-
-        return <span
-            class='mx-1 cursor-pointer border-solid border-gray-600 border-2 text-xs w-5 h-5 text-center'
-            onClick={() => {
-                setFilter({
-                    ...filter,
-                    pageNumber: item + 1
-                })
-                setCurrentPage(item)
-            }}
-        >
-            {item + 1}
-        </span>
-
-    })
 
     useEffect(() => {
         console.log(filter);
@@ -263,8 +232,17 @@ function SearchProducts(props) {
                 </div>
                 <div
                     id='page-number'
-                    class='flex flex-row items-center justify-center py-2 bg-white'>
-                    {navigatePage}
+                    class=''>
+                    <NavigatePage
+                        totalPages={totalPages}
+                        _onClick={(item) => {
+                            setFilter({
+                                ...filter,
+                                pageNumber: item + 1
+                            })
+                            console.log(item);
+                        }}
+                    />
                 </div>
             </div>
         </div >

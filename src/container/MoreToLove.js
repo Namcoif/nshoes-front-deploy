@@ -15,9 +15,7 @@ function MoreToLove(props) {
 
         return (<li
             key={item.id + index + randomNum()}
-            class='
-                 
-                    w-44
+            class='w-44
                     2xl:w-52
                     flex
                     flex-col
@@ -27,6 +25,7 @@ function MoreToLove(props) {
 
             <div
                 class='
+                
                         bg-white
                         p-2
                         rounded-lg'>
@@ -51,6 +50,7 @@ function MoreToLove(props) {
                             <span
                                 id='promotion-price'
                                 class='
+                                bg-teal-300
                                     text-xl
                                     font-semibold'>
                                 {HandleFunction.formatNumberToVND(item.promotionPrice)}
@@ -95,10 +95,9 @@ function MoreToLove(props) {
                     class='
                         grid
                         gap-3
-                        grid-cols-4
-                       
+                        grid-cols-2
+                        xl:grid-cols-4
                         '>
-
 
                     {listProducts}
                 </ul>}

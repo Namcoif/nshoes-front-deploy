@@ -6,6 +6,7 @@ import pageActions from './../../../redux/actions/pageActions';
 import SuggestCarousel from './../../../container/SuggestCarousel';
 import MoreToLove from './../../../container/MoreToLove';
 import Sidebar from '../../../_sharecomponents/sidebar/Sidebar';
+import NavigatePage from './../../../_sharecomponents/navigatepage/NavigatePage';
 
 function BodyPage(props) {
 
@@ -52,34 +53,6 @@ function BodyPage(props) {
 
     }
 
-    const navigatePage = totalPages.map((item) => {
-        if (currentPage == item) {
-            return <span
-
-                class='mx-1 cursor-pointer border-solid border-red-vio border-2 text-xs w-5 h-5 text-center'
-                onClick={() => {
-                    _getProducts(item + 1)
-                    setCurrentPage(item)
-                }}
-            >
-                {item + 1}
-            </span>
-        }
-
-        return <span
-            class='mx-1 cursor-pointer border-solid border-gray-600 border-2 text-xs w-5 h-5 text-center'
-            onClick={() => {
-                _getProducts(item + 1)
-                setCurrentPage(item)
-            }}
-        >
-            {item + 1}
-        </span>
-
-    })
-
-
-
     useEffect(() => {
         _getProducts();
         _getSellingProducts();
@@ -117,9 +90,9 @@ function BodyPage(props) {
                 id='home-firstscreen'
                 class='
                        
-                        flex flex-row
-                        
-                        justify-center'>
+                    flex flex-row
+                    
+                    justify-center'>
                 <div
                     id='category'
                 >
@@ -131,7 +104,7 @@ function BodyPage(props) {
                 </div>
                 <div id='suggest-carousel'
                     class='
-                                w-96'>
+                        w-96'>
                     <SuggestCarousel
                         itemCarousel={sellingProducts}
                     />
@@ -146,8 +119,15 @@ function BodyPage(props) {
             </div>
             <div
                 id='page-number'
-                class='flex flex-row items-center justify-center py-2 bg-white'>
-                {navigatePage}
+                class=''>
+                {/* {navigatePage} */}
+                <NavigatePage
+                    totalPages={totalPages}
+                    _onClick={(item) => {
+                        _getProducts(item + 1)
+                        setCurrentPage(item)
+                    }}
+                />
             </div>
         </div>
     );
