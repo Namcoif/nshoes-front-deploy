@@ -11,10 +11,11 @@ body {
   -moz-osx-font-smoothing: grayscale; */
 
   /* background-image: url("https://images.wallpapersden.com/image/download/janna-lol_bGVoZW2UmZqaraWkpJRobWllrWdma2U.jpg"); */
-  background-image: url("https://img.freepik.com/free-vector/white-gold-geometric-pattern-background-vector_53876-140726.jpg?w=2000");
+  /* background-image: url("https://img.freepik.com/free-vector/white-gold-geometric-pattern-background-vector_53876-140726.jpg?w=2000");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: cover;
+  background-size: cover; */
+  background-color: white
 }
 
 @tailwind base;

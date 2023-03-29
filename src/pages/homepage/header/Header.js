@@ -1,16 +1,13 @@
 import React, { useRef, useState } from 'react';
-import { CiSearch, CiShoppingCart, CiUser } from "react-icons/ci"
-import CustomButton from '../../../_sharecomponents/button/CustomButton';
+import { CiShoppingCart, CiUser } from "react-icons/ci"
 import CustomSearch from '../../../_sharecomponents/input/CustomSearch';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import userActions from '../../../redux/actions/userActions';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, } from 'react-redux';
 import DropDown from '../../../_sharecomponents/dropdown/DropDown';
 import ButtonTeal from '../../../_sharecomponents/button/ButtonTeal';
 import pageActions from './../../../redux/actions/pageActions';
-import listAPI_Back from './../../../api/API';
-import CustomInput from './../../../_sharecomponents/input/CustomInput';
-import { type } from '@testing-library/user-event/dist/type';
+
 
 function Header(props) {
 
@@ -21,12 +18,12 @@ function Header(props) {
 
     const refSubmit = useRef();
 
-    const { params } = useParams();
+    const params = useParams();
 
     const [search, setSearch] = useState("");
 
-    const _getSearchValue = (search) => {
-        setSearch(search)
+    const _getSearchValue = (name, value) => {
+        setSearch(value)
     }
 
     const _signOut = () => {
@@ -38,7 +35,7 @@ function Header(props) {
     }
 
     const _navigateSearch = () => {
-        navigate("/api/v1/products/search/%20" + search + "/%20/%20/%20")
+        navigate("/api/v1/products/search/%20/" + search + "/%20/%20/%20")
     }
 
     const _handleKeyDown = (e) => {
@@ -46,6 +43,7 @@ function Header(props) {
             refSubmit.current.focus()
         }
     }
+
     return (
         <div
             onKeyDown={_handleKeyDown}
@@ -75,6 +73,9 @@ function Header(props) {
 
                 <Link to={'/'}>
                     <div
+                        onClick={() => {
+                            document.title = "NShoes"
+                        }}
                         className='homepage-logo'
                         class="
                                 w-fit
@@ -103,37 +104,40 @@ function Header(props) {
 
             <div
                 className='homepage-search'
-                class="
-                            flex
-                            flex-row
-                            flex-1
-                            items-center
-                            mr-1
-                            md:mr-4"
+            // class="
+            //         flex
+            //         flex-row
+            //         flex-1
+            //         items-center
+            //         mr-1
+            //         md:mr-4"
             >
                 {
-                    params.categoryId ? null : <CustomSearch
-                        placeholder="Search..."
-                        _getInputValue={_getSearchValue}
-                        refSubmit={refSubmit}
-                        _onClick={_navigateSearch}
-                        name="search"
-                    />
+                    params.categoryId ? null :
+                        <CustomSearch
+                            placeholder="Search..."
+                            _getInputValue={_getSearchValue}
+                            refSubmit={refSubmit}
+                            _onClick={_navigateSearch}
+                            name="search"
+                        />
                 }
+
             </div>
             <div
                 id='customer'
                 class='
-                        mr-1
-                        flex
-                        flex-row
-                        items-center'
+                            mr-1
+                            flex
+                            flex-row
+                            items-center
+                    '
             >
                 <CiShoppingCart
                     class='
-                            h-8
-                            w-8
-                            mr-1'
+                                h-8
+                                w-8
+                                mr-1'
                     onClick={_gotToCarts}
                 />
                 <DropDown
@@ -172,8 +176,10 @@ function Header(props) {
             </div>
 
         </div >
+
     );
 }
+
 
 const mapDispathToProps = (dispath, props) => {
     return {

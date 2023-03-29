@@ -15,7 +15,8 @@ function MoreToLove(props) {
 
         return (<li
             key={item.id + index + randomNum()}
-            class='w-44
+            class='
+                    w-44
                     2xl:w-52
                     flex
                     flex-col
@@ -34,42 +35,49 @@ function MoreToLove(props) {
                 <NavLink
                     key={item.id + index + randomNum()}
                     to={'/api/v1/products/' + item.id}
+
                 >
-                    <img src={item.productImgUrls[0].url !== undefined ? item.productImgUrls[0].url : null} class='rounded-lg' />
-                    <div
-                        class='
+                    <div class='flex flex-col justify-center
+                    '>
+                        <div>
+                            <img src={item.productImgUrls[0].url !== undefined ? item.productImgUrls[0].url : null} class='rounded-lg hover:-rotate-12 hover:-mt-5 hover:mb-5 transition duration-700 drop-shadow-lg' />
+
+                        </div>
+                        <div
+                            class='
                                 pt-1
                                 hover:text-red-vio'>
-                        <div
-                            id='price'
-                            class='
+                            <div
+                                id='price'
+                                class='
                                     flex
                                     flex-row
                                     justify-between
                                     items-end'>
-                            <span
-                                id='promotion-price'
-                                class='
+                                <span
+                                    id='promotion-price'
+                                    class='
                                 bg-teal-300
                                     text-xl
                                     font-semibold'>
-                                {HandleFunction.formatNumberToVND(item.promotionPrice)}
-                            </span>
+                                    {HandleFunction.formatNumberToVND(item.promotionPrice)}
+                                </span>
 
-                            <span
-                                id='original-price'
-                                class='
+                                <span
+                                    id='original-price'
+                                    class='
                                     text-black
                                     text-xs
                                     line-through'>
-                                {HandleFunction.formatNumberToVND(item.originalPrice)}
-                            </span>
-                        </div>
-                        <div
-                            id='product-info'
-                            class='flex flex-col'>
-                            <span>{item.soldCount + ' sold'}</span>
-                            <span class='truncate'>{item.productName}</span>
+                                    {HandleFunction.formatNumberToVND(item.originalPrice)}
+                                </span>
+                            </div>
+                            <div
+                                id='product-info'
+                                class='flex flex-col'>
+                                <span>{item.soldCount + ' sold'}</span>
+                                <span class='truncate'>{item.productName}</span>
+                            </div>
                         </div>
                     </div>
                 </NavLink>

@@ -6,9 +6,9 @@ import { useEffect } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
 
 function ProductInCart(props) {
-    const { product, getPrice, setStatus, checked, setSelectAllItems } = props
+    const { product, getPrice, setStatus, checked, setSelectAllItems, _onDelete } = props
 
-    console.log(product);
+    // console.log(product);
     const [isSelect, setIsSelect] = useState(false)
     // const _selectItem = () => {
     //     setIsSelect(!isSelect)
@@ -78,7 +78,9 @@ function ProductInCart(props) {
                         class='truncate w-5/6'>{product.product.productName}</span>
                     <div
                         id='controll-item'>
-                        <AiOutlineDelete />
+                        <AiOutlineDelete
+                            onClick={_onDelete}
+                        />
                     </div>
                 </div>
                 <div

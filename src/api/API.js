@@ -10,7 +10,7 @@ const ADD_TO_CART = HOST + "/api/v1/carts/add-to-card"
 const SIGN_IN = HOST + "/api/v1/auth/sign-in"
 const SIGN_UP = HOST + "/api/v1/auth/sign-up"
 const GET_LIST_CARTS_BY_USER_ID = HOST + "/api/v1/users/user"
-
+const CARTS = "/api/v1/carts"
 const listAPI_Back = {
     GET_LIST_CATEGORIES,
     GET_LIST_PRODUCTS,
@@ -19,6 +19,7 @@ const listAPI_Back = {
     SIGN_UP,
     GET_LIST_CARTS_BY_USER_ID,
     GET_PRODUCT,
-    GET_SELLING_PRODUCTS
+    GET_SELLING_PRODUCTS,
+    CARTS
 }
 export default listAPI_Back

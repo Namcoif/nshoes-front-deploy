@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import ProductInCart from '../_sharecomponents/productincart/ProductInCart';
 import userActions from './../redux/actions/userActions';
 import HandleFunction from './../handle_function/HandleFunction';
+import listAPI_Back from './../api/API';
+import { Dialog, DialogContent } from '@mui/material';
 
 function ShoppingCart(props) {
 
@@ -19,9 +21,15 @@ function ShoppingCart(props) {
     const [totalPrice, setTotalPrice] = useState(0);
 
     const [status, setStatus] = useState(false);
+
+    const [statusRemove, setStatusRemove] = useState('');
+
+    const [toggleMessage, setToggleMessage] = useState(false);
     // const _getTotalPrice = (price) => {
     //     setTotalPrice(totalPrice + price)
     // }
+
+
     const _setProductSelected = () => {
         setTotalPrice(0);
         let count = 0;
@@ -31,7 +39,7 @@ function ShoppingCart(props) {
                 price += element.product.promotionPrice * element.quantity;
                 count++;
             }
-            console.log(element);
+            // console.log(element);
         });
         if (count == productsInCart.length) {
             setSelectAllItems(true)
@@ -50,6 +58,20 @@ function ShoppingCart(props) {
 
         }
     }
+
+    const _deleteProductInCart = async (cartId, item, productsInCart) => {
+
+        await axios.delete(listAPI_Back.CARTS + "/remove/" + cartId, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.token}`
+            }
+        }).then((res) => {
+            productsInCart.splice(productsInCart.indexOf(item), 1)
+            setStatusRemove(res.data.resultText);
+            setToggleMessage(true)
+        })
+    }
+
 
     useEffect(() => {
         dispatch(userActions.getUserInfo(localStorage.userId)).then((res) => {
@@ -73,10 +95,20 @@ function ShoppingCart(props) {
             class='
                 mt-28
                 flex flex-row'>
+            <Dialog
+                open={toggleMessage}
+                onBlur={() => setToggleMessage(false)}
+                onClose={() => setToggleMessage(false)}
+            >
+                <DialogContent>
+                    {statusRemove}
+                </DialogContent>
+
+            </Dialog>
 
             <div
                 id='items'
-                class='mx-5 flex-1'>
+                class='mx-5  w-3/4'>
                 <div
                     class='
                         mb-2 bg-white
@@ -105,7 +137,11 @@ function ShoppingCart(props) {
                                 checked={selectAllItems}
                                 setSelectAllItems={() => {
                                     setSelectAllItems(false)
-                                }} />
+                                }}
+                                _onDelete={() => {
+                                    _deleteProductInCart(item.id, item, productsInCart)
+                                }}
+                            />
                         })
                     }
                 </div>
@@ -116,18 +152,23 @@ function ShoppingCart(props) {
                     w-1/4
                     bg-white
                     mr-5
-                    px-4'>
-                <div
-                    id='main-pay'
-                    class='
-                        flex flex-col'>
-                    <h1>Sumary</h1>
+                    px-4
+                    '>
+                <div class='sticky top-28'>
+
+
                     <div
+                        id='main-pay'
                         class='
+                        flex flex-col'>
+                        <h1>Sumary</h1>
+                        <div
+                            class='
                             flex flex-row
                             justify-between'>
-                        <h2>Total</h2>
-                        <h2>{HandleFunction.formatNumberToVND(totalPrice)}</h2>
+                            <h2>Total</h2>
+                            <h2>{HandleFunction.formatNumberToVND(totalPrice)}</h2>
+                        </div>
                     </div>
                 </div>
             </div>
