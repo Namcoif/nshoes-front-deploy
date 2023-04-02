@@ -18,7 +18,8 @@ function DropDown(props) {
                 class='
                     relative'
                 onMouseOver={_trueDropDown}
-                onMouseOut={_falseDropDown}>
+                onMouseOut={_falseDropDown}
+            >
                 <Drop />
 
                 {

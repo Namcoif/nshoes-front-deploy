@@ -127,11 +127,10 @@ function Header(props) {
             <div
                 id='customer'
                 class='
-                            mr-1
-                            flex
-                            flex-row
-                            items-center
-                    '
+                        mr-1
+                        flex
+                        flex-row
+                        items-center'
             >
                 <CiShoppingCart
                     class='
@@ -167,7 +166,7 @@ function Header(props) {
                             <div class='mt-2'>
                                 <ButtonTeal
                                     label='Sign out'
-                                    onclick={_signOut}
+                                    _onClick={_signOut}
                                 />
                             </div>
                         </div>

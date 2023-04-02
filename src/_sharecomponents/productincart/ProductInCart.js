@@ -6,13 +6,15 @@ import { useEffect } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
 
 function ProductInCart(props) {
-    const { product, getPrice, setStatus, checked, setSelectAllItems, _onDelete } = props
+    const { product, getPrice, setStatus, checked, setSelectAllItems, _onDelete, _changeQuantity } = props
 
     // console.log(product);
     const [isSelect, setIsSelect] = useState(false)
     // const _selectItem = () => {
     //     setIsSelect(!isSelect)
     // }
+
+    const [quantity, setQuantity] = useState(product.quantity);
 
     const _handleChange = (e) => {
         if (e.target.checked) {
@@ -23,6 +25,17 @@ function ProductInCart(props) {
             setSelectAllItems()
         }
     }
+
+    const _decrementQuantity = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1)
+        }
+    }
+
+    const _incrementQuantity = () => {
+        setQuantity(quantity + 1)
+    }
+
     useEffect(() => {
         getPrice(isSelect)
         setStatus()
@@ -36,6 +49,10 @@ function ProductInCart(props) {
             setIsSelect(false)
         }
     }, [checked])
+
+    useEffect(() => {
+        _changeQuantity(quantity)
+    }, [quantity])
     return (
         <div
             class='
@@ -116,12 +133,14 @@ function ProductInCart(props) {
 
                         <ButtonIcon
                             label='-'
-                        // onclick={_decrementQuantity}
+                            _onClick={_decrementQuantity}
                         />
-                        <span class='mx-2'>{product.quantity}</span>
+                        {/* <span class='mx-2'>{product.quantity}</span> */}
+                        <span class='mx-2'>{quantity}</span>
+
                         <ButtonIcon
                             label='+'
-                        // onclick={_incrementQuantity}
+                            _onClick={_incrementQuantity}
                         />
                     </div>
                 </div>

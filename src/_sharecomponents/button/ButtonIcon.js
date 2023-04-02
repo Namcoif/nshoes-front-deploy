@@ -1,13 +1,13 @@
 import React from 'react';
 
 function ButtonIcon(props) {
-    const { label, onclick } = props
+    const { label, _onClick } = props
     return (
         <div>
-            {onclick
+            {_onClick
                 ?
                 <button
-                    onClick={onclick}
+                    onClick={_onClick}
                     class='
                         bg-gradient-to-br from-red-vio to-vio-red text-white
                         rounded-circle

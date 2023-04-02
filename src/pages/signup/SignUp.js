@@ -159,7 +159,7 @@ function SignUp(props) {
 
 
                 <CustomButton
-                    onclick={() => _siginUp()}
+                    _onClick={() => _siginUp()}
                     label="Sign Up"
                     refButton={refSubmit}
                 />

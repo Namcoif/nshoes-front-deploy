@@ -174,14 +174,14 @@ function ProductInfo(props) {
                             flex flex-row'>
                             <CustomButton
                                 label="keep shopping"
-                                onclick={_keepShopping}
+                                _onClick={_keepShopping}
                             />
                             <div class='w-5'>
 
                             </div>
                             <ButtonTeal
                                 label="Go to shopping cart"
-                                onclick={_goShoppingCart}
+                                _onClick={_goShoppingCart}
                             />
                         </div>
                     </DialogContent>
@@ -344,12 +344,12 @@ function ProductInfo(props) {
 
                         <ButtonIcon
                             label='-'
-                            onclick={_decrementQuantity}
+                            _onClick={_decrementQuantity}
                         />
                         <span class='mx-2'>{productWillGet.quantity}</span>
                         <ButtonIcon
                             label='+'
-                            onclick={_incrementQuantity}
+                            _onClick={_incrementQuantity}
                         />
                     </div>
                     <div
@@ -362,11 +362,11 @@ function ProductInfo(props) {
                         class='flex flex-row justify-between 2xl:w-1/3 w-1/2 py-4'>
                         <CustomButton
                             label='buy now'
-                            onclick={_buyNow}
+                            _onClick={_buyNow}
                         />
                         <ButtonTeal
                             label='add to cart'
-                            onclick={() => _addToCart(productWillGet)}
+                            _onClick={() => _addToCart(productWillGet)}
                         />
                     </div>
                 </div>

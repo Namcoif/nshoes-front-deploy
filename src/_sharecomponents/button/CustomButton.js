@@ -1,14 +1,14 @@
 import React from 'react';
 // import './CustomButton.css'
 function CustomButton(props) {
-    const { label, onclick, refButton } = props;
+    const { label, _onClick, refButton } = props;
     return (
         <div className='custom-button'>
             {
-                onclick ?
+                _onClick ?
                     <button
                         ref={refButton}
-                        onClick={onclick}
+                        onClick={_onClick}
                         class='
                         bg-gradient-to-br from-red-vio to-vio-red
                         

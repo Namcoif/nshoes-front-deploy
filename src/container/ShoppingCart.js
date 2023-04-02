@@ -7,6 +7,9 @@ import userActions from './../redux/actions/userActions';
 import HandleFunction from './../handle_function/HandleFunction';
 import listAPI_Back from './../api/API';
 import { Dialog, DialogContent } from '@mui/material';
+import ButtonTeal from '../_sharecomponents/button/ButtonTeal';
+import CustomButton from './../_sharecomponents/button/CustomButton';
+import ShippingInfo from './ShippingInfo';
 
 function ShoppingCart(props) {
 
@@ -25,6 +28,18 @@ function ShoppingCart(props) {
     const [statusRemove, setStatusRemove] = useState('');
 
     const [toggleMessage, setToggleMessage] = useState(false);
+
+    const [togglePayment, setTogglePayment] = useState(false);
+
+    const [statusOrder, setStatusOrder] = useState('');
+
+    const [toggleMessageOrder, setToggleMessageOrder] = useState(false);
+
+
+    const [shippingInfo, setShippingInfo] = useState({});
+
+    const [productsWillOrder, setProductsWillOrder] = useState([]);
+
     // const _getTotalPrice = (price) => {
     //     setTotalPrice(totalPrice + price)
     // }
@@ -34,13 +49,20 @@ function ShoppingCart(props) {
         setTotalPrice(0);
         let count = 0;
         let price = 0;
+        let productsWillOrder = []
+
         productsInCart.forEach(element => {
             if (element.isSelect == true) {
                 price += element.product.promotionPrice * element.quantity;
                 count++;
+                productsWillOrder.push(element)
             }
             // console.log(element);
         });
+        setProductsWillOrder(productsWillOrder)
+
+        console.log(productsWillOrder);
+
         if (count == productsInCart.length) {
             setSelectAllItems(true)
         }
@@ -59,6 +81,16 @@ function ShoppingCart(props) {
         }
     }
 
+    const _getShippingInfo = async (userId) => {
+        await axios.get(listAPI_Back.SHIPPING_INFO + "/" + userId, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.token}`
+            }
+        }).then((res) => {
+            setShippingInfo(res.data[0])
+        })
+    }
+
     const _deleteProductInCart = async (cartId, item, productsInCart) => {
 
         await axios.delete(listAPI_Back.CARTS + "/remove/" + cartId, {
@@ -67,11 +99,53 @@ function ShoppingCart(props) {
             }
         }).then((res) => {
             productsInCart.splice(productsInCart.indexOf(item), 1)
-            setStatusRemove(res.data.resultText);
+            setStatusRemove(res.data.resultText)
             setToggleMessage(true)
         })
     }
 
+    const _createOrders = async (products, shippingInfo, productsInCart) => {
+        console.log(products);
+        console.log(shippingInfo);
+
+        setStatusRemove("")
+
+        products.map(async (item) => {
+            await axios.post(listAPI_Back.ORDERS + "/create-order",
+                {
+
+                    address: shippingInfo.address,
+                    orderStatus: "UNCONFIMRED",
+                    phoneNumber: shippingInfo.phoneNumber,
+                    quantity: item.quantity,
+                    size: item.size,
+                    productPrice: item.product.promotionPrice,
+                    userId: localStorage.userId,
+                    product: {
+                        id: item.product.productId
+                    }
+                },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.token}`
+                    }
+                }).then((res) => {
+                    setStatusOrder(res.data.textResult)
+                    setToggleMessageOrder(true)
+                })
+
+            await axios.delete(listAPI_Back.CARTS + "/remove/" + item.id, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.token}`
+                }
+            }).then((res) => {
+                productsInCart.splice(productsInCart.indexOf(item), 1)
+                setStatusRemove(res.data.resultText)
+
+            })
+        })
+
+    }
 
     useEffect(() => {
         dispatch(userActions.getUserInfo(localStorage.userId)).then((res) => {
@@ -85,6 +159,7 @@ function ShoppingCart(props) {
             setProductsInCart(carts)
             setTotalProducts(res.data.carts.length)
         })
+        _getShippingInfo(localStorage.userId)
     }, [])
     useEffect(() => {
         _setProductSelected()
@@ -102,6 +177,47 @@ function ShoppingCart(props) {
             >
                 <DialogContent>
                     {statusRemove}
+                </DialogContent>
+
+            </Dialog>
+
+            <Dialog
+                open={toggleMessageOrder}
+                onBlur={() => setToggleMessageOrder(false)}
+                onClose={() => setToggleMessageOrder(false)}
+            >
+                <DialogContent>
+                    {statusOrder}
+                </DialogContent>
+
+            </Dialog>
+
+            <Dialog
+                open={togglePayment}
+                onBlur={() => setTogglePayment(false)}
+                onClose={() => setTogglePayment(false)}
+            >
+                <DialogContent>
+                    <div>
+                        <span>Confirm payment for products</span>
+                        <div class='flex flex-row'>
+                            <CustomButton
+                                label="Cancel"
+                                _onClick={() => setTogglePayment(false)}
+                            />
+                            <div class='w-2/5'>
+
+                            </div>
+                            <ButtonTeal
+                                label="Payment"
+                                _onClick={() => {
+                                    _createOrders(productsWillOrder, shippingInfo, productsInCart)
+                                    setTogglePayment(false)
+                                }}
+                            />
+                        </div>
+
+                    </div>
                 </DialogContent>
 
             </Dialog>
@@ -127,6 +243,11 @@ function ShoppingCart(props) {
                         productsInCart.map((item) => {
                             return <ProductInCart
                                 product={item}
+
+                                _changeQuantity={(quantity) => {
+                                    item.quantity = quantity
+                                    setStatus(!status)
+                                }}
                                 getPrice={(isSelect) => {
                                     item.isSelect = isSelect;
                                     // console.log(item);
@@ -160,15 +281,23 @@ function ShoppingCart(props) {
                     <div
                         id='main-pay'
                         class='
-                        flex flex-col'>
+                        flex flex-col '>
                         <h1>Sumary</h1>
                         <div
                             class='
-                            flex flex-row
+                            flex flex-row 
                             justify-between'>
                             <h2>Total</h2>
                             <h2>{HandleFunction.formatNumberToVND(totalPrice)}</h2>
                         </div>
+                        <div class='shadow-lg'>
+                            <ButtonTeal
+                                label="Order"
+                                _onClick={() => setTogglePayment(true)}
+                            />
+                        </div>
+                        <div class='h-3'></div>
+                        <ShippingInfo />
                     </div>
                 </div>
             </div>

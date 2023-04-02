@@ -1,13 +1,13 @@
 import React from 'react';
 function ButtonTeal(props) {
-    const { label, onclick, refButton } = props;
+    const { label, _onClick, refButton } = props;
     return (
         <div >
             {
-                onclick ?
+                _onClick ?
                     <button
                         ref={refButton}
-                        onClick={onclick}
+                        onClick={_onClick}
                         class='
                                 bg-gradient-to-br from-teal-400 to-red-400
                                 uppercase

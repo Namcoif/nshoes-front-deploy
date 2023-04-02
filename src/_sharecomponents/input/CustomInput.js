@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 function CustomInput(props) {
 
 
-    const { refInput, name, type, Icon, Icon2, Icon3, placeholder, _getInputValue } = props
+    const { refInput, name, type, Icon, Icon2, Icon3, placeholder, _getInputValue, valueStart = '' } = props
 
 
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState(valueStart);
 
     const [onFocus, setOnFocus] = useState();
 

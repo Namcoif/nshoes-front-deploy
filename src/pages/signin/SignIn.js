@@ -143,7 +143,7 @@ function SignIn(props) {
                 </div>
 
                 <ButtonTeal
-                    onclick={() => _siginIn()}
+                    _onClick={() => _siginIn()}
                     label="Sign In"
                     refButton={refSubmit}
                 />
