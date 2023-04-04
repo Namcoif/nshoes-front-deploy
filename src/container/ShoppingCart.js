@@ -81,15 +81,15 @@ function ShoppingCart(props) {
         }
     }
 
-    const _getShippingInfo = async (userId) => {
-        await axios.get(listAPI_Back.SHIPPING_INFO + "/" + userId, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.token}`
-            }
-        }).then((res) => {
-            setShippingInfo(res.data[0])
-        })
-    }
+    // const _getShippingInfo = async (userId) => {
+    //     await axios.get(listAPI_Back.SHIPPING_INFO + "/" + userId, {
+    //         headers: {
+    //             'Authorization': `Bearer ${localStorage.token}`
+    //         }
+    //     }).then((res) => {
+    //         setShippingInfo(res.data[0])
+    //     })
+    // }
 
     const _deleteProductInCart = async (cartId, item, productsInCart) => {
 
@@ -141,10 +141,14 @@ function ShoppingCart(props) {
             }).then((res) => {
                 productsInCart.splice(productsInCart.indexOf(item), 1)
                 setStatusRemove(res.data.resultText)
-
+                setStatus(!status)
             })
         })
 
+    }
+
+    const _getShippingInfoToOrder = (info) => {
+        setShippingInfo(info)
     }
 
     useEffect(() => {
@@ -159,7 +163,7 @@ function ShoppingCart(props) {
             setProductsInCart(carts)
             setTotalProducts(res.data.carts.length)
         })
-        _getShippingInfo(localStorage.userId)
+        // _getShippingInfo(localStorage.userId)
     }, [])
     useEffect(() => {
         _setProductSelected()
@@ -200,7 +204,7 @@ function ShoppingCart(props) {
                 <DialogContent>
                     <div>
                         <span>Confirm payment for products</span>
-                        <div class='flex flex-row'>
+                        <div class='flex flex-row justify-around'>
                             <CustomButton
                                 label="Cancel"
                                 _onClick={() => setTogglePayment(false)}
@@ -283,6 +287,7 @@ function ShoppingCart(props) {
                         class='
                         flex flex-col '>
                         <h1>Sumary</h1>
+                        <div class='h-2'></div>
                         <div
                             class='
                             flex flex-row 
@@ -297,7 +302,9 @@ function ShoppingCart(props) {
                             />
                         </div>
                         <div class='h-3'></div>
-                        <ShippingInfo />
+                        <ShippingInfo
+                            _getShippingInfoToOrder={_getShippingInfoToOrder}
+                        />
                     </div>
                 </div>
             </div>

@@ -103,29 +103,32 @@ function HeaderAnonymous(props) {
 
 
             </div >
+            <div class='flex-1'>
 
-            <div
-                className='homepage-search'
-            // class="
-            //         flex
-            //         flex-row
-            //         flex-1
-            //         items-center
-            //         mr-1
-            //         md:mr-4"
-            >
-                {
-                    params.categoryId ? null :
-                        <CustomSearch
-                            placeholder="Search..."
-                            _getInputValue={_getSearchValue}
-                            refSubmit={refSubmit}
-                            _onClick={_navigateSearch}
-                            name="search"
-                        />
-                }
+                <div
+                    className='homepage-search'
+                // class="
+                //         flex
+                //         flex-row
+                //         flex-1
+                //         items-center
+                //         mr-1
+                //         md:mr-4"
+                >
+                    {
+                        params.categoryId ? null :
+                            <CustomSearch
+                                placeholder="Search..."
+                                _getInputValue={_getSearchValue}
+                                refSubmit={refSubmit}
+                                _onClick={_navigateSearch}
+                                name="search"
+                            />
+                    }
 
+                </div>
             </div>
+
             <div
                 id='customer'
                 class='
@@ -135,12 +138,12 @@ function HeaderAnonymous(props) {
                             items-center
                     '
             >
-                <CiShoppingCart
+                {/* <CiShoppingCart
                     class='
                                 h-8
                                 w-8
                                 mr-1'
-                />
+                /> */}
                 <DropDown
                     Drop={
                         () => <CiUser
