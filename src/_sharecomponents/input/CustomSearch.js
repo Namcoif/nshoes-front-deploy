@@ -45,11 +45,12 @@ const CustomSearch = (props) => {
                         flex
                         flex-row
                         items-center
-                        border-2 border-solid border-red-vio
+                        border-2 border-solid border-white
                         rounded
                         bg-white
                         flex-1
                         
+                        shadow-md
                         sm:w-48
                 '
         >

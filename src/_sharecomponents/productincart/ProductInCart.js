@@ -148,7 +148,7 @@ function ProductInCart(props) {
                 <div
                     id='shipping'
                 >
-                    <span>Shipping: {HandleFunction.formatNumberToVND(5)}</span>
+                    <span>Shipping: {HandleFunction.formatNumberToVND(30000)}</span>
                 </div>
 
             </div>

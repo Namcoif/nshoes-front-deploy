@@ -16,8 +16,8 @@ function SearchProducts(props) {
 
 
     const dispatch = useDispatch();
-    const refSubmit = useRef();
 
+    const refSubmit = useRef();
 
     const filterParams = useParams();
 

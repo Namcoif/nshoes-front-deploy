@@ -15,8 +15,6 @@ import { Alert, Dialog, DialogContent } from '@mui/material';
 import MoreToLove from './MoreToLove';
 function ProductInfo(props) {
 
-    const { pr } = props
-    // const path = window.location.pathname;
     const { productId } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -41,6 +39,11 @@ function ProductInfo(props) {
     const [productSuggest, setProductSuggest] = useState([]);
 
     const [toggleAddCart, setToggleAddCart] = useState(false);
+
+    const [isNotLogged, setIsNotLogged] = useState(false);
+
+    const [toggleSignIn, setToggleSignIn] = useState(false);
+
     const [resAdd, setResAdd] = useState('add');
 
     const [productWillGet, setProductWillGet] = useState({
@@ -118,17 +121,19 @@ function ProductInfo(props) {
 
     const _addToCart = async (productWillGet) => {
 
-        console.log(productWillGet);
-        console.log(`Bearer ${localStorage.token}`);
-        await axios.post(listAPI_Back.ADD_TO_CART, productWillGet, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.token}`
-            }
-        }).then((res) => {
-            setResAdd(res.data.resultText)
-            console.log(res);
-            setToggleAddCart(true)
-        })
+        try {
+            await axios.post(listAPI_Back.ADD_TO_CART, productWillGet, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.token}`
+                }
+            }).then((res) => {
+                setResAdd(res.data.resultText)
+                console.log(res);
+                setToggleAddCart(true)
+            })
+        } catch (err) {
+            setIsNotLogged(true)
+        }
 
     }
 
@@ -359,7 +364,7 @@ function ProductInfo(props) {
                     </div>
                     <div
                         id='control-product'
-                        class='flex flex-row justify-between 2xl:w-1/3 w-1/2 py-4'>
+                        class='flex flex-row justify-between 2xl:w-1/2 py-4'>
                         <CustomButton
                             label='buy now'
                             _onClick={_buyNow}

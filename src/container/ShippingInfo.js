@@ -174,24 +174,28 @@ function ShippingInfo(props) {
                         DropContent={() => {
                             return shippingInfoList.length > 0
                                 ?
-                                <div class='flex flex-col shadow-xl px-2 absolute right-24 w-max bg-slate-100 py-1 -top-2'>
+                                <div class='flex flex-col shadow-xl px-2 absolute right-24 w-max bg-slate-100 py-3 -top-2'>
                                     <span
-                                        class='cursor-pointer'
+                                        class='cursor-pointer pt-2 hover:shadow-xl'
                                         onClick={() => setIsEdit(true)}>
                                         Edit address
                                     </span>
                                     <span
-                                        class='cursor-pointer'
+                                        class='cursor-pointer pt-2 hover:shadow-xl'
                                         onClick={() => setIsChooseOthers(true)}>
                                         Choose another address
                                     </span>
+                                    <span
+                                        class='cursor-pointer pt-2 hover:shadow-xl'
+                                        onClick={() => setIsAddNewInfo(true)}>
+                                        Add address</span>
                                 </div>
                                 :
                                 <div class='flex flex-col shadow-xl px-2 absolute right-24 w-max bg-slate-100 py-1 -top-2'>
                                     <span
                                         class='cursor-pointer'
-                                        onClick={() => setIsAddNewInfo(true)}
-                                    >Add address</span>
+                                        onClick={() => setIsAddNewInfo(true)}>
+                                        Add address</span>
                                 </div>
                         }
                         }

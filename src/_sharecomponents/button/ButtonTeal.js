@@ -8,41 +8,22 @@ function ButtonTeal(props) {
                     <button
                         ref={refButton}
                         onClick={_onClick}
-                        class='
-                                bg-gradient-to-br from-teal-400 to-red-400
-                                uppercase
-                                text-xs
-                                text-white
-                                rounded-sm
+                        className='custom-btn btn-1 btn-2'
 
-                                w-full
-                                sm:px-1
-                                lg:px-3
-                                lg:py-1
-                                
-                                focus:outline-0'
                     >
-                        {label}
+                        <span>
+                            {label}
+                        </span>
                     </button>
 
                     :
                     <button
                         ref={refButton}
-                        class='
-                                bg-gradient-to-br from-teal-400 to-red-400
-                                uppercase
-                                text-xs
-                                text-white
-                                rounded-sm 
-                                
-                                w-full
-                                sm:px-1
-                                lg:px-3
-                                lg:py-1
-                                
-                                focus:outline-0'
+                        className='custom-btn btn-1 btn-2'
                     >
-                        {label}
+                        <span>
+                            {label}
+                        </span>
                     </button>}
         </div >
     );

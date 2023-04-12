@@ -55,8 +55,9 @@ function HeaderAnonymous(props) {
                         flex flex-row fixed
                         min-w-full
                         shadow-md
-                        bg-white
-                        
+                        bg-gradient-to-t
+                        from-red-vio to-red-600  
+
                         md:pl-36 
                         md:pr-36
 
@@ -91,7 +92,7 @@ function HeaderAnonymous(props) {
                                 h-10'/>
                         <span
                             class='
-                                text-red-vio
+                                text-white
                                 text-xl
                                 font-black'
                         >
@@ -132,7 +133,8 @@ function HeaderAnonymous(props) {
             <div
                 id='customer'
                 class='
-                            mr-1
+                            ml-1
+                            md:ml-4
                             flex
                             flex-row
                             items-center
@@ -147,6 +149,7 @@ function HeaderAnonymous(props) {
                 <DropDown
                     Drop={
                         () => <CiUser
+                            color="white"
                             class='
                                     h-8
                                     w-8'

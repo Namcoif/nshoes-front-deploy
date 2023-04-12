@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import ShoppingCart from './container/ShoppingCart';
 import ErrorPage from './pages/error/ErrorPage';
 import SearchProducts from './container/SearchProducts';
+import Orders from './container/Orders';
 function App() {
 
   const selector = useSelector(state => state);
@@ -32,7 +33,7 @@ function App() {
           <Route path='api/v1/products/search/:categoryId/:productName' element={<SearchProducts />} />
           <Route path='api/v1/products/search/:categoryId/:productName/:maxPrice' element={<SearchProducts />} /> */}
           <Route path='api/v1/products/search/:categoryId/:productName/:minPrice/:maxPrice/:pageNumber' element={<SearchProducts />} />
-
+          <Route path='api/v1/orders/paging/:userId/:orderStatus/:pageNumber' element={<Orders />} />
         </Route>
         <Route path='/api/v1/categories/sneaker' element={<Cate />} />
         <Route element={<ErrorPage />} />

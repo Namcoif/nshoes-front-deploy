@@ -53,7 +53,8 @@ function Header(props) {
                         flex flex-row fixed
                         min-w-full
                         shadow-md
-                        bg-white
+                        bg-gradient-to-t
+                        from-red-vio to-red-600
                         
                         md:pl-36 
                         md:pr-36
@@ -89,8 +90,8 @@ function Header(props) {
                                 h-10'/>
                         <span
                             class='
-                                text-red-vio
-                                text-xl
+                            text-white
+                            text-xl
                                 font-black'
                         >
                             NShoes
@@ -128,21 +129,24 @@ function Header(props) {
             <div
                 id='customer'
                 class='
-                        mr-1
+                        ml-1
+                        md:ml-4
                         flex
                         flex-row
                         items-center'
             >
                 <CiShoppingCart
-                    class='
-                                h-8
-                                w-8
-                                mr-1'
+                    color='white'
+                    class='                
+                        h-8
+                        w-8
+                        mr-1'
                     onClick={_gotToCarts}
                 />
                 <DropDown
                     Drop={
                         () => <CiUser
+                            color='white'
                             class='
                                     h-8
                                     w-8
@@ -158,7 +162,7 @@ function Header(props) {
                                 <Link>
                                     <span style={{ fontWeight: '900' }} > My Account</span>
                                 </Link>
-                                <Link>
+                                <Link to={"/api/v1/orders/paging/" + localStorage.userId + "/%20/%20"} >
                                     <span style={{ fontWeight: '900' }} > My Orders</span>
                                 </Link>
 

@@ -4,6 +4,8 @@ function Footer(props) {
     return (
         <div
             class='
+
+            text-white
                 xl:flex
                 xl:flex-row
                 xl:items-center
@@ -12,7 +14,9 @@ function Footer(props) {
                 sm flex-col
                 py-20
                 px-20
-                bg-red-300
+                bg-gradient-to-b
+                from-red-vio
+                to-red-600
                 '>
             <div
                 id='footer-about-us'>

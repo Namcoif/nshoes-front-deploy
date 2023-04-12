@@ -1,13 +1,69 @@
-.custom-button>button {
-    border: none;
-    /* background-color: #d13639; */
-    background-image: linear-gradient(to bottom right, #aa0011, #4b174a);
-    color: #fff;
-    align-content: center;
+.custom-btn {
+    /* width: 130px;
+    height: 40px; */
     text-transform: uppercase;
-    border-radius: 12px;
-    font-size: 12px;
-    letter-spacing: 0.96px;
-    /* padding: 9.6px 22.4px; */
     width: 100%;
+    color: #fff;
+    border-radius: 5px;
+    padding: 2px 15px;
+    font-weight: 600;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
+        7px 7px 20px 0px rgba(0, 0, 0, .1),
+        4px 4px 5px 0px rgba(0, 0, 0, .1);
+    outline: none;
+}
+
+.btn-1 {
+    width: 100%;
+    line-height: 42px;
+    border: none;
+    background: linear-gradient(0deg, #fa652f, #ff1b01);
+}
+
+.btn-1.btn-2 {
+
+    width: 100%;
+    /* line-height: 42px; */
+    border: none;
+    background: linear-gradient(0deg, #27e1c1, #0EA293);
+}
+
+.btn-1:hover {
+    color: #f0094a;
+    background: transparent;
+    box-shadow: none;
+}
+
+.btn-1:before,
+.btn-1:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: #f0094a;
+    box-shadow:
+        -1px -1px 5px 0px #fff,
+        7px 7px 20px 0px #0003,
+        4px 4px 5px 0px #0002;
+    transition: 400ms ease all;
+}
+
+.btn-1:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+}
+
+.btn-1:hover:before,
+.btn-1:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
 }

@@ -28,7 +28,7 @@ function BodyPage(props) {
             console.log(res.data)
             setTotalPages(Array.from(Array(res.data.totalPages).keys()))
         })
-
+        window.scrollTo(0, 0)
     }
 
     const _getSellingProducts = async () => {

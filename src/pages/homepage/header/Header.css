@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: row;
   animation-name: incrementWidth;
-  animation-duration: 2s;
+  animation-duration: 1s;
   animation-timing-function: cubic-bezier(0.99, 1.41, 0.93, 0.63);
   animation-fill-mode: forwards;
   /* animation: incrementWidth 4s cubic-bezier(0.075, 0.82, 0.165, 1) forwards; */

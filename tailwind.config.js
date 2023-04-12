@@ -19,6 +19,20 @@ module.exports = {
       },
       borderWidth: {
         '3': '3px'
+      },
+      keyframes: {
+        animationRotate45: {
+          '0%,100%': {
+            transform: 'rotate(-12deg)'
+          }
+        }
+      },
+      transitionTimingFunction: {
+        tranTimeFunc1: 'cubic-bezier(0.99, 1.41, 0.93, 0.63)',
+        tranTimeFunc2: 'cubic-bezier(.2,.63,.56,.86)'
+      },
+      animation: {
+        animationRotate45: 'animationRotate45 forwards'
       }
     },
   },

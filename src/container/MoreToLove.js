@@ -1,13 +1,14 @@
-import React, { } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import HandleFunction from '../handle_function/HandleFunction';
 function MoreToLove(props) {
     const { products } = props;
 
+    const [hoverProduct, setHoverProduct] = useState("");
+
     const randomNum = () => {
         return Math.random()
     }
-
 
     const listProducts = products.filter((item) => {
         return item.productImgUrls[0].url !== "null"
@@ -16,20 +17,27 @@ function MoreToLove(props) {
         return (<li
             key={item.id + index + randomNum()}
             class='
-                    w-44
+                    w-48
                     2xl:w-52
                     flex
                     flex-col
-                    m-2
-                    hover:shadow-2xl'
+                    m-6
+                    hover:shadow-lg
+                    hover:m-4
+                    hover:w-52
+                    '
         >
 
             <div
                 class='
                 
-                        bg-white
+                        bg-gradient-to-b
+                        from-yellow-400
+                        to-yellow-200
                         p-2
-                        rounded-lg'>
+                        rounded-lg
+                        2xl:hover:w-56
+                        '>
 
 
                 <NavLink
@@ -39,9 +47,20 @@ function MoreToLove(props) {
                 >
                     <div class='flex flex-col justify-center
                     '>
-                        <div>
-                            <img src={item.productImgUrls[0].url !== undefined ? item.productImgUrls[0].url : null} class='rounded-lg hover:-rotate-12 hover:-mt-5 hover:mb-5 transition duration-700 drop-shadow-lg' />
-
+                        <div
+                            onMouseOver={() => {
+                                setHoverProduct(item.id)
+                            }}
+                            onMouseLeave={() => {
+                                setHoverProduct("")
+                            }}
+                        >
+                            {
+                                hoverProduct == item.id ?
+                                    <img src={item.productImgUrls[0].url !== undefined ? item.productImgUrls[0].url : null} class='rounded-lg animate-animationRotate45 ease-tranTimeFunc2 duration-1000 hover:-mt-5 hover:mb-5 drop-shadow-lg' />
+                                    :
+                                    <img src={item.productImgUrls[0].url !== undefined ? item.productImgUrls[0].url : null} class='rounded-lg -mx-9 shadow-lg' />
+                            }
                         </div>
                         <div
                             class='
@@ -57,8 +76,11 @@ function MoreToLove(props) {
                                 <span
                                     id='promotion-price'
                                     class='
-                                bg-teal-300
-                                    text-xl
+                                    bg-gradient-to-t from-red-vio to-red-600
+                                    text-white 
+                                    px-2
+                                    text-lg
+                                    rounded-sm
                                     font-semibold'>
                                     {HandleFunction.formatNumberToVND(item.promotionPrice)}
                                 </span>
@@ -90,13 +112,16 @@ function MoreToLove(props) {
     return (
         <div
             class='
-                        bg-red-900
+                        bg-slate-100
                         flex flex-row
-                        justify-center'>
+                        justify-center
+                        
+                        border-t-2 border-red-600
+                        '>
             {products.length == 0
                 ?
-                <div class='w-full bg-teal-400 flex flex-row items-center justify-center'>
-                    <span class='text-xs'>No matching products found</span>
+                <div class='w-full bg-gradient-to-t from-red-vio to-red-600 flex flex-row items-center justify-center'>
+                    <span class='text-xs text-white'>No matching products found</span>
                 </div>
                 :
                 <ul
