@@ -8,6 +8,7 @@ import listAPI_Back from '../../api/API';
 import { useDispatch } from 'react-redux';
 import { Alert } from '@mui/material';
 import userActions from '../../redux/actions/userActions';
+import ButtonTeal from '../../_sharecomponents/button/ButtonTeal';
 function SignUp(props) {
     const navigate = useNavigate();
 
@@ -114,7 +115,12 @@ function SignUp(props) {
             </div>
             <div
                 id='body-sign'
-            >
+                class='
+                        flex
+                        flex-col
+                        items-center
+                        '>
+
                 <div
                     id='email'
                     class='mb-5'>
@@ -156,9 +162,7 @@ function SignUp(props) {
                     />
                 </div>
 
-
-
-                <CustomButton
+                <ButtonTeal
                     _onClick={() => _siginUp()}
                     label="Sign Up"
                     refButton={refSubmit}

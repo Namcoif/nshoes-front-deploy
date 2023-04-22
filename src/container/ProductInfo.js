@@ -4,15 +4,16 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import pageActions from '../redux/actions/pageActions';
 import HandleFunction from '../handle_function/HandleFunction';
-import { AiOutlinePercentage } from 'react-icons/ai'
+import { AiOutlineHeart, AiOutlinePercentage } from 'react-icons/ai'
 import '../css/DropDown.css'
 import DropDown from './../_sharecomponents/dropdown/DropDown';
 import ButtonIcon from './../_sharecomponents/button/ButtonIcon';
 import CustomButton from './../_sharecomponents/button/CustomButton';
 import listAPI_Back from './../api/API';
 import ButtonTeal from './../_sharecomponents/button/ButtonTeal';
-import { Alert, Dialog, DialogContent } from '@mui/material';
+import { Alert, Button, Dialog, DialogContent, Rating } from '@mui/material';
 import MoreToLove from './MoreToLove';
+import { CiUser } from 'react-icons/ci';
 function ProductInfo(props) {
 
     const { productId } = useParams();
@@ -23,6 +24,10 @@ function ProductInfo(props) {
     const [linkImg, setLinkImg] = useState('');
 
     const [sizes, setSizes] = useState([]);
+
+    const [rates, setRates] = useState([]);
+
+    const [starPoint, setStarPoint] = useState(3);
 
     const [percent, setPercent] = useState('');
 
@@ -57,6 +62,10 @@ function ProductInfo(props) {
         quantity: 1
     })
 
+    const moreInfo = ['Description', "Reviews"];
+
+    const [currentInfo, setCurrentInfo] = useState('Description');
+
     const _getProduct = async () => {
 
         await axios.get(listAPI_Back.GET_PRODUCT + '/' + productId).then(async (res) => {
@@ -75,7 +84,16 @@ function ProductInfo(props) {
             setLinkImg(product.productImgUrls[0].url)
             setPercent(Math.floor((1 - product.promotionPrice / product.originalPrice) * 100))
             setSizes(product.productSizes)
+            setRates(product.productRates)
 
+            let starPoint = 0;
+            product.productRates.forEach(element => {
+                starPoint += element.star;
+                console.log(element);
+            });
+
+            starPoint = starPoint / product.productRates.length;
+            setStarPoint(starPoint)
 
             // setCategoryId(product.categoryId)
             setProductWillGet({
@@ -160,11 +178,12 @@ function ProductInfo(props) {
     }, [product.productName, productId])
 
     return (
-        <div>
+        <div
+            class='flex flex-col'
+        >
 
-            < div
+            <div
                 class='
-                bg-slate-100
                 mt-28
                 justify-center
                 flex
@@ -246,7 +265,12 @@ function ProductInfo(props) {
                                 {percent}
                                 <AiOutlinePercentage />
                             </span>
+
                         </div>
+                        <div>
+                            <Rating name="half-rating-read" value={starPoint} precision={0.5} readOnly />
+                        </div>
+
                     </div>
                     <div
                         id='size'
@@ -270,7 +294,7 @@ function ProductInfo(props) {
                                                     <button
                                                         class='
                                                         text-xs
-                                                        border-2 border-solid border-red-vio
+                                                        border-4 border-solid border-red-vio
                                                         rounded
                                                         mr-2
                                                         p-2
@@ -376,12 +400,98 @@ function ProductInfo(props) {
                     </div>
                 </div>
             </div >
-            <div>
+            <div
+                id='more-info'
+                class='
+                    lg:px-60
+                    xl:px-72
+                    2xl:px-96
+                    flex flex-col'
+            >
+                <div
+                    id='header-more-info'
+                    class='
+                    shadow-md
+                        pt-4
+                        mb-6
+                        flex
+                        flex-row
+                        items-center
+                        justify-center
+                    '>
+                    {
+                        moreInfo.map((item) => {
+                            if (currentInfo == item) {
+                                return <div class='shadow-lg -mb-5 mx-2'>
+                                    <Button
+                                        color='error'
+                                        variant='contained'
+                                        onClick={() => {
+                                            setCurrentInfo(item)
+                                        }}
+
+                                    >
+                                        {item}
+                                    </Button>
+                                </div>
+                            }
+                            else {
+                                return <div class='shadow-lg mx-2'>
+                                    <Button
+                                        color='inherit'
+                                        onClick={() => {
+
+                                            setCurrentInfo(item)
+                                        }}
+                                    >
+                                        {item}
+                                    </Button>
+                                </div>
+
+                            }
+                        })
+                    }
+                </div>
+                <div
+                    id='body-more-info'
+                    class='
+                        px-52'
+                >
+                    {
+                        currentInfo == 'Description' ?
+                            <div>
+                                {product.description}
+                            </div>
+                            :
+                            (currentInfo == 'Reviews' ?
+                                <div class=''>
+                                    {rates.map((item) => {
+                                        return <div class='flex flex-col border-b-2 border-gray-500 py-3'>
+                                            <div class='flex flex-row items-center'>
+                                                <CiUser />
+                                                <span class='text-xs'>{item.user.fullName + ','}</span>
+                                                &nbsp;
+                                                <span class='text-gray-500 text-xs'>{new Date(item.rateDate).toLocaleString()}</span>
+                                            </div>
+                                            <Rating name="read-only" value={item.star} readOnly />
+
+                                            <span>{item.comment}</span>
+                                        </div>
+                                    })}
+                                </div> : null
+                            )
+                    }
+                </div>
+            </div>
+
+
+            <div
+                id='more-to-love'>
                 <MoreToLove
                     products={productSuggest}
                 />
             </div>
-        </div>
+        </div >
 
     );
 }

@@ -6,10 +6,7 @@ function SuggestCarousel(props) {
     console.log(itemCarousel);
 
     return (
-        <div class='
-                    
-                    bg-red-400
-                    '>
+        <div class=''>
             <Carousel
                 indicators={false}
                 navButtonsAlwaysVisible={true}

@@ -9,6 +9,7 @@ import { Alert } from '@mui/material';
 import ButtonTeal from './../../_sharecomponents/button/ButtonTeal';
 import { useRef } from 'react';
 import pageActions from './../../redux/actions/pageActions';
+import CustomButton from '../../_sharecomponents/button/CustomButton';
 function SignIn(props) {
     const dispatch = useDispatch();
     const [signInInfo, setSignInInfo] = useState({
@@ -113,7 +114,11 @@ function SignIn(props) {
             </div>
             <div
                 id='body-sign'
-            >
+                class='
+                        flex
+                        flex-col
+                        items-center
+                        '>
                 <div
                     id='username'>
                     <label>Username</label>
@@ -142,7 +147,7 @@ function SignIn(props) {
                     />
                 </div>
 
-                <ButtonTeal
+                <CustomButton
                     _onClick={() => _siginIn()}
                     label="Sign In"
                     refButton={refSubmit}

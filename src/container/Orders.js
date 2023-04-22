@@ -94,6 +94,16 @@ function Orders(props) {
         navigate(("/api/v1/orders/paging/" + filter.userId + "/" + filter.orderStatus + "/" + filter.pageNumber))
     }
 
+    const _cancelOrder = async (orderId) => {
+        await axios.put(listAPI_Back.ORDERS + "/update/" + orderId,
+            {},
+            {
+                params: {
+                    orderStatus: "CANCEL"
+                }
+            })
+    }
+
     useEffect(() => {
         // _getOrdersByUserId(localStorage.userId)
         // setFilter({
@@ -145,7 +155,7 @@ function Orders(props) {
             <div
                 id='header-orders'
                 class='
-                    flex flex-row items-center justify-around
+                    flex flex-row items-center justify-center
                     sm:px-32
                     lg:px-80
                     shadow-md
@@ -153,68 +163,83 @@ function Orders(props) {
                     '>
                 {
                     currentStatus == 'ALL ORDERS' ?
-                        <Button
-                            color='error'
-                            onClick={() => {
-                                setCurrentStatus("ALL ORDERS")
-                                setFilter({
-                                    ...filter,
-                                    orderStatus: "%20"
-                                })
-                            }
-                            }
-                        >
-                            ALL ORDERS
-                        </Button>
+                        <div class='shadow-lg -mb-5 mx-2 '>
+                            <Button
+                                color='error'
+                                variant='contained'
+                                onClick={() => {
+                                    setCurrentStatus("ALL ORDERS")
+                                    setFilter({
+                                        ...filter,
+                                        orderStatus: "%20"
+                                    })
+                                }
+                                }
+                            >
+
+                                ALL ORDERS
+                            </Button>
+                        </div>
+
                         :
-                        <Button
-                            color='info'
-                            onClick={() => {
-                                setCurrentStatus("ALL ORDERS")
-                                setFilter({
-                                    ...filter,
-                                    orderStatus: "%20"
-                                })
-                            }
-                            }
-                        >
-                            ALL ORDERS
-                        </Button>
+                        <div class='shadow-lg mx-2'>
+                            <Button
+                                color='inherit'
+                                onClick={() => {
+                                    setCurrentStatus("ALL ORDERS")
+                                    setFilter({
+                                        ...filter,
+                                        orderStatus: "%20"
+                                    })
+                                }
+                                }
+                            >
+                                ALL ORDERS
+                            </Button>
+                        </div>
+
                 }
 
                 {
                     orderStatus.map((item) => {
                         if (currentStatus == item) {
-                            return <Button
-                                color='error'
-                                onClick={() => {
-                                    setFilter({
-                                        ...filter,
-                                        orderStatus: item
-                                    })
-                                    setCurrentStatus(item)
-                                }
+                            return <div class='shadow-lg -mb-5 mx-2'>
+                                <Button
+                                    color='error'
+                                    variant='contained'
+                                    onClick={() => {
+                                        setFilter({
+                                            ...filter,
+                                            orderStatus: item
+                                        })
+                                        setCurrentStatus(item)
+                                    }
 
-                                }
-                            >
-                                {item}
-                            </Button>
+                                    }
+                                >
+                                    {item}
+                                </Button>
+                            </div>
+
                         }
                         else {
-                            return <Button
-                                color='info'
-                                onClick={() => {
-                                    setFilter({
-                                        ...filter,
-                                        orderStatus: item
-                                    })
-                                    setCurrentStatus(item)
-                                }
+                            return <div class='shadow-lg mx-2'>
+                                <Button
+                                    color='inherit'
+                                    onClick={() => {
+                                        setFilter({
+                                            ...filter,
+                                            orderStatus: item
+                                        })
+                                        setCurrentStatus(item)
+                                    }
 
-                                }
-                            >
-                                {item}
-                            </Button>
+                                    }
+                                >
+                                    {item}
+                                </Button>
+                            </div>
+
                         }
                     })
                 }

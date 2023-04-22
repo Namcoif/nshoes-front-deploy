@@ -10,7 +10,8 @@ module.exports = {
         'vio-red': '#4b174a'
       },
       boxShadow: {
-        'black2': '0px 0px 7px 1px #000000'
+        'black2': '0px 0px 7px 1px #000000',
+        'black3': 'box-shadow: -10px 11px 6px -6px rgba(0,0,0,0.87); -webkit-box-shadow: -10px 11px 6px -6px rgba(0,0,0,0.87);-moz-box-shadow: -10px 11px 6px -6px rgba(0,0,0,0.87);'
       },
       borderRadius: {
         'balloon': '10% 30% 50% 70%',

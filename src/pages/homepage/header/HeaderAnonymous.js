@@ -160,15 +160,16 @@ function HeaderAnonymous(props) {
                             <span>Welcom to NShoes!</span>
                             <div class='flex flex-row justify-between items-center mt-5'>
                                 <CustomButton
+                                    _onClick={() => { dispatch(userActions.toggleSignIn()) }}
+                                    label='Sign in'
+                                />
+                                <div class='w-3'></div>
+
+                                <ButtonTeal
                                     _onClick={() => { dispatch(userActions.toggleSignUp()) }}
 
                                     label='Register'
 
-                                />
-                                <div class='w-3'></div>
-                                <ButtonTeal
-                                    _onClick={() => { dispatch(userActions.toggleSignIn()) }}
-                                    label='Sign in'
                                 />
                             </div>
                         </div>

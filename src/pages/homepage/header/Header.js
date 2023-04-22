@@ -154,16 +154,17 @@ function Header(props) {
                         />
                     }
                     DropContent={
-                        () => <div class='flex flex-col px-5 py-2 rounded bg-white shadow-black2 text-xs'>
+                        () => <div class='flex flex-col px-5 py-2 rounded bg-white shadow-black2 text-xs items-center'>
                             <div class='border-b-2'>
                                 <span>Welcom Back, {localStorage.username}</span>
                             </div>
                             <div class='flex flex-col mt-2 '>
                                 <Link>
-                                    <span style={{ fontWeight: '900' }} > My Account</span>
+                                    <span style={{ fontWeight: '900', fontSize: '16px' }} class='hover:shadow-lg '> My Account</span>
                                 </Link>
+                                <div class='h-2'></div>
                                 <Link to={"/api/v1/orders/paging/" + localStorage.userId + "/%20/%20"} >
-                                    <span style={{ fontWeight: '900' }} > My Orders</span>
+                                    <span style={{ fontWeight: '900', fontSize: '16px' }} class='hover:shadow-lg '> My Orders</span>
                                 </Link>
 
 

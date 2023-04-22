@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import './Sidebar.css'
 function Sidebar(props) {
-    const { itemsSidebar, itemActive } = props
+    const { itemsSidebar, itemActive, _setData } = props
     const [itemsSidebarIN, setItemsSidebarIN] = useState([]);
     useEffect(() => {
         setItemsSidebarIN(itemsSidebar);
@@ -15,7 +15,13 @@ function Sidebar(props) {
                     flex flex-col
                     px-2
                     py-2
-                    bg-red-300
+
+                    bg-gradient-to-r
+                    from-teal-400
+                    to-teal-200
+
+                    text-white
+
                     h-min
                     border-2 border-white border-solid
                     rounded-lg'>

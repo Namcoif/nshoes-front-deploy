@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import HandleFunction from '../handle_function/HandleFunction';
+import { AiOutlineStar } from 'react-icons/ai';
 function MoreToLove(props) {
     const { products } = props;
 
@@ -13,6 +14,15 @@ function MoreToLove(props) {
     const listProducts = products.filter((item) => {
         return item.productImgUrls[0].url !== "null"
     }).map((item, index) => {
+        let starPoint = 0;
+        if (item.productRates.length != 0) {
+            item.productRates.forEach(element => {
+                starPoint += element.star;
+                console.log(element);
+            });
+            console.log(item.productRates);
+            starPoint = starPoint / item.productRates.length;
+        }
 
         return (<li
             key={item.id + index + randomNum()}
@@ -22,6 +32,11 @@ function MoreToLove(props) {
                     flex
                     flex-col
                     m-6
+
+                    bg-gradient-to-b
+                    from-yellow-400
+                    to-yellow-200
+                    
                     hover:shadow-lg
                     hover:m-4
                     hover:w-52
@@ -31,9 +46,7 @@ function MoreToLove(props) {
             <div
                 class='
                 
-                        bg-gradient-to-b
-                        from-yellow-400
-                        to-yellow-200
+                        
                         p-2
                         rounded-lg
                         2xl:hover:w-56
@@ -97,7 +110,16 @@ function MoreToLove(props) {
                             <div
                                 id='product-info'
                                 class='flex flex-col'>
-                                <span>{item.soldCount + ' sold'}</span>
+                                <div class='flex flex-row justify-between text-red-600'>
+                                    <span>{item.soldCount + ' sold'}</span>
+                                    <div class='flex flex-row items-center'>
+                                        <span>
+                                            {starPoint != 0 ? starPoint : ''}
+                                        </span>
+                                        <AiOutlineStar />
+                                    </div>
+
+                                </div>
                                 <span class='truncate'>{item.productName}</span>
                             </div>
                         </div>
@@ -115,6 +137,8 @@ function MoreToLove(props) {
                         bg-slate-100
                         flex flex-row
                         justify-center
+
+                        px-6
                         
                         border-t-2 border-red-600
                         '>

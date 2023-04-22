@@ -285,7 +285,10 @@ function ShoppingCart(props) {
                     <div
                         id='main-pay'
                         class='
-                        flex flex-col '>
+                        flex flex-col
+                        px-5
+                        shadow-lg
+                        '>
                         <h1>Sumary</h1>
                         <div class='h-2'></div>
                         <div
@@ -295,17 +298,18 @@ function ShoppingCart(props) {
                             <h2>Total</h2>
                             <h2>{HandleFunction.formatNumberToVND(totalPrice)}</h2>
                         </div>
-                        <div class='shadow-lg'>
+                        <div class=' flex flex-col items-center pt-5'>
                             <ButtonTeal
                                 label="Order"
                                 _onClick={() => setTogglePayment(true)}
                             />
                         </div>
                         <div class='h-3'></div>
-                        <ShippingInfo
-                            _getShippingInfoToOrder={_getShippingInfoToOrder}
-                        />
+
                     </div>
+                    <ShippingInfo
+                        _getShippingInfoToOrder={_getShippingInfoToOrder}
+                    />
                 </div>
             </div>
 

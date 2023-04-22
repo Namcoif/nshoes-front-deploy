@@ -70,6 +70,8 @@ function SearchProducts(props) {
             setTotalPages(Array.from(Array(res.data.totalPages).keys()))
 
             // console.log(res.data.content);
+            window.scrollTo(0, 0)
+
         })
     }
 
@@ -160,7 +162,7 @@ function SearchProducts(props) {
                 mt-28
                 flex flex-row
                 justify-center'>
-            <div>
+            <div class=''>
                 <div class='sticky top-28'>
                     <div
                         class='
@@ -184,44 +186,50 @@ function SearchProducts(props) {
                     />
                 </div>
             </div>
-            <div>
+            <div class=''>
 
                 <div
                     id='search-head'
-                    class='w-1/2'>
-                    <div class>
-                        <CustomInput
-                            type="text"
-                            Icon={() => ComponentSearch(_searchProducts)}
-                            _getInputValue={_getInfoProductsSearch}
-                            placeholder="Shoes for women..."
-                            name="productName"
-                        />
-                    </div>
-                    <div
-                        class='flex flex-row'>
-                        <CustomInput
-                            Icon={BiDollar}
-                            type="text"
-                            _getInputValue={_getInfoProductsSearch}
-                            placeholder="Min"
-                            name="minPrice"
-                        />
-                        <div class='w-4'></div>
-                        <CustomInput
-                            Icon={BiDollar}
-                            type="text"
-                            _getInputValue={_getInfoProductsSearch}
-                            placeholder="Max"
-                            name="maxPrice"
+                    class='flex flex-row'>
+                    <div class='w-1/2'>
+                        <div class=''>
+                            <CustomInput
+                                type="text"
+                                Icon={() => ComponentSearch(_searchProducts)}
+                                _getInputValue={_getInfoProductsSearch}
+                                placeholder="Shoes for women..."
+                                name="productName"
+                            />
+                        </div>
+                        <div
+                            class='flex flex-row'>
+                            <CustomInput
+                                Icon={BiDollar}
+                                type="text"
+                                _getInputValue={_getInfoProductsSearch}
+                                placeholder="Min"
+                                name="minPrice"
+                            />
+                            <div class='w-4'></div>
+                            <CustomInput
+                                Icon={BiDollar}
+                                type="text"
+                                _getInputValue={_getInfoProductsSearch}
+                                placeholder="Max"
+                                name="maxPrice"
 
-                        />
+                            />
+                        </div>
+                    </div>
+                    <div class='flex flex-col items-center justify-center flex-1 '>
+                        <span>Result for: </span>
+                        <span class='text-3xl'>{filterParams.productName}</span>
                     </div>
                 </div>
                 <div
                     id='search-body'
                     class='
-                    flex flex-row'>
+                        flex flex-row'>
 
                     <div>
                         <MoreToLove
