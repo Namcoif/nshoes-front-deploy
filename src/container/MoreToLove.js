@@ -22,6 +22,7 @@ function MoreToLove(props) {
             });
             console.log(item.productRates);
             starPoint = starPoint / item.productRates.length;
+            starPoint = starPoint.toFixed(1);
         }
 
         return (<li

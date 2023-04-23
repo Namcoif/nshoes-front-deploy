@@ -8,7 +8,7 @@ import { AiOutlineDelete } from 'react-icons/ai';
 function ProductInCart(props) {
     const { product, getPrice, setStatus, checked, setSelectAllItems, _onDelete, _changeQuantity } = props
 
-    // console.log(product);
+    console.log(product);
     const [isSelect, setIsSelect] = useState(false)
     // const _selectItem = () => {
     //     setIsSelect(!isSelect)

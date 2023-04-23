@@ -14,6 +14,7 @@ import ButtonTeal from './../_sharecomponents/button/ButtonTeal';
 import { Alert, Button, Dialog, DialogContent, Rating } from '@mui/material';
 import MoreToLove from './MoreToLove';
 import { CiUser } from 'react-icons/ci';
+import CustomReviews from '../_sharecomponents/reviews/CustomReviews';
 function ProductInfo(props) {
 
     const { productId } = useParams();
@@ -93,7 +94,7 @@ function ProductInfo(props) {
             });
 
             starPoint = starPoint / product.productRates.length;
-            setStarPoint(starPoint)
+            setStarPoint(starPoint.toFixed(1))
 
             // setCategoryId(product.categoryId)
             setProductWillGet({
@@ -181,13 +182,13 @@ function ProductInfo(props) {
         <div
             class='flex flex-col'
         >
-
             <div
                 class='
                 mt-28
                 justify-center
                 flex
                 flex-row'>
+
                 <Dialog Dialog
                     open={toggleAddCart} >
                     <DialogContent>
@@ -486,7 +487,8 @@ function ProductInfo(props) {
 
 
             <div
-                id='more-to-love'>
+                id='more-to-love'
+                class='mt-2'>
                 <MoreToLove
                     products={productSuggest}
                 />

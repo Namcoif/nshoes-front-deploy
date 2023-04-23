@@ -10,6 +10,7 @@ import { Dialog, DialogContent } from '@mui/material';
 import ButtonTeal from '../_sharecomponents/button/ButtonTeal';
 import CustomButton from './../_sharecomponents/button/CustomButton';
 import ShippingInfo from './ShippingInfo';
+import { Link } from 'react-router-dom';
 
 function ShoppingCart(props) {
 
@@ -205,20 +206,21 @@ function ShoppingCart(props) {
                     <div>
                         <span>Confirm payment for products</span>
                         <div class='flex flex-row justify-around'>
-                            <CustomButton
-                                label="Cancel"
-                                _onClick={() => setTogglePayment(false)}
-                            />
-                            <div class='w-2/5'>
-
-                            </div>
-                            <ButtonTeal
+                            < CustomButton
                                 label="Payment"
                                 _onClick={() => {
                                     _createOrders(productsWillOrder, shippingInfo, productsInCart)
                                     setTogglePayment(false)
                                 }}
                             />
+                            <div class='w-2/5'>
+
+                            </div>
+                            <ButtonTeal
+                                label="Cancel"
+                                _onClick={() => setTogglePayment(false)}
+                            />
+
                         </div>
 
                     </div>
@@ -267,6 +269,7 @@ function ShoppingCart(props) {
                                     _deleteProductInCart(item.id, item, productsInCart)
                                 }}
                             />
+
                         })
                     }
                 </div>
@@ -299,7 +302,7 @@ function ShoppingCart(props) {
                             <h2>{HandleFunction.formatNumberToVND(totalPrice)}</h2>
                         </div>
                         <div class=' flex flex-col items-center pt-5'>
-                            <ButtonTeal
+                            <CustomButton
                                 label="Order"
                                 _onClick={() => setTogglePayment(true)}
                             />

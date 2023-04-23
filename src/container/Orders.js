@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import listAPI_Back from '../api/API';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import ProductInOrders from '../_sharecomponents/productinorder/ProductInOrders';
 
@@ -20,12 +20,6 @@ function Orders(props) {
 
     const orderStatus = ['UNCONFIMRED', 'DELIVERY', 'DELIVERED', 'CANCELED', 'RETURNS'];
 
-    const [colorOrderStatus, setColorOrderStatus] = useState({
-        all: 'info',
-        unconfirmed: 'info',
-        delivery: 'info',
-        delivered: 'info'
-    })
 
     const [currentStatus, setCurrentStatus] = useState("ALL ORDERS");
 
@@ -94,15 +88,15 @@ function Orders(props) {
         navigate(("/api/v1/orders/paging/" + filter.userId + "/" + filter.orderStatus + "/" + filter.pageNumber))
     }
 
-    const _cancelOrder = async (orderId) => {
-        await axios.put(listAPI_Back.ORDERS + "/update/" + orderId,
-            {},
-            {
-                params: {
-                    orderStatus: "CANCEL"
-                }
-            })
-    }
+    // const _cancelOrder = async (orderId) => {
+    //     await axios.put(listAPI_Back.ORDERS + "/update/" + orderId,
+    //         {},
+    //         {
+    //             params: {
+    //                 orderStatus: "CANCEL"
+    //             }
+    //         })
+    // }
 
     useEffect(() => {
         // _getOrdersByUserId(localStorage.userId)
@@ -251,9 +245,9 @@ function Orders(props) {
                 {
                     allOrders.map((item) => {
                         return <ProductInOrders
-
                             product={item}
                         />
+
                     })
                 }
             </div>
