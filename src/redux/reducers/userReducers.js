@@ -5,7 +5,15 @@ const initialState = {
     toggleSignUp: false,
     productInfo: {},
     cartsOfUser: [],
-    keySearch: '%20'
+    keySearch: '%20',
+    isDeleteProduct: false,
+    isCreateCategory: false,
+    isDeleteCategory: false,
+    isCreateAcc: false,
+    isUpdateAcc: false,
+    isDeleteAcc: false,
+
+
 }
 
 const userReducers = (state = initialState, action) => {
@@ -47,6 +55,68 @@ const userReducers = (state = initialState, action) => {
             return {
                 ...state,
                 keySearch: action.payload
+            }
+        case actionTypes.OPEN_DELETE_PRODUCT:
+            return {
+                ...state,
+                isDeleteProduct: true
+            }
+        case actionTypes.CLOSE_DELETE_PRODUCT:
+            return {
+                ...state,
+                isDeleteProduct: false
+            }
+
+        case actionTypes.OPEN_CREATE_CATEGORY:
+            return {
+                ...state,
+                isCreateCategory: true
+            }
+        case actionTypes.CLOSE_CREATE_CATEGORY:
+            return {
+                ...state,
+                isCreateCategory: false
+            }
+        case actionTypes.OPEN_DELETE_CATEGORY:
+            return {
+                ...state,
+                isDeleteCategory: true
+            }
+        case actionTypes.CLOSE_DELETE_CATEGORY:
+            return {
+                ...state,
+                isDeleteCategory: false
+            }
+
+        case actionTypes.OPEN_CREATE_ACC:
+            return {
+                ...state,
+                isCreateAcc: true
+            }
+        case actionTypes.CLOSE_CREATE_ACC:
+            return {
+                ...state,
+                isCreateAcc: false
+            }
+        case actionTypes.OPEN_DELETE_ACC:
+            return {
+                ...state,
+                isDeleteAcc: true
+            }
+        case actionTypes.CLOSE_DELETE_ACC:
+            return {
+                ...state,
+                isDeleteAcc: false
+            }
+        case actionTypes.OPEN_UPDATE_ACC:
+            return {
+                ...state,
+                isUpdateAcc: true
+            }
+        case actionTypes.CLOSE_UPDATE_ACC:
+            return {
+                ...state,
+                isUpdateAcc: false
             }
         default:
             return state

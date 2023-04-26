@@ -1,7 +1,6 @@
 
 import listAPI_Back from '../../api/API';
 import actionTypes from './../constant/constant';
-import { type } from '@testing-library/user-event/dist/type';
 import axios from 'axios';
 
 const changeTitle = (title) => {
@@ -14,6 +13,34 @@ const changeTitle = (title) => {
 const signIn = () => {
     return {
         type: actionTypes.LOGGED
+
+    }
+}
+
+const openUpdateProduct = () => {
+    return {
+        type: actionTypes.OPEN_UPDATE_PRODUCT
+
+    }
+}
+
+const closeUpdateProduct = () => {
+    return {
+        type: actionTypes.CLOSE_UPDATE_PRODUCT
+
+    }
+}
+
+const openUpdateCategory = () => {
+    return {
+        type: actionTypes.OPEN_UPDATE_CATEGORY
+
+    }
+}
+
+const closeUpdateCategory = () => {
+    return {
+        type: actionTypes.CLOSE_UPDATE_CATEGORY
 
     }
 }
@@ -75,7 +102,11 @@ const pageActions = {
     signIn,
     signOut,
     getProducts,
-    getRecommendedProducts
+    getRecommendedProducts,
+    openUpdateProduct,
+    closeUpdateProduct,
+    openUpdateCategory,
+    closeUpdateCategory
 }
 
 export default pageActions;

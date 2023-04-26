@@ -47,6 +47,82 @@ const getProduct = (url) => async (dispatch) => {
     })
 }
 
+const openDeleteProduct = () => {
+    return {
+        type: actionTypes.OPEN_DELETE_PRODUCT
+    }
+}
+
+const closeDeleteProduct = () => {
+    return {
+        type: actionTypes.CLOSE_DELETE_PRODUCT
+    }
+}
+
+const openCreateCategroy = () => {
+    return {
+        type: actionTypes.OPEN_CREATE_CATEGORY
+
+    }
+}
+
+const closeCreateCategory = () => {
+    return {
+        type: actionTypes.CLOSE_CREATE_CATEGORY
+
+    }
+}
+
+
+const openDeleteCategory = () => {
+    return {
+        type: actionTypes.OPEN_DELETE_CATEGORY
+    }
+}
+
+const closeDeleteCategory = () => {
+    return {
+        type: actionTypes.CLOSE_DELETE_CATEGORY
+    }
+}
+
+const openCreateAcc = () => {
+    return {
+        type: actionTypes.OPEN_CREATE_ACC
+
+    }
+}
+
+const closeCreateAcc = () => {
+    return {
+        type: actionTypes.CLOSE_CREATE_ACC
+
+    }
+}
+
+const openDeleteAcc = () => {
+    return {
+        type: actionTypes.OPEN_DELETE_ACC
+    }
+}
+const closeDeleteAcc = () => {
+    return {
+        type: actionTypes.CLOSE_DELETE_ACC
+    }
+}
+const openUpdateAcc = () => {
+    return {
+        type: actionTypes.OPEN_UPDATE_ACC
+
+    }
+}
+
+const closeUpdateAcc = () => {
+    return {
+        type: actionTypes.CLOSE_UPDATE_ACC
+
+    }
+}
 const getProductNameSearch = (keySearch) => {
     return {
         type: actionTypes.KEY_SEARCH,
@@ -58,6 +134,21 @@ const userActions = {
     toggleSignIn,
     toggleSignUp,
     getProduct,
-    getProductNameSearch
+    getProductNameSearch,
+
+    openDeleteProduct,
+    closeDeleteProduct,
+
+    openCreateCategroy,
+    closeCreateCategory,
+    openDeleteCategory,
+    closeDeleteCategory,
+
+    openCreateAcc,
+    closeCreateAcc,
+    openUpdateAcc,
+    closeUpdateAcc,
+    openDeleteAcc,
+    closeDeleteAcc
 }
 export default userActions;

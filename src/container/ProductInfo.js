@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import pageActions from '../redux/actions/pageActions';
 import HandleFunction from '../handle_function/HandleFunction';
 import { AiOutlineHeart, AiOutlinePercentage } from 'react-icons/ai'
@@ -15,11 +15,18 @@ import { Alert, Button, Dialog, DialogContent, Rating } from '@mui/material';
 import MoreToLove from './MoreToLove';
 import { CiUser } from 'react-icons/ci';
 import CustomReviews from '../_sharecomponents/reviews/CustomReviews';
+import FormUpdateProduct from '../_sharecomponents/form/FormUpdateProduct';
+import './Container.css'
+import FormDeleteProduct from '../_sharecomponents/form/FormDeleteProduct';
+import userActions from '../redux/actions/userActions';
 function ProductInfo(props) {
 
     const { productId } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const selector = useSelector(state => state);
+
     const [product, setProduct] = useState('');
 
     const [linkImg, setLinkImg] = useState('');
@@ -49,6 +56,10 @@ function ProductInfo(props) {
     const [isNotLogged, setIsNotLogged] = useState(false);
 
     const [toggleSignIn, setToggleSignIn] = useState(false);
+
+    const [isUpdateProduct, setIsupdateProduct] = useState(false);
+
+    const [isDeleteProduct, setIsDeleteProduct] = useState(false);
 
     const [resAdd, setResAdd] = useState('add');
 
@@ -82,6 +93,8 @@ function ProductInfo(props) {
                 })
             setProduct(product)
 
+            console.log(product);
+
             setLinkImg(product.productImgUrls[0].url)
             setPercent(Math.floor((1 - product.promotionPrice / product.originalPrice) * 100))
             setSizes(product.productSizes)
@@ -110,6 +123,13 @@ function ProductInfo(props) {
 
     }
 
+    const _closeFormDelete = () => {
+        setIsDeleteProduct(false);
+    }
+
+    const _closeFormUpdate = () => {
+        setIsupdateProduct(false);
+    }
 
     const _trueDropDown = () => {
         setDropDown(true)
@@ -178,10 +198,43 @@ function ProductInfo(props) {
 
     }, [product.productName, productId])
 
+    useEffect(() => {
+        setIsupdateProduct(selector.page.isUpdateProduct)
+    }, [selector.page])
+
+    useEffect(() => {
+        setIsDeleteProduct(selector.user.isDeleteProduct)
+    }, [selector.user])
+
     return (
         <div
             class='flex flex-col'
         >
+            <Dialog
+                open={isUpdateProduct}
+                onClose={_closeFormUpdate}
+            >
+                <DialogContent>
+                    <FormUpdateProduct
+                        product={product}
+                    />
+                </DialogContent>
+
+            </Dialog>
+
+            <Dialog
+                open={isDeleteProduct}
+                onClose={_closeFormUpdate}
+            >
+                <DialogContent>
+                    <FormDeleteProduct
+                        product={product}
+                    />
+                </DialogContent>
+
+            </Dialog>
+
+
             <div
                 class='
                 mt-28
@@ -213,8 +266,23 @@ function ProductInfo(props) {
                 </Dialog >
 
                 <div id='img-product'>
-                    <div id='main-img'>
+                    <div id='main-img' className='main-img'>
                         <img src={linkImg} class='w-96' />
+                        <div className="content-img">
+                            {
+                                product.productStatus == 'ON_SELLING' && product.quantity > 0
+                                    ?
+                                    null
+                                    : (
+                                        product.productStatus == 'ON_SELLING' && product.quantity <= 0
+                                            ?
+                                            <h1>Sold out</h1>
+                                            :
+                                            <h1>Stop Selling</h1>
+                                    )
+
+                            }
+                        </div>
                     </div>
                     <div id='other-imgs'>
 
@@ -387,18 +455,38 @@ function ProductInfo(props) {
                     >
                         <span>Shipping: {HandleFunction.formatNumberToVND(shipping)}</span>
                     </div>
-                    <div
-                        id='control-product'
-                        class='flex flex-row justify-between 2xl:w-1/2 py-4'>
-                        <CustomButton
-                            label='buy now'
-                            _onClick={_buyNow}
-                        />
-                        <ButtonTeal
-                            label='add to cart'
-                            _onClick={() => _addToCart(productWillGet)}
-                        />
+                    <div id='control-product'                    >
+                        {
+                            localStorage.role == '[CUSTOMER]' ?
+                                <div
+                                    class='flex flex-row justify-between 2xl:w-1/2 py-4'>
+                                    <CustomButton
+                                        label='buy now'
+                                        _onClick={_buyNow}
+                                    />
+                                    <ButtonTeal
+                                        label='add to cart'
+                                        _onClick={() => _addToCart(productWillGet)}
+                                    />
+                                </div> :
+                                <div
+                                    class='flex flex-row justify-between 2xl:w-1/2 py-4'>
+                                    <CustomButton
+                                        label='Update'
+                                        _onClick={() => {
+                                            dispatch(pageActions.openUpdateProduct())
+                                        }}
+                                    />
+                                    <ButtonTeal
+                                        label='Delete'
+                                        _onClick={() => {
+                                            dispatch(userActions.openDeleteProduct())
+                                        }}
+                                    />
+                                </div>
+                        }
                     </div>
+
                 </div>
             </div >
             <div

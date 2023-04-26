@@ -3,7 +3,9 @@ import actionTypes from "../constant/constant";
 const initailState = {
     title: 'NShoes',
     isLogin: false,
-    isLoading: false
+    isLoading: false,
+    isUpdateProduct: false,
+    isUpdateCategory: false
 }
 
 const pageReducers = (state = initailState, action) => {
@@ -22,6 +24,27 @@ const pageReducers = (state = initailState, action) => {
             return {
                 ...state,
                 isLogin: false
+            }
+        case actionTypes.OPEN_UPDATE_PRODUCT:
+            return {
+                ...state,
+                isUpdateProduct: true
+            }
+        case actionTypes.CLOSE_UPDATE_PRODUCT:
+            return {
+                ...state,
+                isUpdateProduct: false
+            }
+
+        case actionTypes.OPEN_UPDATE_CATEGORY:
+            return {
+                ...state,
+                isUpdateCategory: true
+            }
+        case actionTypes.CLOSE_UPDATE_CATEGORY:
+            return {
+                ...state,
+                isUpdateCategory: false
             }
         case actionTypes.GET_MORE_TO_LOVE_FAIL:
             return {

@@ -12,7 +12,9 @@ function MoreToLove(props) {
     }
 
     const listProducts = products.filter((item) => {
-        return item.productImgUrls[0].url !== "null"
+        if (item.productImgUrls.length !== 0) {
+            return item.productImgUrls[0].url !== "null"
+        }
     }).map((item, index) => {
         let starPoint = 0;
         if (item.productRates.length != 0) {

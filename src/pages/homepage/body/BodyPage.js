@@ -11,6 +11,7 @@ import NavigatePage from './../../../_sharecomponents/navigatepage/NavigatePage'
 function BodyPage(props) {
 
     const dispatch = useDispatch();
+
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
 
@@ -19,6 +20,29 @@ function BodyPage(props) {
     const [currentPage, setCurrentPage] = useState(0);
 
     const [totalPages, setTotalPages] = useState([]);
+
+    const managerSidebar = [
+        {
+            id: "product",
+            link: "/",
+            itemSidebarName: "Products Management"
+        },
+        {
+            id: "categỏy",
+            link: "/api/v1/categories/management",
+            itemSidebarName: "Categories Management"
+        },
+        {
+            id: "order",
+            link: "/api/v1/orders/management",
+            itemSidebarName: "Orders Management"
+        },
+        {
+            id: "statistical",
+            link: "/api/v1/statistical/management",
+            itemSidebarName: "Statistical Management"
+        },
+    ]
 
     const _getProducts = (pageNumber = 0) => {
         dispatch(pageActions.getProducts(pageNumber)).then((res) => {
@@ -96,10 +120,21 @@ function BodyPage(props) {
                 <div
                     id='category'
                 >
+                    {
+                        localStorage.role == '[MANAGER]'
+                            ?
+                            <Sidebar
+                                itemsSidebar={managerSidebar}
+                                itemActive='product'
 
-                    <Sidebar
-                        itemsSidebar={categories}
-                    />
+                            />
+                            :
+                            <Sidebar
+                                itemsSidebar={categories}
+                            />
+                    }
+
+
 
                 </div>
                 <div id='suggest-carousel'
