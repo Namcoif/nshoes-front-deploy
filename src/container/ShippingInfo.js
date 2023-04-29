@@ -164,9 +164,9 @@ function ShippingInfo(props) {
     }, [currentInfo])
     return (
         <div>
-            <div class='flex flex-row justify-between items-center shadow-lg mt-3'>
+            <div className='flex flex-row justify-between items-center shadow-lg mt-3'>
                 <h2>Shipping Info</h2>
-                <div class=''>
+                <div className=''>
                     <DropDown
                         Drop={
                             () => <AiOutlineEllipsis size={"30px"} />
@@ -174,26 +174,26 @@ function ShippingInfo(props) {
                         DropContent={() => {
                             return shippingInfoList.length > 0
                                 ?
-                                <div class='flex flex-col shadow-xl px-2 absolute right-24 w-max bg-slate-100 py-3 -top-2'>
+                                <div className='flex flex-col shadow-xl px-2 absolute right-24 w-max bg-slate-100 py-3 -top-2'>
                                     <span
-                                        class='cursor-pointer pt-2 hover:shadow-xl'
+                                        className='cursor-pointer pt-2 hover:shadow-xl'
                                         onClick={() => setIsEdit(true)}>
                                         Edit address
                                     </span>
                                     <span
-                                        class='cursor-pointer pt-2 hover:shadow-xl'
+                                        className='cursor-pointer pt-2 hover:shadow-xl'
                                         onClick={() => setIsChooseOthers(true)}>
                                         Choose another address
                                     </span>
                                     <span
-                                        class='cursor-pointer pt-2 hover:shadow-xl'
+                                        className='cursor-pointer pt-2 hover:shadow-xl'
                                         onClick={() => setIsAddNewInfo(true)}>
                                         Add address</span>
                                 </div>
                                 :
-                                <div class='flex flex-col shadow-xl px-2 absolute right-24 w-max bg-slate-100 py-1 -top-2'>
+                                <div className='flex flex-col shadow-xl px-2 absolute right-24 w-max bg-slate-100 py-1 -top-2'>
                                     <span
-                                        class='cursor-pointer'
+                                        className='cursor-pointer'
                                         onClick={() => setIsAddNewInfo(true)}>
                                         Add address</span>
                                 </div>
@@ -212,7 +212,7 @@ function ShippingInfo(props) {
                             {
                                 shippingInfoList.map((item) => {
                                     return <div
-                                        class='flex flex-row items-start pt-3 py-2 border-b-2 border-red-400 cursor-pointer hover:shadow-xl '
+                                        className='flex flex-row items-start pt-3 py-2 border-b-2 border-red-400 cursor-pointer hover:shadow-xl '
                                         onMouseEnter={() => {
                                             setIsOnDefault(item.id)
                                         }}
@@ -222,7 +222,7 @@ function ShippingInfo(props) {
 
                                     >
                                         <div
-                                            class='w-5/6'
+                                            className='w-5/6'
                                             onMouseDown={() => {
                                                 setCurrentInfo(item)
                                                 setIsChooseOthers(false)
@@ -230,19 +230,19 @@ function ShippingInfo(props) {
                                         >
                                             <table>
                                                 <tr
-                                                    class=''
+                                                    className=''
                                                 >
                                                     <td>
                                                         <span>Address: </span>
                                                     </td>
-                                                    <td class='w-3/4'>
+                                                    <td className='w-3/4'>
                                                         <span>{item.address}</span>
                                                     </td>
 
 
                                                 </tr>
                                                 <tr
-                                                    class=''
+                                                    className=''
                                                 >
                                                     <td>
                                                         <span>Phone: </span>
@@ -280,7 +280,7 @@ function ShippingInfo(props) {
                         </div>
                         :
 
-                        <div class='mt-2'>
+                        <div className='mt-2'>
                             <table>
                                 <tr>
                                     <td>

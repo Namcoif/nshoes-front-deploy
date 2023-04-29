@@ -10,15 +10,15 @@ function Sidebar(props) {
     }, [itemsSidebar])
     return (
         <div
-            class='    
+            className='    
                     w-64
                     flex flex-col
                     px-2
                     py-2
 
-                    bg-gradient-to-r
-                    from-teal-400
-                    to-teal-200
+                    bg-gradient-to-tr
+                from-cyan-800
+                to-teal-600
 
                     text-white
 

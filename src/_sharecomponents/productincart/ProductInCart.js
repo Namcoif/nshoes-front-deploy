@@ -55,44 +55,44 @@ function ProductInCart(props) {
     }, [quantity])
     return (
         <div
-            class='
+            className='
                 flex flex-row
                 items-center
                 border-solid 
                 border-red-vio
                 border-b-2 mx-8'>
             <div
-                class='mr-2'>
+                className='mr-2'>
                 <input
                     // onClick={_selectItem}
                     type='checkbox'
                     checked={isSelect ? 'checked' : null}
                     onChange={_handleChange}
-                    class='
+                    className='
                         '></input>
             </div>
             <div
                 id='img-product'
-                class=' 
+                className=' 
                        '>
-                <div id='main-img' class='w-full'>
-                    <img src={product.product.productImgUrls[0].url} class='w-full' />
+                <div id='main-img' className='w-full'>
+                    <img src={product.product.productImgUrls[0].url} className='w-full' />
                 </div>
 
             </div>
 
             <div id='info-product'
-                class='
+                className='
                     flex 
                     flex-col
                     mx-8
                     w-3/4
                     '>
 
-                <div class='flex flex-row justify-between items-center'>
+                <div className='flex flex-row justify-between items-center'>
                     <span
                         id='name-product'
-                        class='truncate w-5/6'>{product.product.productName}</span>
+                        className='truncate w-5/6'>{product.product.productName}</span>
                     <div
                         id='controll-item'>
                         <AiOutlineDelete
@@ -102,30 +102,30 @@ function ProductInCart(props) {
                 </div>
                 <div
                     id='size'
-                    class='
+                    className='
                             '>
                     <span>Size: {product.size}</span>
 
-                    <div class='flex'>
+                    <div className='flex'>
 
                     </div>
-                    <div class='text-red-vio underline'>
+                    <div className='text-red-vio underline'>
 
                     </div>
                 </div>
 
-                <div class='flex flex-row items-center justify-between 
+                <div className='flex flex-row items-center justify-between 
                     '>
                     <span
                         id='promotion-price'
-                        class='
+                        className='
                                 text-xl
                                 font-semibold'>
                         {HandleFunction.formatNumberToVND(product.product.promotionPrice)}
                     </span>
                     <div
                         id='quantity'
-                        class='
+                        className='
                             flex
                             flex-row items-center content-center
                             py-4
@@ -135,8 +135,8 @@ function ProductInCart(props) {
                             label='-'
                             _onClick={_decrementQuantity}
                         />
-                        {/* <span class='mx-2'>{product.quantity}</span> */}
-                        <span class='mx-2'>{quantity}</span>
+                        {/* <span className='mx-2'>{product.quantity}</span> */}
+                        <span className='mx-2'>{quantity}</span>
 
                         <ButtonIcon
                             label='+'

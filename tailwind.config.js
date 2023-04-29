@@ -26,6 +26,23 @@ module.exports = {
           '0%,100%': {
             transform: 'rotate(-12deg)'
           }
+        },
+        animationAppear: {
+          // '0%': {
+          //   transform: 'scale(0)'
+          // },
+          // '50%': {
+          //   transform: 'scale(0.4)'
+          // },
+          // '75%': {
+          //   transform: 'scale(0.75)'
+          // },
+          // '100%': {
+          //   transform: 'scale(1)'
+          // }
+          '0%,100%': {
+            transform: 'rotate(-12deg)'
+          }
         }
       },
       transitionTimingFunction: {
@@ -33,7 +50,8 @@ module.exports = {
         tranTimeFunc2: 'cubic-bezier(.2,.63,.56,.86)'
       },
       animation: {
-        animationRotate45: 'animationRotate45 forwards'
+        animationRotate45: 'animationRotate45 forwards',
+        animationAppear: 'animationAppear forwards'
       }
     },
   },

@@ -49,38 +49,38 @@ function HeaderAnonymous(props) {
     return (
         <div
             onKeyDown={_handleKeyDown}
-            class="
-                        h-24
-                        items-center
-                        flex flex-row fixed
-                        min-w-full
-                        shadow-md
-                        bg-gradient-to-t
-                        from-red-vio to-red-600  
+            className="
+                h-24
+                items-center
+                flex flex-row fixed
+                min-w-full
+                shadow-md
+                bg-gradient-to-t
+                from-cyan-800
+                to-teal-600  
 
-                        md:pl-36 
-                        md:pr-36
+                md:pl-36 
+                md:pr-36
 
-                        xl:pl-96
-                        xl:pr-96">
+                xl:pl-96
+                xl:pr-96">
             <div
-                class='
+                className='
                         w-fit
                         flex
                         flex-col
                         items-end
                         mr-1
-                        ml-1
                         
-                        md: mr-4'>
+                        md:mr-4'>
 
                 <Link to={'/'}>
                     <div
                         onClick={() => {
                             document.title = "NShoes"
                         }}
-                        className='homepage-logo'
-                        class="
+                        className="
+                        homepage-logo
                                 w-fit
                                 cursor-pointer
                                 flex
@@ -88,13 +88,16 @@ function HeaderAnonymous(props) {
                                 items-center">
                         <img
                             src='https://i.postimg.cc/tgc9Vgdr/AvtS.png'
-                            class='
-                                h-10'/>
+                            className='
+                                h-16'/>
                         <span
-                            class='
+                            className='
                                 text-white
-                                text-xl
+                                text-3xl
                                 font-black'
+                            style={{
+                                fontFamily: 'Brush Script MT'
+                            }}
                         >
                             NShoes
                         </span>
@@ -104,11 +107,11 @@ function HeaderAnonymous(props) {
 
 
             </div >
-            <div class='flex-1'>
+            <div className='flex-1'>
 
                 <div
                     className='homepage-search'
-                // class="
+                // className="
                 //         flex
                 //         flex-row
                 //         flex-1
@@ -132,7 +135,7 @@ function HeaderAnonymous(props) {
 
             <div
                 id='customer'
-                class='
+                className='
                             ml-1
                             md:ml-4
                             flex
@@ -141,7 +144,7 @@ function HeaderAnonymous(props) {
                     '
             >
                 {/* <CiShoppingCart
-                    class='
+                    className='
                                 h-8
                                 w-8
                                 mr-1'
@@ -150,20 +153,20 @@ function HeaderAnonymous(props) {
                     Drop={
                         () => <CiUser
                             color="white"
-                            class='
+                            className='
                                     h-8
                                     w-8'
                         />
                     }
                     DropContent={
-                        () => <div class='flex flex-col items-center p-5 rounded bg-white shadow-black2 text-xs'>
+                        () => <div className='flex flex-col items-center p-5 rounded bg-white shadow-black2 text-xs'>
                             <span>Welcom to NShoes!</span>
-                            <div class='flex flex-row justify-between items-center mt-5'>
+                            <div className='flex flex-row justify-between items-center mt-5'>
                                 <CustomButton
                                     _onClick={() => { dispatch(userActions.toggleSignIn()) }}
                                     label='Sign in'
                                 />
-                                <div class='w-3'></div>
+                                <div className='w-3'></div>
 
                                 <ButtonTeal
                                     _onClick={() => { dispatch(userActions.toggleSignUp()) }}

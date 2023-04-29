@@ -58,7 +58,7 @@ function FormUpdateProduct(props) {
         console.log(productInUpdate);
     }, [])
     return (
-        <div class='px-5 flex flex-col items-center'>
+        <div className='px-5 flex flex-col items-center'>
             <div
                 id='header-update-product'
                 className='text-red-vio py-5'
@@ -109,6 +109,16 @@ function FormUpdateProduct(props) {
                         placeholder="Type quantity"
                         name="quantity"
                         valueStart={productInUpdate.quantity}
+                    />
+                </div>
+                <div className='feild'>
+                    <label>Description</label>
+                    <CustomInput
+                        type="text"
+                        _getInputValue={_getInfoProduct}
+                        placeholder="Type description"
+                        name="description"
+                        valueStart={productInUpdate.description}
                     />
                 </div>
                 <div className='feild'>

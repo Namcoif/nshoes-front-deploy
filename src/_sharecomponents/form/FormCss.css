@@ -10,3 +10,7 @@ td {
 tr {
     padding-top: 50px;
 }
+
+.feild>label {
+    margin-right: 5px;
+}

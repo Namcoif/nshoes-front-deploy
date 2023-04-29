@@ -172,7 +172,7 @@ function ShoppingCart(props) {
     }, [status])
     return (
         <div
-            class='
+            className='
                 mt-28
                 flex flex-row'>
             <Dialog
@@ -205,7 +205,7 @@ function ShoppingCart(props) {
                 <DialogContent>
                     <div>
                         <span>Confirm payment for products</span>
-                        <div class='flex flex-row justify-around'>
+                        <div className='flex flex-row justify-around'>
                             < CustomButton
                                 label="Payment"
                                 _onClick={() => {
@@ -213,7 +213,7 @@ function ShoppingCart(props) {
                                     setTogglePayment(false)
                                 }}
                             />
-                            <div class='w-2/5'>
+                            <div className='w-2/5'>
 
                             </div>
                             <ButtonTeal
@@ -230,9 +230,9 @@ function ShoppingCart(props) {
 
             <div
                 id='items'
-                class='mx-5  w-3/4'>
+                className='mx-5  w-3/4'>
                 <div
-                    class='
+                    className='
                         mb-2 bg-white
                         px-5'>
                     <h1>Shopping Cart</h1>
@@ -243,7 +243,7 @@ function ShoppingCart(props) {
                     />
                 </div>
                 <div
-                    class='
+                    className='
                         bg-white'>
                     {
                         productsInCart.map((item) => {
@@ -276,38 +276,38 @@ function ShoppingCart(props) {
             </div>
             <div
                 id='pay'
-                class='
+                className='
                     w-1/4
                     bg-white
                     mr-5
                     px-4
                     '>
-                <div class='sticky top-28'>
+                <div className='sticky top-28'>
 
 
                     <div
                         id='main-pay'
-                        class='
+                        className='
                         flex flex-col
                         px-5
                         shadow-lg
                         '>
                         <h1>Sumary</h1>
-                        <div class='h-2'></div>
+                        <div className='h-2'></div>
                         <div
-                            class='
+                            className='
                             flex flex-row 
                             justify-between'>
                             <h2>Total</h2>
                             <h2>{HandleFunction.formatNumberToVND(totalPrice)}</h2>
                         </div>
-                        <div class=' flex flex-col items-center pt-5'>
+                        <div className=' flex flex-col items-center pt-5'>
                             <CustomButton
                                 label="Order"
                                 _onClick={() => setTogglePayment(true)}
                             />
                         </div>
-                        <div class='h-3'></div>
+                        <div className='h-3'></div>
 
                     </div>
                     <ShippingInfo

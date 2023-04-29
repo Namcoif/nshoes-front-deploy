@@ -10,6 +10,39 @@ const initailState = {
 
 const pageReducers = (state = initailState, action) => {
     switch (action.type) {
+
+        case actionTypes.SIGN_IN_REQUEST:
+            return {
+                ...state,
+                isLogin: true
+            }
+        case actionTypes.SIGN_IN_SUCCESS:
+            return {
+                ...state,
+                isLogin: false
+            }
+        case actionTypes.SIGN_IN_FAIL:
+            return {
+                ...state,
+                isLogin: false
+            }
+
+        case actionTypes.SIGN_UP_REQUEST:
+            return {
+                ...state,
+                isLoading: true
+            }
+        case actionTypes.SIGN_UP_SUCCESS:
+            return {
+                ...state,
+                isLoading: false
+            }
+        case actionTypes.SIGN_UP_FAIL:
+            return {
+                ...state,
+                isLoading: false
+            }
+
         case actionTypes.CHANGE_TITLE:
             return {
                 ...state,

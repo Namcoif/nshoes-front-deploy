@@ -5,14 +5,16 @@ import CustomInput from '../../_sharecomponents/input/CustomInput';
 import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineLock, AiOutlineMail, AiOutlineUser } from 'react-icons/ai';
 import axios from 'axios';
 import listAPI_Back from '../../api/API';
-import { useDispatch } from 'react-redux';
-import { Alert } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { Alert, LinearProgress } from '@mui/material';
 import userActions from '../../redux/actions/userActions';
 import ButtonTeal from '../../_sharecomponents/button/ButtonTeal';
+import actionTypes from '../../redux/constant/constant';
 function SignUp(props) {
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
+    const selector = useSelector(state => state);
 
     const refInput = useRef();
     const refSubmit = useRef();
@@ -21,8 +23,11 @@ function SignUp(props) {
     const [signUpInfo, setSignUpInfo] = useState({
         email: '',
         username: '',
+        fullName: '',
         password: ''
     })
+
+    const [isLoading, setIsLoading] = useState(false)
 
     const [isAlert, setIsAlert] = useState(false)
 
@@ -30,27 +35,38 @@ function SignUp(props) {
         auth: '',
         emailErr: '',
         usernameErr: '',
+        fullNameErr: '',
         passwordErr: '',
         succeeded: ''
     })
 
     const _siginUp = async () => {
+        dispatch({
+            type: actionTypes.SIGN_UP_REQUEST
+        })
         await axios.post(listAPI_Back.SIGN_UP, signUpInfo).then((res) => {
 
-            setNotification({
-                succeeded: res.data
+            localStorage.setItem('emailRegister', signUpInfo.email)
+            // setNotification({
+            //     succeeded: res.data
+            // })
+            // setIsAlert(true)
+            // const timer = setTimeout(() => {
+            //     setIsAlert(false)
+            //     dispatch(userActions.toggleSignUp())
+
+            // }, 3000);
+            dispatch({
+                type: actionTypes.SIGN_UP_SUCCESS
             })
-            setIsAlert(true)
-            const timer = setTimeout(() => {
-                setIsAlert(false)
-                dispatch(userActions.toggleSignUp())
-
-            }, 3000);
-            return () => clearTimeout(timer)
-
+            navigate('ap1/v1/user-confirm')
+            // return () => clearTimeout(timer)
         }).catch((error) => {
             const res = error.response.data;
             console.log(res);
+            dispatch({
+                type: actionTypes.SIGN_UP_FAIL
+            })
 
             if (res.auth !== undefined) {
                 setNotification({
@@ -61,6 +77,7 @@ function SignUp(props) {
                 setNotification({
                     emailErr: res.email,
                     usernameErr: res.username,
+                    fullNameErr: res.fullName,
                     passwordErr: res.password,
                 })
             }
@@ -92,17 +109,21 @@ function SignUp(props) {
         refInput.current.focus()
     }, [])
 
+    useEffect(() => {
+        setIsLoading(selector.page.isLoading)
+    }, [selector.page.isLoading])
+
     return (
         <div
             onKeyDown={_handleKeyDown}
-            class='
-                    
+            className='
                     bg-white
                     px-10
                     py-20'>
+
             <div
                 id='header-sign'
-                class='
+                className='
                         flex
                         flex-col
                         items-center
@@ -115,15 +136,16 @@ function SignUp(props) {
             </div>
             <div
                 id='body-sign'
-                class='
+                className='
                         flex
                         flex-col
                         items-center
+                        w-full
                         '>
 
                 <div
                     id='email'
-                    class='mb-5'>
+                    className='mb-5 w-full'>
                     <label>Email</label>
                     <CustomInput
                         type="email"
@@ -135,7 +157,21 @@ function SignUp(props) {
                     />
                 </div>
                 <div
-                    id='username'>
+                    id='full-name'
+                    className='mb-5 w-full'>
+                    <label>Full Name</label>
+                    <CustomInput
+                        type="text"
+                        Icon={AiOutlineMail}
+                        _getInputValue={_getSignUpInfo}
+                        placeholder="John, Tom,..."
+                        name="fullName"
+                    />
+                </div>
+                <div
+                    id='username'
+                    className='mb-5 w-full'>
+
                     <label>Username</label>
                     <CustomInput
                         type="text"
@@ -148,7 +184,7 @@ function SignUp(props) {
                 </div>
                 <div
                     id='password'
-                    class='mb-5'>
+                    className='mb-5 w-full'>
                     <label>Password</label>
                     <CustomInput
                         type="password"
@@ -169,9 +205,17 @@ function SignUp(props) {
                 />
 
             </div>
+            {
+                isLoading ?
+                    <div>
+                        <h4>Please wait...</h4>
+                        <LinearProgress />
+                    </div>
+                    : null
+            }
             <div
                 id='footer-sign'
-                class='
+                className='
                         mt-5'>
                 {isAlert & notification.succeeded !== undefined ?
                     <Alert severity="success">
@@ -186,6 +230,11 @@ function SignUp(props) {
                 {isAlert & notification.emailErr !== undefined ?
                     <Alert severity="error">
                         {notification.emailErr}
+                    </Alert>
+                    : null}
+                {isAlert & notification.fullNameErr !== undefined ?
+                    <Alert severity="error">
+                        {notification.fullNameErr}
                     </Alert>
                     : null}
                 {isAlert & notification.usernameErr !== undefined ?

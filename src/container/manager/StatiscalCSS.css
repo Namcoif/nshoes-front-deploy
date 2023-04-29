@@ -1,0 +1,8 @@
+.hide {
+    display: none;
+}
+
+.go-to-top:hover+.hide {
+    display: block;
+    color: red;
+}

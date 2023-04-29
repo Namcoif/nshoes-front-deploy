@@ -13,9 +13,9 @@ function DropDown(props) {
         setDropDown(false)
     }
     return (
-        <div class=' '>
+        <div className=' '>
             <div
-                class='
+                className='
                     relative'
                 onMouseOver={_trueDropDown}
                 onMouseOut={_falseDropDown}
@@ -25,16 +25,16 @@ function DropDown(props) {
                 {
                     dropDown
                         ?
-                        <div class='absolute -right-24 w-max'>
+                        <div className='absolute -right-24 w-max'>
 
                             <div
-                                class='
+                                className='
                                     relative'
                                 onMouseOver={_trueDropDown}
                                 onMouseOut={_falseDropDown}
                                 onClick={_falseDropDown}>
 
-                                {/* <div class=' p-3 w-4 h-4 rotate-45 bg-gray-500 -top-2 left-14 absolute -z-10'>
+                                {/* <div className=' p-3 w-4 h-4 rotate-45 bg-gray-500 -top-2 left-14 absolute -z-10'>
 
                                 </div> */}
 

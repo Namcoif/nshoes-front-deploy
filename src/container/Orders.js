@@ -145,10 +145,10 @@ function Orders(props) {
     }, [filter])
 
     return (
-        <div class='mt-28'>
+        <div className='mt-28'>
             <div
                 id='header-orders'
-                class='
+                className='
                     flex flex-row items-center justify-center
                     sm:px-32
                     lg:px-80
@@ -157,7 +157,7 @@ function Orders(props) {
                     '>
                 {
                     currentStatus == 'ALL ORDERS' ?
-                        <div class='shadow-lg -mb-5 mx-2 '>
+                        <div className='shadow-lg -mb-5 mx-2 '>
                             <Button
                                 color='error'
                                 variant='contained'
@@ -176,7 +176,7 @@ function Orders(props) {
                         </div>
 
                         :
-                        <div class='shadow-lg mx-2'>
+                        <div className='shadow-lg mx-2'>
                             <Button
                                 color='inherit'
                                 onClick={() => {
@@ -197,7 +197,7 @@ function Orders(props) {
                 {
                     orderStatus.map((item) => {
                         if (currentStatus == item) {
-                            return <div class='shadow-lg -mb-5 mx-2'>
+                            return <div className='shadow-lg -mb-5 mx-2'>
                                 <Button
                                     color='error'
                                     variant='contained'
@@ -217,7 +217,7 @@ function Orders(props) {
 
                         }
                         else {
-                            return <div class='shadow-lg mx-2'>
+                            return <div className='shadow-lg mx-2'>
                                 <Button
                                     color='inherit'
                                     onClick={() => {

@@ -6,12 +6,14 @@ import { Button, Dialog, DialogActions, DialogContent } from '@mui/material';
 import axios from 'axios';
 import listAPI_Back from '../../api/API';
 import CustomReviews from '../reviews/CustomReviews';
+import FormUpdateOrder from '../form/FormUpdateOrder';
 
 function ProductInOrders(props) {
     const { product } = props
     console.log(product);
     const [isCancel, setIsCancel] = useState(false);
     const [isRate, setIsRate] = useState(false);
+    const [isUpdate, setIsUpdate] = useState(false);
 
     const [reviews, setReviews] = useState({
         "star": 5,
@@ -63,7 +65,7 @@ function ProductInOrders(props) {
     return (
 
         <div
-            class='
+            className='
                 flex flex-row
                 mx-56
                 py-5
@@ -129,53 +131,72 @@ function ProductInOrders(props) {
                 </DialogActions>
             </Dialog>
 
+            <Dialog
+                open={isUpdate}
+            >
+                <DialogContent>
+                    <FormUpdateOrder
+                        product={product}
+                        _onClick={() => {
+                            setIsUpdate(false)
+                        }}
+                    />
+                </DialogContent>
+
+            </Dialog>
+
             <div
                 id='img-product'
-                class=' 
+                className=' 
                        w-1/5'>
-                <div id='main-img' class='w-full'>
-                    <img src={product.product.productImgUrls[0].url} class='w-full' />
+                <div id='main-img' className='w-full'>
+                    {
+                        product.product.productImgUrls.length !== 0
+                            ?
+                            <img src={product.product.productImgUrls[0].url} className='w-full' />
+                            : null
+                    }
                 </div>
 
             </div>
 
             <div id='info-product'
-                class='
+                className='
                     flex 
                     flex-col
                     mx-8
                     w-3/5
                     '>
 
-                <div class='flex flex-row justify-between items-center'>
+                <div className='flex flex-row justify-between items-center'>
                     <span
                         id='name-product'
-                        class='truncate w-5/6'>
+                        className='truncate w-5/6'>
                         {product.product.productName}
                     </span>
 
                 </div>
-                <div class='flex flex-row  justify-between'>
+                <div className='flex flex-row  justify-between'>
 
 
-                    <div class='flex flex-col'>
+                    <div className='flex flex-col'>
                         <div
                             id='size'
-                            class='
+                            className='
                            mt-3 text-gray-400'>
                             <span>Size: {product.size}</span>
 
-                            <div class='flex'>
+                            <div className='flex'>
 
                             </div>
-                            <div class='text-red-vio underline'>
+                            <div className='text-red-vio underline'>
 
                             </div>
                         </div>
                         <div>
                             <table>
                                 <tr>
-                                    <td class='w-28'>
+                                    <td className='w-28'>
                                         <span>Order date: </span>
                                     </td>
                                     <td>
@@ -205,7 +226,7 @@ function ProductInOrders(props) {
             </div>
             <div
                 id='controll-item'
-                class='
+                className='
                 flex flex-col items-end
                 flex-1
 
@@ -213,27 +234,27 @@ function ProductInOrders(props) {
 
                 <div
                     id='price'
-                    class='
+                    className='
                             flex
                             flex-col items-end
                             py-4
                             '>
                     <span
                         id='promotion-price'
-                        class='
+                        className='
                                 font-semibold'>
                         {HandleFunction.formatNumberToVND(product.productPrice)}
                     </span>
-                    <span class='text-xs'>Shipping: {HandleFunction.formatNumberToVND(30000)}</span>
+                    <span className='text-xs'>Shipping: {HandleFunction.formatNumberToVND(30000)}</span>
                     <div
                         id='amout'
-                        class='flex flex-col items-end pt-2'
+                        className='flex flex-col items-end pt-2'
                     >
-                        <span class='text-md font-normal text-yellow-500'>
+                        <span className='text-md font-normal text-yellow-500'>
                             Amout:
                         </span>
                         <span
-                            class='
+                            className='
                                     text-xl font-extrabold text-white
                                     rounded
                                     bg-yellow-400
@@ -250,29 +271,42 @@ function ProductInOrders(props) {
                 </div>
                 <div >
                     {
-                        product.orderStatus != 'DELIVERED' && product.orderStatus != 'CANCELED' && product.orderStatus != 'RETURNS' ?
+                        localStorage.role == '[MANAGER]'
+                            ?
                             <Button
-                                color='error'
+                                color='success'
                                 variant='contained'
                                 onClick={() => {
-                                    setIsCancel(true);
+                                    setIsUpdate(true);
                                 }}
                             >
-                                CANCEL
-                            </Button>
-                            :
-                            (product.orderStatus == 'DELIVERED'
-                                ?
-                                <Button
-                                    color='success'
-                                    variant='contained'
-                                    onClick={() => {
-                                        setIsRate(true);
-                                    }}
-                                >
-                                    Rate
-                                </Button>
-                                : null
+                                UPDATE
+                            </Button> :
+                            (
+                                product.orderStatus != 'DELIVERED' && product.orderStatus != 'CANCELED' && product.orderStatus != 'RETURNS' ?
+                                    <Button
+                                        color='error'
+                                        variant='contained'
+                                        onClick={() => {
+                                            setIsCancel(true);
+                                        }}
+                                    >
+                                        CANCEL
+                                    </Button>
+                                    :
+                                    (product.orderStatus == 'DELIVERED'
+                                        ?
+                                        <Button
+                                            color='success'
+                                            variant='contained'
+                                            onClick={() => {
+                                                setIsRate(true);
+                                            }}
+                                        >
+                                            Rate
+                                        </Button>
+                                        : null
+                                    )
                             )
                     }
                 </div>

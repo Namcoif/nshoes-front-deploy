@@ -22,7 +22,7 @@ function CustomButton(props) {
                         ref={refButton}
                         className='custom-btn btn-1'
 
-                    // class='
+                    // className='
                     // bg-gradient-to-br from-red-vio to-vio-red
 
                     // py-1

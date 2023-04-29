@@ -3,15 +3,19 @@ import CustomInput from '../../_sharecomponents/input/CustomInput';
 import { AiOutlineUser, AiOutlineLock, AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import axios from 'axios';
 import listAPI_Back from './../../api/API';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import userActions from '../../redux/actions/userActions';
-import { Alert } from '@mui/material';
+import { Alert, LinearProgress } from '@mui/material';
 import ButtonTeal from './../../_sharecomponents/button/ButtonTeal';
 import { useRef } from 'react';
 import pageActions from './../../redux/actions/pageActions';
 import CustomButton from '../../_sharecomponents/button/CustomButton';
+import actionTypes from '../../redux/constant/constant';
 function SignIn(props) {
+
     const dispatch = useDispatch();
+    const selector = useSelector(state => state);
+
     const [signInInfo, setSignInInfo] = useState({
         username: '',
         password: ''
@@ -21,7 +25,7 @@ function SignIn(props) {
 
     const refSubmit = useRef();
 
-
+    const [isSignIn, setIsSignIn] = useState(false);
     const [isAlert, setIsAlert] = useState(false)
 
     const [notification, setNotification] = useState({
@@ -32,6 +36,9 @@ function SignIn(props) {
     })
 
     const _siginIn = async () => {
+        dispatch({
+            type: actionTypes.SIGN_IN_REQUEST
+        })
         await axios.post(listAPI_Back.SIGN_IN, signInInfo).then((res) => {
             localStorage.setItem("role", res.data.role);
             localStorage.setItem("token", res.data.token);
@@ -40,17 +47,27 @@ function SignIn(props) {
             setNotification({
                 succeeded: 'Logged in successfully!'
             })
-            dispatch(pageActions.signIn())
+
+            dispatch({
+                type: actionTypes.SIGN_IN_SUCCESS
+            })
+
+            // dispatch(pageActions.signIn())
             localStorage.setItem("isLogged", true);
-            setIsAlert(true)
+            // setIsAlert(true)
 
-            const timer = setTimeout(() => {
-                setIsAlert(false)
-                dispatch(userActions.toggleSignIn())
+            // const timer = setTimeout(() => {
+            //     setIsAlert(false)
+            dispatch(userActions.toggleSignIn())
 
-            }, 1000);
-            return () => clearTimeout(timer)
+            // }, 1000);
+            // return () => clearTimeout(timer)
         }).catch((error) => {
+
+            dispatch({
+                type: actionTypes.SIGN_IN_FAIL
+            })
+
             const res = error.response.data;
             console.log(res);
 
@@ -90,18 +107,21 @@ function SignIn(props) {
     useEffect(() => {
         refInput.current.focus()
     }, [])
-
+    useEffect(() => {
+        setIsSignIn(selector.page.isLogin)
+    }, [selector.page.isLogin])
     return (
         <div
             onKeyDown={_handleKeyDown}
-            class='
+            className='
                     
                     bg-white
                     px-10
                     py-20'>
+
             <div
                 id='header-sign'
-                class='
+                className='
                         flex
                         flex-col
                         items-center
@@ -114,13 +134,14 @@ function SignIn(props) {
             </div>
             <div
                 id='body-sign'
-                class='
+                className='
                         flex
                         flex-col
                         items-center
                         '>
                 <div
-                    id='username'>
+                    id='username'
+                    className='mb-5 w-full'>
                     <label>Username</label>
                     <CustomInput
                         type="text"
@@ -133,7 +154,7 @@ function SignIn(props) {
                 </div>
                 <div
                     id='password'
-                    class='mb-5'>
+                    className='mb-5 w-full'>
                     <label>Password</label>
                     <CustomInput
                         type="password"
@@ -154,9 +175,14 @@ function SignIn(props) {
                 />
 
             </div>
+            {
+                isSignIn ?
+                    <div className='mt-5'> <LinearProgress /></div>
+                    : null
+            }
             <div
                 id='footer-sign'
-                class='
+                className='
                         mt-5'>
                 {isAlert & notification.succeeded !== undefined ?
                     <Alert severity="success">

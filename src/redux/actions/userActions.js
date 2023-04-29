@@ -47,6 +47,18 @@ const getProduct = (url) => async (dispatch) => {
     })
 }
 
+const openCreateProduct = () => {
+    return {
+        type: actionTypes.OPEN_CREATE_PRODUCT
+    }
+}
+
+const closeCreateProduct = () => {
+    return {
+        type: actionTypes.CLOSE_CREATE_PRODUCT
+    }
+}
+
 const openDeleteProduct = () => {
     return {
         type: actionTypes.OPEN_DELETE_PRODUCT
@@ -136,6 +148,8 @@ const userActions = {
     getProduct,
     getProductNameSearch,
 
+    openCreateProduct,
+    closeCreateProduct,
     openDeleteProduct,
     closeDeleteProduct,
 

@@ -19,8 +19,8 @@ function CustomReviews(props) {
     }, [star, comment])
 
     return (
-        <div class='w-96 flex flex-col items-center'>
-            <div class='flex flex-col items-start w-80'>
+        <div className='w-96 flex flex-col items-center'>
+            <div className='flex flex-col items-start w-80'>
                 <span>How accurate was product</span>
                 <Rating
                     name="simple-controlled"
@@ -31,7 +31,7 @@ function CustomReviews(props) {
                 />
             </div>
 
-            <div class='flex flex-col mt-2'>
+            <div className='flex flex-col mt-2'>
                 <span>Comments</span>
                 <TextareaAutosize minRows={5}
                     placeholder="Type anything…"

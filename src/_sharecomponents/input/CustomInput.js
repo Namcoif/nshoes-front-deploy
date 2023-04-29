@@ -35,7 +35,7 @@ function CustomInput(props) {
 
     return (
         <div
-            class='
+            className='
                         flex
                         flex-row
                         items-center
@@ -49,7 +49,7 @@ function CustomInput(props) {
         >
             {Icon != null ? <Icon /> : null}
             <input
-                class="
+                className="
                     form-control
                     block
                     bg-white
@@ -74,6 +74,7 @@ function CustomInput(props) {
                 onFocus={_onFocus}
                 onBlur={_onBlur}
                 ref={refInput}
+                required
             />
             {
                 Icon2 && Icon3 != null

@@ -41,7 +41,7 @@ const CustomSearch = (props) => {
     return (
         <div
             className='custom-input'
-            class='
+            className='
                         flex
                         flex-row
                         items-center
@@ -57,7 +57,7 @@ const CustomSearch = (props) => {
 
             <input
                 // className={onFocus ? 'input-item on-focus' : 'input-item'}
-                class="
+                className="
                     form-control
                     block
                     bg-white
@@ -86,9 +86,9 @@ const CustomSearch = (props) => {
             <button
                 ref={refSubmit}
                 onClick={_onClick}
-                class=' w-min bg-red-vio focus:outline-none'>
+                className=' w-min bg-red-vio focus:outline-none'>
                 <CiSearch
-                    class="
+                    className="
                             h-full
                             w-8
                             text-white

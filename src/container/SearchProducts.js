@@ -93,7 +93,7 @@ function SearchProducts(props) {
 
     const ComponentSearch = (onClick) => {
         return <button
-            class='bg-red-vio text-white flex flex-row items-center justify-center' ref={refSubmit} onClick={onClick}>
+            className='bg-red-vio text-white flex flex-row items-center justify-center' ref={refSubmit} onClick={onClick}>
             <CiSearch size={"30px"} />
         </button>
     }
@@ -158,14 +158,14 @@ function SearchProducts(props) {
     return (
         <div
             onKeyDown={_handleKeyDown}
-            class='
+            className='
                 mt-28
                 flex flex-row
                 justify-center'>
-            <div class=''>
-                <div class='sticky top-28'>
+            <div className=''>
+                <div className='sticky top-28'>
                     <div
-                        class='
+                        className='
                             font-bold px-2 hover:shadow-2xl cursor-pointer'
 
                         onClick={() => setFilter({
@@ -186,13 +186,13 @@ function SearchProducts(props) {
                     />
                 </div>
             </div>
-            <div class=''>
+            <div className=''>
 
                 <div
                     id='search-head'
-                    class='flex flex-row'>
-                    <div class='w-1/2'>
-                        <div class=''>
+                    className='flex flex-row'>
+                    <div className='w-1/2'>
+                        <div className=''>
                             <CustomInput
                                 type="text"
                                 Icon={() => ComponentSearch(_searchProducts)}
@@ -202,7 +202,7 @@ function SearchProducts(props) {
                             />
                         </div>
                         <div
-                            class='flex flex-row'>
+                            className='flex flex-row'>
                             <CustomInput
                                 Icon={BiDollar}
                                 type="text"
@@ -210,7 +210,7 @@ function SearchProducts(props) {
                                 placeholder="Min"
                                 name="minPrice"
                             />
-                            <div class='w-4'></div>
+                            <div className='w-4'></div>
                             <CustomInput
                                 Icon={BiDollar}
                                 type="text"
@@ -221,14 +221,14 @@ function SearchProducts(props) {
                             />
                         </div>
                     </div>
-                    <div class='flex flex-col items-center justify-center flex-1 '>
+                    <div className='flex flex-col items-center justify-center flex-1 '>
                         <span>Result for: </span>
-                        <span class='text-3xl'>{filterParams.productName}</span>
+                        <span className='text-3xl'>{filterParams.productName}</span>
                     </div>
                 </div>
                 <div
                     id='search-body'
-                    class='
+                    className='
                         flex flex-row'>
 
                     <div>
@@ -240,7 +240,7 @@ function SearchProducts(props) {
                 </div>
                 <div
                     id='page-number'
-                    class=''>
+                    className=''>
                     <NavigatePage
                         totalPages={totalPages}
                         _onClick={(item) => {

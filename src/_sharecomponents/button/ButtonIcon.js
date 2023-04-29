@@ -8,7 +8,7 @@ function ButtonIcon(props) {
                 ?
                 <button
                     onClick={_onClick}
-                    class='
+                    className='
                         bg-gradient-to-br from-red-vio to-vio-red text-white
                         rounded-circle
                         w-6 h-6 min-w-min'
@@ -17,7 +17,7 @@ function ButtonIcon(props) {
                 </button>
                 :
                 <button
-                    class='
+                    className='
                         bg-gradient-to-br from-red-vio to-vio-red text-white
                         rounded-circle 
                         w-6 h-6 min-w-min'>

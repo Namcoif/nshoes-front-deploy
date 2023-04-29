@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import listAPI_Back from '../../../api/API';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import pageActions from './../../../redux/actions/pageActions';
 import SuggestCarousel from './../../../container/SuggestCarousel';
 import MoreToLove from './../../../container/MoreToLove';
 import Sidebar from '../../../_sharecomponents/sidebar/Sidebar';
 import NavigatePage from './../../../_sharecomponents/navigatepage/NavigatePage';
+import FormCreateProduct from '../../../_sharecomponents/form/FormCreateProduct';
+import { Button, Dialog, DialogContent } from '@mui/material';
+import userActions from '../../../redux/actions/userActions';
+import Welcome from '../../../container/Welcome';
 
 function BodyPage(props) {
 
     const dispatch = useDispatch();
+    const selector = useSelector(state => state);
 
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
@@ -21,6 +26,8 @@ function BodyPage(props) {
 
     const [totalPages, setTotalPages] = useState([]);
 
+    const [isCreateProduct, setIsCreateProduct] = useState(false);
+
     const managerSidebar = [
         {
             id: "product",
@@ -28,13 +35,13 @@ function BodyPage(props) {
             itemSidebarName: "Products Management"
         },
         {
-            id: "categỏy",
+            id: "category",
             link: "/api/v1/categories/management",
             itemSidebarName: "Categories Management"
         },
         {
             id: "order",
-            link: "/api/v1/orders/management",
+            link: "/api/v1/orders-management/ /1",
             itemSidebarName: "Orders Management"
         },
         {
@@ -84,11 +91,13 @@ function BodyPage(props) {
 
     }, [])
 
-
+    useEffect(() => {
+        setIsCreateProduct(selector.user.isCreateProduct)
+    }, [selector.user.isCreateProduct])
     return (
 
         // <div
-        //     class="
+        //     className="
         //             min-w-full 
         //             mt-28 
 
@@ -106,14 +115,30 @@ function BodyPage(props) {
 
         //             ">
         <div
-            class="
+            className="
                 min-w-full 
-                mt-28
+                mt-24
                 ">
+            <Dialog
+                open={isCreateProduct}
+                onClose={() => {
+                    dispatch(userActions.openCreateProduct())
+
+                }}
+            >
+                <DialogContent>
+                    <FormCreateProduct
+                    />
+                </DialogContent>
+
+            </Dialog>
+            <div className=''>
+                <Welcome />
+            </div>
             <div
                 id='home-firstscreen'
-                class='
-                       
+                className='
+                    py-10
                     flex flex-row
                     
                     justify-center'>
@@ -133,12 +158,10 @@ function BodyPage(props) {
                                 itemsSidebar={categories}
                             />
                     }
-
-
-
                 </div>
                 <div id='suggest-carousel'
-                    class='
+                    className='
+                    flex flex-col justify-center
                         w-96'>
                     <SuggestCarousel
                         itemCarousel={sellingProducts}
@@ -147,6 +170,22 @@ function BodyPage(props) {
             </div>
             <div id='sales'>
             </div>
+            {
+                localStorage.role == '[MANAGER]'
+                    ? <div className='w-1/2 flex flex-col items-center mb-3'>
+
+                        <Button
+                            variant='contained'
+                            onClick={() => {
+                                dispatch(userActions.openCreateProduct())
+                            }}
+                        >
+                            Create New Product
+                        </Button>
+                    </div>
+                    : null
+            }
+
             <div id='more-to-love'>
                 <MoreToLove
                     products={products}
@@ -154,7 +193,7 @@ function BodyPage(props) {
             </div>
             <div
                 id='page-number'
-                class=''>
+                className=''>
                 {/* {navigatePage} */}
                 <NavigatePage
                     totalPages={totalPages}

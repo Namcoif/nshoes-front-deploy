@@ -38,12 +38,12 @@ function HomePage(props) {
 
     return (
         <div id='homepage-container'
-            class="
+            className="
                     flex flex-col
                     ">
 
             <header id='homepage-header'
-                class='
+                className='
                         z-10'>
                 {
                     // selector.page.isLoggin
@@ -57,6 +57,7 @@ function HomePage(props) {
             <Dialog
                 open={istoggleSignIn}
                 onClose={toggleFormSignIn}
+                fullWidth
             >
                 <DialogContent>
                     <SignIn />
@@ -68,6 +69,7 @@ function HomePage(props) {
             <Dialog
                 open={istoggleSignUp}
                 onClose={toggleFormSignUp}
+                fullWidth
             >
                 <DialogContent>
                     <SignUp />
@@ -78,11 +80,11 @@ function HomePage(props) {
 
 
             <div id='homepage-body'
-                class="">
+                className="">
                 <Outlet />
             </div>
             <footer
-                class='
+                className='
                         bg-white'>
                 <Footer />
 

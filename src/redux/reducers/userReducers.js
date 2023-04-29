@@ -12,6 +12,7 @@ const initialState = {
     isCreateAcc: false,
     isUpdateAcc: false,
     isDeleteAcc: false,
+    isCreateProduct: false,
 
 
 }
@@ -55,6 +56,16 @@ const userReducers = (state = initialState, action) => {
             return {
                 ...state,
                 keySearch: action.payload
+            }
+        case actionTypes.OPEN_CREATE_PRODUCT:
+            return {
+                ...state,
+                isCreateProduct: true
+            }
+        case actionTypes.CLOSE_CREATE_PRODUCT:
+            return {
+                ...state,
+                isCreateProduct: false
             }
         case actionTypes.OPEN_DELETE_PRODUCT:
             return {

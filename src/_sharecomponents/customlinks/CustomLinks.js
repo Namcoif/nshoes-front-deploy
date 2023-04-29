@@ -4,7 +4,7 @@ import './CustomLinks.css'
 function CustomLinks(props) {
     const { menuLinks } = props;
     return (
-        <div class='
+        <div className='
                 flex flex-col
                 justify-center
                 my-2
@@ -20,7 +20,7 @@ function CustomLinks(props) {
 
                     >
                         <span
-                            class='
+                            className='
                                 hover:text-red-vio'>
                             {item.text}
                         </span>

@@ -14,11 +14,11 @@ import ButtonTeal from './../_sharecomponents/button/ButtonTeal';
 import { Alert, Button, Dialog, DialogContent, Rating } from '@mui/material';
 import MoreToLove from './MoreToLove';
 import { CiUser } from 'react-icons/ci';
-import CustomReviews from '../_sharecomponents/reviews/CustomReviews';
 import FormUpdateProduct from '../_sharecomponents/form/FormUpdateProduct';
 import './Container.css'
 import FormDeleteProduct from '../_sharecomponents/form/FormDeleteProduct';
 import userActions from '../redux/actions/userActions';
+import actionTypes from '../redux/constant/constant';
 function ProductInfo(props) {
 
     const { productId } = useParams();
@@ -79,7 +79,9 @@ function ProductInfo(props) {
     const [currentInfo, setCurrentInfo] = useState('Description');
 
     const _getProduct = async () => {
-
+        dispatch({
+            type: actionTypes.GET_MORE_TO_LOVE_REQUEST
+        })
         await axios.get(listAPI_Back.GET_PRODUCT + '/' + productId).then(async (res) => {
             const product = res.data
             await axios.get(listAPI_Back.GET_LIST_PRODUCTS, {
@@ -90,6 +92,9 @@ function ProductInfo(props) {
                 .then((res) => {
                     console.log(res);
                     setProductSuggest(res.data.content)
+                    dispatch({
+                        type: actionTypes.GET_MORE_TO_LOVE_SUCCESS
+                    })
                 })
             setProduct(product)
 
@@ -208,7 +213,7 @@ function ProductInfo(props) {
 
     return (
         <div
-            class='flex flex-col'
+            className='flex flex-col'
         >
             <Dialog
                 open={isUpdateProduct}
@@ -221,6 +226,8 @@ function ProductInfo(props) {
                 </DialogContent>
 
             </Dialog>
+
+
 
             <Dialog
                 open={isDeleteProduct}
@@ -236,7 +243,7 @@ function ProductInfo(props) {
 
 
             <div
-                class='
+                className='
                 mt-28
                 justify-center
                 flex
@@ -247,14 +254,14 @@ function ProductInfo(props) {
                     <DialogContent>
                         <Alert>{resAdd}</Alert>
                         <div
-                            class='
+                            className='
                             mt-5
                             flex flex-row'>
                             <CustomButton
                                 label="keep shopping"
                                 _onClick={_keepShopping}
                             />
-                            <div class='w-5'>
+                            <div className='w-5'>
 
                             </div>
                             <ButtonTeal
@@ -267,7 +274,7 @@ function ProductInfo(props) {
 
                 <div id='img-product'>
                     <div id='main-img' className='main-img'>
-                        <img src={linkImg} class='w-96' />
+                        <img src={linkImg} className='w-96' />
                         <div className="content-img">
                             {
                                 product.productStatus == 'ON_SELLING' && product.quantity > 0
@@ -289,7 +296,7 @@ function ProductInfo(props) {
                     </div>
                 </div>
                 <div id='info-product'
-                    class='
+                    className='
                     flex 
                     flex-col
                     w-1/3
@@ -297,15 +304,15 @@ function ProductInfo(props) {
                     xl:w-1/3
                     ml-8'>
 
-                    <div class='py-4 border-solid 
+                    <div className='py-4 border-solid 
                     border-red-vio
                     border-b-2'>
                         <span id='name-product'>{product.productName}</span>
-                        <div class='flex items-center
+                        <div className='flex items-center
                     '>
                             <span
                                 id='promotion-price'
-                                class='
+                                className='
                                 text-xl
                                 font-semibold'>
                                 {HandleFunction.formatNumberToVND(product.promotionPrice)}
@@ -313,7 +320,7 @@ function ProductInfo(props) {
 
                             <span
                                 id='original-price'
-                                class='
+                                className='
                                 text-black
                                 text-xs
                                 line-through
@@ -323,14 +330,15 @@ function ProductInfo(props) {
                             </span>
 
                             <span
-                                class='
+                                className='
                                 flex
                                 items-center
                                 text-xs
+                                p-1
                                 ml-3
-                                bg-red-400
-                                text-red-vio
-                                '>
+                                bg-red-vio
+                                text-white
+                                '>-
                                 {percent}
                                 <AiOutlinePercentage />
                             </span>
@@ -343,7 +351,7 @@ function ProductInfo(props) {
                     </div>
                     <div
                         id='size'
-                        class='
+                        className='
                             py-4
                             border-solid 
                             border-red-vio  
@@ -351,7 +359,7 @@ function ProductInfo(props) {
                             border-b-2'>
                         <span>Size: {productWillGet.size}</span>
 
-                        <div class='flex'>
+                        <div className='flex'>
                             {
                                 sizes.map((item) => {
                                     return <DropDown
@@ -361,7 +369,7 @@ function ProductInfo(props) {
                                                 >
 
                                                     <button
-                                                        class='
+                                                        className='
                                                         text-xs
                                                         border-4 border-solid border-red-vio
                                                         rounded
@@ -387,7 +395,7 @@ function ProductInfo(props) {
                                             >
 
                                                 <button
-                                                    class='
+                                                    className='
                                                         text-xs
                                                         border-2 border-solid border-gray-500
                                                         rounded
@@ -413,11 +421,11 @@ function ProductInfo(props) {
 
                                         }
                                         DropContent={() =>
-                                            <div class='flex flex-col items-center mt-1 p-5 rounded bg-white shadow-black2 text-xs'>
+                                            <div className='flex flex-col items-center mt-1 p-5 rounded bg-white shadow-black2 text-xs'>
                                                 <span>Manufacturer Size</span>
-                                                <div class='flex flex-row justify-between mt-4'>
-                                                    <span class=''>Heel to Toe</span>
-                                                    <span class='bg-teal-500 px-1 rounded ml-5 '>{sizeCm[item.size - 35]}cm</span>
+                                                <div className='flex flex-row justify-between mt-4'>
+                                                    <span className=''>Heel to Toe</span>
+                                                    <span className='bg-teal-500 px-1 rounded ml-5 '>{sizeCm[item.size - 35]}cm</span>
                                                 </div>
                                             </div>
                                         }
@@ -425,7 +433,7 @@ function ProductInfo(props) {
                                 })
                             }
                         </div>
-                        <div class='text-red-vio underline'>
+                        <div className='text-red-vio underline'>
                             {/* <span>
                             Slected: {productWillGet.size}
                         </span> */}
@@ -433,18 +441,18 @@ function ProductInfo(props) {
                     </div>
                     <div
                         id='quantity'
-                        class='
+                        className='
                             flex
                             flex-row items-center content-center
                             py-4
                             '>
-                        <span class='mr-2'>Quantity</span>
+                        <span className='mr-2'>Quantity</span>
 
                         <ButtonIcon
                             label='-'
                             _onClick={_decrementQuantity}
                         />
-                        <span class='mx-2'>{productWillGet.quantity}</span>
+                        <span className='mx-2'>{productWillGet.quantity}</span>
                         <ButtonIcon
                             label='+'
                             _onClick={_incrementQuantity}
@@ -459,7 +467,7 @@ function ProductInfo(props) {
                         {
                             localStorage.role == '[CUSTOMER]' ?
                                 <div
-                                    class='flex flex-row justify-between 2xl:w-1/2 py-4'>
+                                    className='flex flex-row justify-between 2xl:w-1/2 py-4'>
                                     <CustomButton
                                         label='buy now'
                                         _onClick={_buyNow}
@@ -470,7 +478,7 @@ function ProductInfo(props) {
                                     />
                                 </div> :
                                 <div
-                                    class='flex flex-row justify-between 2xl:w-1/2 py-4'>
+                                    className='flex flex-row justify-between 2xl:w-1/2 py-4'>
                                     <CustomButton
                                         label='Update'
                                         _onClick={() => {
@@ -491,7 +499,7 @@ function ProductInfo(props) {
             </div >
             <div
                 id='more-info'
-                class='
+                className='
                     lg:px-60
                     xl:px-72
                     2xl:px-96
@@ -499,7 +507,7 @@ function ProductInfo(props) {
             >
                 <div
                     id='header-more-info'
-                    class='
+                    className='
                     shadow-md
                         pt-4
                         mb-6
@@ -511,7 +519,7 @@ function ProductInfo(props) {
                     {
                         moreInfo.map((item) => {
                             if (currentInfo == item) {
-                                return <div class='shadow-lg -mb-5 mx-2'>
+                                return <div className='shadow-lg -mb-5 mx-2'>
                                     <Button
                                         color='error'
                                         variant='contained'
@@ -525,7 +533,7 @@ function ProductInfo(props) {
                                 </div>
                             }
                             else {
-                                return <div class='shadow-lg mx-2'>
+                                return <div className='shadow-lg mx-2'>
                                     <Button
                                         color='inherit'
                                         onClick={() => {
@@ -543,7 +551,7 @@ function ProductInfo(props) {
                 </div>
                 <div
                     id='body-more-info'
-                    class='
+                    className='
                         px-52'
                 >
                     {
@@ -553,14 +561,14 @@ function ProductInfo(props) {
                             </div>
                             :
                             (currentInfo == 'Reviews' ?
-                                <div class=''>
+                                <div className=''>
                                     {rates.map((item) => {
-                                        return <div class='flex flex-col border-b-2 border-gray-500 py-3'>
-                                            <div class='flex flex-row items-center'>
+                                        return <div className='flex flex-col border-b-2 border-gray-500 py-3'>
+                                            <div className='flex flex-row items-center'>
                                                 <CiUser />
-                                                <span class='text-xs'>{item.user.fullName + ','}</span>
+                                                <span className='text-xs'>{item.user.fullName + ','}</span>
                                                 &nbsp;
-                                                <span class='text-gray-500 text-xs'>{new Date(item.rateDate).toLocaleString()}</span>
+                                                <span className='text-gray-500 text-xs'>{new Date(item.rateDate).toLocaleString()}</span>
                                             </div>
                                             <Rating name="read-only" value={item.star} readOnly />
 
@@ -576,7 +584,7 @@ function ProductInfo(props) {
 
             <div
                 id='more-to-love'
-                class='mt-2'>
+                className='mt-2'>
                 <MoreToLove
                     products={productSuggest}
                 />

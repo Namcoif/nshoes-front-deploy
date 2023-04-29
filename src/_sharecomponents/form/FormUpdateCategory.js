@@ -52,7 +52,7 @@ function FormUpdateCategory(props) {
     }, [])
 
     return (
-        <div class='px-5 flex flex-col items-center'>
+        <div className='px-5 flex flex-col items-center'>
             <div
                 id='header-update-product'
                 className='text-red-vio py-5'

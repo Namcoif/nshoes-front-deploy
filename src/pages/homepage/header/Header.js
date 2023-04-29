@@ -47,52 +47,55 @@ function Header(props) {
     return (
         <div
             onKeyDown={_handleKeyDown}
-            class="
-                        h-24
-                        items-center
-                        flex flex-row fixed
-                        min-w-full
-                        shadow-md
-                        bg-gradient-to-t
-                        from-red-vio to-red-600
+            className="
+                h-24
+                items-center
+                flex flex-row fixed
+                min-w-full
+                shadow-md
+                bg-gradient-to-t
+                from-cyan-800
+                to-teal-600
                         
-                        md:pl-36 
-                        md:pr-36
+                md:pl-36 
+                md:pr-36
 
-                        xl:pl-96
-                        xl:pr-96">
+                xl:pl-96
+                xl:pr-96">
             <div
-                class='
+                className='
                         w-fit
                         flex
                         flex-col
                         items-end
                         mr-1
-                        ml-1
                         
-                        md: mr-4'>
+                        md:mr-4'>
 
                 <Link to={'/'}>
                     <div
                         onClick={() => {
                             document.title = "NShoes"
                         }}
-                        className='homepage-logo'
-                        class="
-                                w-fit
-                                cursor-pointer
-                                flex
-                                flex-row
-                                items-center">
+                        className="
+                            homepage-logo
+                            w-fit
+                            cursor-pointer
+                            flex
+                            flex-row
+                            items-center">
                         <img
                             src='https://i.postimg.cc/tgc9Vgdr/AvtS.png'
-                            class='
-                                h-10'/>
+                            className='
+                                h-16'/>
                         <span
-                            class='
+                            className='
                             text-white
-                            text-xl
+                            text-3xl
                                 font-black'
+                            style={{
+                                fontFamily: 'Brush Script MT'
+                            }}
                         >
                             NShoes
                         </span>
@@ -102,10 +105,10 @@ function Header(props) {
 
 
             </div >
-            <div class='flex-1'>
+            <div className='flex-1'>
                 <div
                     className='homepage-search'
-                // class="
+                // className="
                 //         flex
                 //         flex-row
                 //         flex-1
@@ -128,7 +131,7 @@ function Header(props) {
             </div>
             <div
                 id='customer'
-                class='
+                className='
                         ml-1
                         md:ml-4
                         flex
@@ -137,7 +140,7 @@ function Header(props) {
             >
                 <CiShoppingCart
                     color='white'
-                    class='                
+                    className='                
                         h-8
                         w-8
                         mr-1'
@@ -147,29 +150,29 @@ function Header(props) {
                     Drop={
                         () => <CiUser
                             color='white'
-                            class='
+                            className='
                                     h-8
                                     w-8
                                     mr-1'
                         />
                     }
                     DropContent={
-                        () => <div class='flex flex-col px-5 py-2 rounded bg-white shadow-black2 text-xs items-center'>
-                            <div class='border-b-2'>
+                        () => <div className='flex flex-col px-5 py-2 rounded bg-white shadow-black2 text-xs items-center'>
+                            <div className='border-b-2'>
                                 <span>Welcom Back, {localStorage.username}</span>
                             </div>
-                            <div class='flex flex-col mt-2 '>
+                            <div className='flex flex-col mt-2 '>
                                 <Link>
-                                    <span style={{ fontWeight: '900', fontSize: '16px' }} class='hover:shadow-lg '> My Account</span>
+                                    <span style={{ fontWeight: '900', fontSize: '16px' }} className='hover:shadow-lg '> My Account</span>
                                 </Link>
-                                <div class='h-2'></div>
+                                <div className='h-2'></div>
                                 <Link to={"/api/v1/orders/paging/" + localStorage.userId + "/%20/%20"} >
-                                    <span style={{ fontWeight: '900', fontSize: '16px' }} class='hover:shadow-lg '> My Orders</span>
+                                    <span style={{ fontWeight: '900', fontSize: '16px' }} className='hover:shadow-lg '> My Orders</span>
                                 </Link>
 
 
                             </div>
-                            <div class='mt-2'>
+                            <div className='mt-2'>
                                 <ButtonTeal
                                     label='Sign out'
                                     _onClick={_signOut}

@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import HandleFunction from '../handle_function/HandleFunction';
 import { AiOutlineStar } from 'react-icons/ai';
+import { CircularProgress, Dialog, DialogContent, LinearProgress } from '@mui/material';
+import { useSelector } from 'react-redux';
 function MoreToLove(props) {
     const { products } = props;
+    const selector = useSelector(state => state)
 
+    const [isLoading, setIsLoading] = useState(false);
     const [hoverProduct, setHoverProduct] = useState("");
 
     const randomNum = () => {
@@ -29,7 +33,7 @@ function MoreToLove(props) {
 
         return (<li
             key={item.id + index + randomNum()}
-            class='
+            className='
                     w-48
                     2xl:w-52
                     flex
@@ -47,7 +51,7 @@ function MoreToLove(props) {
         >
 
             <div
-                class='
+                className='
                 
                         
                         p-2
@@ -61,7 +65,7 @@ function MoreToLove(props) {
                     to={'/api/v1/products/' + item.id}
 
                 >
-                    <div class='flex flex-col justify-center
+                    <div className='flex flex-col justify-center
                     '>
                         <div
                             onMouseOver={() => {
@@ -73,25 +77,25 @@ function MoreToLove(props) {
                         >
                             {
                                 hoverProduct == item.id ?
-                                    <img src={item.productImgUrls[0].url !== undefined ? item.productImgUrls[0].url : null} class='rounded-lg animate-animationRotate45 ease-tranTimeFunc2 duration-1000 hover:-mt-5 hover:mb-5 drop-shadow-lg' />
+                                    <img src={item.productImgUrls[0].url !== undefined ? item.productImgUrls[0].url : null} className='rounded-lg animate-animationRotate45 ease-tranTimeFunc2 duration-1000 hover:-mt-5 hover:mb-5 drop-shadow-lg' />
                                     :
-                                    <img src={item.productImgUrls[0].url !== undefined ? item.productImgUrls[0].url : null} class='rounded-lg -mx-9 shadow-lg' />
+                                    <img src={item.productImgUrls[0].url !== undefined ? item.productImgUrls[0].url : null} className='rounded-lg -mx-9 shadow-lg' />
                             }
                         </div>
                         <div
-                            class='
+                            className='
                                 pt-1
                                 hover:text-red-vio'>
                             <div
                                 id='price'
-                                class='
+                                className='
                                     flex
                                     flex-row
                                     justify-between
                                     items-end'>
                                 <span
                                     id='promotion-price'
-                                    class='
+                                    className='
                                     bg-gradient-to-t from-red-vio to-red-600
                                     text-white 
                                     px-2
@@ -103,7 +107,7 @@ function MoreToLove(props) {
 
                                 <span
                                     id='original-price'
-                                    class='
+                                    className='
                                     text-black
                                     text-xs
                                     line-through'>
@@ -112,10 +116,10 @@ function MoreToLove(props) {
                             </div>
                             <div
                                 id='product-info'
-                                class='flex flex-col'>
-                                <div class='flex flex-row justify-between text-red-600'>
+                                className='flex flex-col'>
+                                <div className='flex flex-row justify-between text-red-600'>
                                     <span>{item.soldCount + ' sold'}</span>
-                                    <div class='flex flex-row items-center'>
+                                    <div className='flex flex-row items-center'>
                                         <span>
                                             {starPoint != 0 ? starPoint : ''}
                                         </span>
@@ -123,7 +127,7 @@ function MoreToLove(props) {
                                     </div>
 
                                 </div>
-                                <span class='truncate'>{item.productName}</span>
+                                <span className='truncate'>{item.productName}</span>
                             </div>
                         </div>
                     </div>
@@ -134,33 +138,58 @@ function MoreToLove(props) {
         )
     })
 
+    useEffect(() => {
+        setIsLoading(selector.page.isLoading)
+    }, [selector.page.isLoading])
+
     return (
+
         <div
-            class='
-                        bg-slate-100
-                        flex flex-row
-                        justify-center
 
-                        px-6
-                        
-                        border-t-2 border-red-600
-                        '>
-            {products.length == 0
-                ?
-                <div class='w-full bg-gradient-to-t from-red-vio to-red-600 flex flex-row items-center justify-center'>
-                    <span class='text-xs text-white'>No matching products found</span>
-                </div>
-                :
-                <ul
-                    class='
-                        grid
-                        gap-3
-                        grid-cols-2
-                        xl:grid-cols-4
+            className='
+            flex flex-col
+                items-center
+                px-6
+                
+                '>
+            <div className='font-sans font-semibold my-8 text-3xl'>
+                <hr></hr>
+                <span
+                    className='bg-red-500 text-white rounded-sm p-4'
+                    style={
+                        { fontFamily: 'Brush Script MT' }
+                    }
+                >
+                    More to Love
+                </span>
+                <hr></hr>
+            </div >
+            {
+                isLoading
+                    ?
+                    <div className='w-fit'>
+                        <CircularProgress color='error' />
+                    </div>
+                    : (products.length == 0
+                        ?
+                        <div className='w-full bg-gradient-to-t from-red-vio to-red-600 flex flex-row items-center justify-center'>
+                            <span className='text-xs text-white'>No matching products found</span>
+                        </div>
+                        :
+                        <div className='flex flex-col items-center'>
+                            <ul
+                                className='
+                            grid
+                            gap-3
+                            grid-cols-2
+                            xl:grid-cols-4
                         '>
 
-                    {listProducts}
-                </ul>}
+                                {listProducts}
+                            </ul>
+                        </div>
+                    )
+            }
         </div>
     );
 }

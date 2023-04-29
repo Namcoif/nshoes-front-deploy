@@ -13,10 +13,15 @@ const GET_LIST_CARTS_BY_USER_ID = HOST + "/api/v1/users/user"
 const CARTS = "/api/v1/carts"
 const ORDERS = "/api/v1/orders"
 const SHIPPING_INFO = "/api/v1/shipping"
+const GET_SLOWEST_PRODUCTS = "/api/v1/products/slowest-products"
+const GET_DISCOUNT_PRODUCTS = "/api/v1/products/discount-products"
 
 const listAPI_Back = {
     GET_LIST_CATEGORIES,
     GET_LIST_PRODUCTS,
+    GET_DISCOUNT_PRODUCTS,
+    GET_SLOWEST_PRODUCTS,
+
     ADD_TO_CART,
     SIGN_IN,
     SIGN_UP,
