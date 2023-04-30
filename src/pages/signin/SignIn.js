@@ -11,10 +11,12 @@ import { useRef } from 'react';
 import pageActions from './../../redux/actions/pageActions';
 import CustomButton from '../../_sharecomponents/button/CustomButton';
 import actionTypes from '../../redux/constant/constant';
+import { useNavigate } from 'react-router-dom';
 function SignIn(props) {
 
     const dispatch = useDispatch();
     const selector = useSelector(state => state);
+    const navigate = useNavigate();
 
     const [signInInfo, setSignInInfo] = useState({
         username: '',
@@ -47,6 +49,9 @@ function SignIn(props) {
             setNotification({
                 succeeded: 'Logged in successfully!'
             })
+            if (res.data.role == "[ADMIN]") {
+                navigate("/api/v1/admin")
+            }
 
             dispatch({
                 type: actionTypes.SIGN_IN_SUCCESS

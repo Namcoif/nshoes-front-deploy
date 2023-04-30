@@ -15,6 +15,7 @@ import CategoriesManagement from './container/manager/CategoriesManagement';
 import OrdersManagement from './container/manager/OrdersManagement';
 import StatisticalManagement from './container/manager/StatisticalManagement';
 import SignUpSuccess from './pages/signupsuccess/SignUpSuccess';
+import AdminPage from './pages/admin/AdminPage';
 function App() {
 
   const selector = useSelector(state => state);
@@ -40,6 +41,8 @@ function App() {
           <Route path='/api/v1/statistical/management' element={<StatisticalManagement />} />
         </Route>
         <Route path='ap1/v1/user-confirm' element={<SignUpSuccess />} />
+        <Route path='api/v1/admin' element={<AdminPage />} />
+        <Route path='api/v1/admin/:userId' element={<AdminPage />} />
 
         <Route element={<ErrorPage />} />
         {/* <Route

@@ -15,12 +15,13 @@ const ORDERS = "/api/v1/orders"
 const SHIPPING_INFO = "/api/v1/shipping"
 const GET_SLOWEST_PRODUCTS = "/api/v1/products/slowest-products"
 const GET_DISCOUNT_PRODUCTS = "/api/v1/products/discount-products"
-
+const GET_LIST_USERS = "/api/v1/users/admin/paging"
 const listAPI_Back = {
     GET_LIST_CATEGORIES,
     GET_LIST_PRODUCTS,
     GET_DISCOUNT_PRODUCTS,
     GET_SLOWEST_PRODUCTS,
+    GET_LIST_USERS,
 
     ADD_TO_CART,
     SIGN_IN,

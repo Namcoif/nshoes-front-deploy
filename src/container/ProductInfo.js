@@ -161,23 +161,84 @@ function ProductInfo(props) {
         }
     }
 
-    const _buyNow = () => { }
+    const _buyNow = async (productWillGet) => {
 
+        if (localStorage.userId === undefined) {
+            dispatch(userActions.toggleSignIn())
+        }
+        else
+            try {
+                let user = await axios.get(listAPI_Back.GET_LIST_CARTS_BY_USER_ID, {
+                    params: {
+                        id: localStorage.userId
+                    },
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.token}`
+                    }
+                })
+
+                if (user.data.userId === localStorage.userId) {
+                    try {
+                        await axios.post(listAPI_Back.ADD_TO_CART, productWillGet, {
+                            headers: {
+                                'Authorization': `Bearer ${localStorage.token}`
+                            }
+                        }).then((res) => {
+                            setResAdd(res.data.resultText)
+                            console.log(res);
+                            setToggleAddCart(true)
+                            navigate("/api/v1/carts/" + localStorage.userId)
+                        })
+                    } catch (err) {
+                        setIsNotLogged(true)
+                    }
+                }
+
+
+            } catch (e) {
+                console.log("a");
+                dispatch(userActions.toggleSignIn())
+            }
+    }
     const _addToCart = async (productWillGet) => {
 
-        try {
-            await axios.post(listAPI_Back.ADD_TO_CART, productWillGet, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.token}`
-                }
-            }).then((res) => {
-                setResAdd(res.data.resultText)
-                console.log(res);
-                setToggleAddCart(true)
-            })
-        } catch (err) {
-            setIsNotLogged(true)
+        if (localStorage.userId === undefined) {
+            dispatch(userActions.toggleSignIn())
         }
+        else
+            try {
+                let user = await axios.get(listAPI_Back.GET_LIST_CARTS_BY_USER_ID, {
+                    params: {
+                        id: localStorage.userId
+                    },
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.token}`
+                    }
+                })
+                    .then((res) => console.log(res))
+
+                if (user.data.userId === localStorage.userId) {
+                    try {
+                        await axios.post(listAPI_Back.ADD_TO_CART, productWillGet, {
+                            headers: {
+                                'Authorization': `Bearer ${localStorage.token}`
+                            }
+                        }).then((res) => {
+                            setResAdd(res.data.resultText)
+                            console.log(res);
+                            setToggleAddCart(true)
+                            // navigate("/api/v1/carts/" + localStorage.userId)
+                        })
+                    } catch (err) {
+                        setIsNotLogged(true)
+                    }
+                }
+
+
+            } catch (e) {
+                console.log("a");
+                dispatch(userActions.toggleSignIn())
+            }
 
     }
 
@@ -210,7 +271,6 @@ function ProductInfo(props) {
     useEffect(() => {
         setIsDeleteProduct(selector.user.isDeleteProduct)
     }, [selector.user])
-
     return (
         <div
             className='flex flex-col'
@@ -465,12 +525,12 @@ function ProductInfo(props) {
                     </div>
                     <div id='control-product'                    >
                         {
-                            localStorage.role == '[CUSTOMER]' ?
+                            localStorage.role !== '[MANAGER]' ?
                                 <div
                                     className='flex flex-row justify-between 2xl:w-1/2 py-4'>
                                     <CustomButton
                                         label='buy now'
-                                        _onClick={_buyNow}
+                                        _onClick={() => _buyNow(productWillGet)}
                                     />
                                     <ButtonTeal
                                         label='add to cart'

@@ -126,7 +126,7 @@ function FormCreateProduct(props) {
                 </div>
                 <div
 
-                    className='mb-5 w-full'>
+                    className='mb-5 w-full feild'>
                     <label>Status</label>
                     <Select
                         labelId="demo-simple-select-label"
@@ -141,7 +141,7 @@ function FormCreateProduct(props) {
                 </div>
                 <div
 
-                    className='mb-5 w-full'>
+                    className='mb-5 w-full feild'>
                     <label>Category</label>
                     <Select
                         labelId="demo-simple-select-label"

@@ -24,6 +24,7 @@ function Footer(props) {
                 to-teal-600
 
                 mt-5
+                xl:px-60
                 '>
             <div
                 id='footer-about-us'

@@ -19,6 +19,8 @@ function ProductInStatistical(props) {
             to={'/api/v1/products/' + product.id}
         >
             <div className='
+            px-5
+            py-5
                 cursor-pointer
                 justify-center
                 items-center
@@ -142,8 +144,26 @@ function ProductInStatistical(props) {
                             id='amout'
                             className='flex flex-col items-end pt-2'
                         >
+                            <span className='text-md font-normal text-rose-500'>
+                                Sold
+                            </span>
+                            <span
+                                className='
+                                    text-xl font-extrabold text-white
+                                    rounded
+                                    bg-rose-600
+                                    px-2
+                                    '>
+                                {product.soldCount}
+                            </span>
+
+                        </div>
+                        <div
+                            id='amout'
+                            className='flex flex-col items-end pt-2'
+                        >
                             <span className='text-md font-normal text-yellow-500'>
-                                Amout:
+                                Amout
                             </span>
                             <span
                                 className='
@@ -154,11 +174,7 @@ function ProductInStatistical(props) {
                                     '>
                                 {HandleFunction.formatNumberToVND(product.promotionPrice)}
                             </span>
-                            {
-                                product.orderStatus != "CANCEL" && product.orderStatus != "RETURNS" ?
-                                    <Button></Button>
-                                    : null
-                            }
+
                         </div>
                     </div>
                     <div >

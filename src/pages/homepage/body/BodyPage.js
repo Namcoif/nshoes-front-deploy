@@ -125,6 +125,7 @@ function BodyPage(props) {
                     dispatch(userActions.openCreateProduct())
 
                 }}
+                fullWidth
             >
                 <DialogContent>
                     <FormCreateProduct

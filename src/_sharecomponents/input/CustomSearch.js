@@ -40,18 +40,18 @@ const CustomSearch = (props) => {
 
     return (
         <div
-            className='custom-input'
             className='
-                        flex
-                        flex-row
-                        items-center
-                        border-2 border-solid border-white
-                        rounded
-                        bg-white
-                        flex-1
-                        
-                        shadow-md
-                        sm:w-48
+                custom-input
+                flex
+                flex-row
+                items-center
+                border-2 border-solid border-white
+                rounded
+                bg-white
+                flex-1
+                
+                shadow-md
+                sm:w-48
                 '
         >
 

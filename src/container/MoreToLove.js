@@ -24,9 +24,9 @@ function MoreToLove(props) {
         if (item.productRates.length != 0) {
             item.productRates.forEach(element => {
                 starPoint += element.star;
-                console.log(element);
+                // console.log(element);
             });
-            console.log(item.productRates);
+            // console.log(item.productRates);
             starPoint = starPoint / item.productRates.length;
             starPoint = starPoint.toFixed(1);
         }

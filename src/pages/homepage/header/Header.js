@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CiShoppingCart, CiUser } from "react-icons/ci"
 import CustomSearch from '../../../_sharecomponents/input/CustomSearch';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -7,6 +7,8 @@ import { connect, useDispatch, } from 'react-redux';
 import DropDown from '../../../_sharecomponents/dropdown/DropDown';
 import ButtonTeal from '../../../_sharecomponents/button/ButtonTeal';
 import pageActions from './../../../redux/actions/pageActions';
+import axios from 'axios';
+import listAPI_Back from '../../../api/API';
 
 
 function Header(props) {
@@ -21,6 +23,7 @@ function Header(props) {
     const params = useParams();
 
     const [search, setSearch] = useState("");
+    const [role, setRole] = useState("CUSTOMER");
 
     const _getSearchValue = (name, value) => {
         setSearch(value)
@@ -38,11 +41,43 @@ function Header(props) {
         navigate("/api/v1/products/search/%20/" + search + "/%20/%20/%20")
     }
 
+    const _navigateSearchUser = () => {
+        navigate("/api/v1/admin/" + search)
+    }
+
+    const _checkRole = async () => {
+        if (localStorage.role !== undefined) {
+            try {
+                await axios.get(listAPI_Back.GET_LIST_CARTS_BY_USER_ID, {
+                    params: {
+                        id: localStorage.userId
+                    },
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.token}`
+                    }
+                }).then((user) => {
+                    console.log(user.data.userRole.role);
+                    setRole(user.data.userRole.role)
+                })
+
+
+            } catch (e) {
+                dispatch(userActions.toggleSignIn())
+            }
+        }
+
+
+    }
+
     const _handleKeyDown = (e) => {
         if (e.key === "Enter") {
             refSubmit.current.focus()
         }
     }
+
+    useEffect(() => {
+        _checkRole()
+    }, [localStorage.role])
 
     return (
         <div
@@ -117,14 +152,26 @@ function Header(props) {
                 //         md:mr-4"
                 >
                     {
-                        params.categoryId ? null :
+                        role == "ADMIN"
+                            ?
                             <CustomSearch
-                                placeholder="Search..."
+                                placeholder="Type user ID..."
                                 _getInputValue={_getSearchValue}
                                 refSubmit={refSubmit}
-                                _onClick={_navigateSearch}
+                                _onClick={_navigateSearchUser}
                                 name="search"
                             />
+                            :
+                            (
+                                params.categoryId ? null :
+                                    <CustomSearch
+                                        placeholder="Search..."
+                                        _getInputValue={_getSearchValue}
+                                        refSubmit={refSubmit}
+                                        _onClick={_navigateSearch}
+                                        name="search"
+                                    />
+                            )
                     }
 
                 </div>

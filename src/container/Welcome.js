@@ -9,14 +9,14 @@ function Welcome(props) {
             <div className='flex flex-row items-center justify-center'>
                 <div className=''>
                     <div className='flex flex-row items-end justify-start -ml-16 pb-2'>
-                        <img className='w-64 appear' src='https://ae01.alicdn.com/kf/S6261857dce784ba0a25372b21ce834edX/New-Tactical-Boots-Mens-Nonslip-Safety-Boot-Work-Boots-Outdoor-Hiking-Men-Motorcycle-Shoes-Durable-2022.jpg_220x220xz.jpg_.webp' />
+                        <img className='w-64 appear' src='https://i.postimg.cc/J470fBWr/5-Photo-Room-png-Photo-Room.png' />
 
-                        <img className='w-48 ml-4 appear' src='https://ae01.alicdn.com/kf/Sa13c9f9bcc844b70ad03f2efcd286d28C/Comfortable-Formal-Men-Shoes-Genuine-Leather-Double-Monk-Strap-Black-Brown-Men-Fashion-Dress-Shoes-Wedding.jpg_220x220xz.jpg_.webp' />
+                        <img className='w-48 ml-4 appear' src='https://i.postimg.cc/GhD3whTg/2-Photo-Room-png-Photo-Room.png' />
 
                     </div>
 
                     <div className='flex flex-row items-start justify-end -mr-14 pt-2'>
-                        <img className='w-48 mr-4 appear' src='https://ae01.alicdn.com/kf/S6261857dce784ba0a25372b21ce834edX/New-Tactical-Boots-Mens-Nonslip-Safety-Boot-Work-Boots-Outdoor-Hiking-Men-Motorcycle-Shoes-Durable-2022.jpg_220x220xz.jpg_.webp' />
+                        <img className='w-48 mr-4 appear' src='https://i.postimg.cc/Qdr8XGp8/3-Photo-Room-png-Photo-Room.png' />
 
                         <img className='w-64 appear' src='https://i.postimg.cc/tgc9Vgdr/AvtS.png' />
 

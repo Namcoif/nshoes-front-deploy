@@ -18,7 +18,7 @@ function StatisticalManagement(props) {
 
         {
             filter: "Selling",
-            lable: "SELLING"
+            lable: "Bestseller"
         },
         {
             filter: "Slowest",
