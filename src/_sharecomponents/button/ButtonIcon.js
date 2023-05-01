@@ -3,7 +3,7 @@ import React from 'react';
 function ButtonIcon(props) {
     const { label, _onClick } = props
     return (
-        <div>
+        <div >
             {_onClick
                 ?
                 <button
@@ -11,7 +11,8 @@ function ButtonIcon(props) {
                     className='
                         bg-gradient-to-br from-red-vio to-vio-red text-white
                         rounded-circle
-                        w-6 h-6 min-w-min'
+                        w-6 h-6 min-w-min
+                        '
                 >
                     {label}
                 </button>

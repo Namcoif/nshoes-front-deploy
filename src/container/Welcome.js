@@ -1,5 +1,6 @@
 import React from 'react';
 import './Container.css';
+import CountUp from 'react-countup';
 function Welcome(props) {
     return (
         <div className='flex flex-col py-16 bg-gradient-to-tr from-yellow-200 to-rose-500'>
@@ -34,15 +35,26 @@ function Welcome(props) {
                     </div>
                     <div className='mt-5 flex flex-row items-start'>
                         <div>
-                            <h1 className='text-red-vio'>
-                                More 1640
+                            <h1 className='text-red-vio inline'>
+                                More&nbsp;
+                                <CountUp
+                                    start={0}
+                                    end={1640}
+                                    duration={3}
+                                />
                             </h1>
+                            <br />
                             <span>products in stock</span>
                         </div>
                         <div className='w-10'></div>
                         <div>
                             <h1 className='text-red-vio'>
-                                10
+                                <CountUp
+                                    start={0}
+                                    end={10}
+                                    duration={3}
+
+                                />
                             </h1>
                             <span>of product categories</span>
                         </div>

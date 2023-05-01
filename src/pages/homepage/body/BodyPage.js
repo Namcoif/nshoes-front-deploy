@@ -11,6 +11,7 @@ import FormCreateProduct from '../../../_sharecomponents/form/FormCreateProduct'
 import { Button, Dialog, DialogContent } from '@mui/material';
 import userActions from '../../../redux/actions/userActions';
 import Welcome from '../../../container/Welcome';
+import CustomCarousel from '../../../_sharecomponents/carousel/CustomCarousel';
 
 function BodyPage(props) {
 
@@ -21,6 +22,7 @@ function BodyPage(props) {
     const [products, setProducts] = useState([]);
 
     const [sellingProducts, setSellingProducts] = useState([]);
+    const [discountProducts, setDiscountProducts] = useState([]);
 
     const [currentPage, setCurrentPage] = useState(0);
 
@@ -68,6 +70,12 @@ function BodyPage(props) {
         })
     }
 
+    const _getDiscountProducts = async () => {
+        await axios.get(listAPI_Back.GET_DISCOUNT_PRODUCTS).then((res) => {
+            setDiscountProducts(res.data)
+        })
+    }
+
     const _getCategories = async () => {
         await axios.get(listAPI_Back.GET_LIST_CATEGORIES).then((res) => {
             const categoryTemp = res.data.map((item) => {
@@ -88,7 +96,7 @@ function BodyPage(props) {
         _getProducts();
         _getSellingProducts();
         _getCategories();
-
+        _getDiscountProducts()
     }, [])
 
     useEffect(() => {
@@ -118,6 +126,7 @@ function BodyPage(props) {
             className="
                 min-w-full 
                 mt-24
+                flex flex-col
                 ">
             <Dialog
                 open={isCreateProduct}
@@ -169,7 +178,12 @@ function BodyPage(props) {
                     />
                 </div>
             </div>
-            <div id='sales'>
+            <div id='sales'
+                className=' '
+            >
+                <CustomCarousel
+                    itemCarousel={discountProducts}
+                />
             </div>
             {
                 localStorage.role == '[MANAGER]'

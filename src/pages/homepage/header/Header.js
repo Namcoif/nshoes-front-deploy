@@ -62,7 +62,7 @@ function Header(props) {
 
 
             } catch (e) {
-                dispatch(userActions.toggleSignIn())
+                // dispatch(userActions.toggleSignIn())
             }
         }
 

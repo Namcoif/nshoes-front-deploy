@@ -1,0 +1,7 @@
+#formList::-webkit-scrollbar {
+    display: none;
+}
+
+#formList {
+    width: 1260px;
+}

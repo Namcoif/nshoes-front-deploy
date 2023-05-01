@@ -7,9 +7,11 @@ import axios from 'axios';
 import listAPI_Back from '../../api/API';
 import CustomReviews from '../reviews/CustomReviews';
 import FormUpdateOrder from '../form/FormUpdateOrder';
+import { useNavigate } from 'react-router-dom';
 
 function ProductInOrders(props) {
     const { product } = props
+    const navigate = useNavigate();
     console.log(product);
     const [isCancel, setIsCancel] = useState(false);
     const [isRate, setIsRate] = useState(false);
@@ -296,15 +298,28 @@ function ProductInOrders(props) {
                                     :
                                     (product.orderStatus == 'DELIVERED'
                                         ?
-                                        <Button
-                                            color='success'
-                                            variant='contained'
-                                            onClick={() => {
-                                                setIsRate(true);
-                                            }}
-                                        >
-                                            Rate
-                                        </Button>
+                                        <div className='flex flex-col items-end'>
+                                            <Button
+                                                color='success'
+                                                variant='contained'
+                                                onClick={() => {
+                                                    setIsRate(true);
+                                                }}
+                                            >
+                                                Rate
+                                            </Button>
+                                            <div className='h-5'></div>
+                                            <Button
+                                                color='warning'
+                                                variant='contained'
+                                                onClick={() => {
+                                                    navigate("/api/v1/products/" + product.product.id)
+                                                }}
+                                            >
+                                                Re-Order
+                                            </Button>
+                                        </div>
+
                                         : null
                                     )
                             )
