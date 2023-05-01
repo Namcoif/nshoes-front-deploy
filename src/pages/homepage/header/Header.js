@@ -209,20 +209,34 @@ function Header(props) {
                                 <span>Welcom Back, {localStorage.username}</span>
                             </div>
                             <div className='flex flex-col mt-2 '>
-                                <Link>
-                                    <span style={{ fontWeight: '900', fontSize: '16px' }} className='hover:shadow-lg '> My Account</span>
-                                </Link>
-                                <div className='h-2'></div>
-                                <Link to={"/api/v1/orders/paging/" + localStorage.userId + "/%20/%20"} >
-                                    <span style={{ fontWeight: '900', fontSize: '16px' }} className='hover:shadow-lg '> My Orders</span>
-                                </Link>
+                                {
+                                    localStorage.role == "[ADMIN]" ?
+                                        <Link to={"/api/v1/admin"}>
+                                            <span style={{ fontWeight: '900', fontSize: '16px' }} className='hover:shadow-lg '>Account Management</span>
+                                        </Link>
+                                        :
+                                        <div>
+                                            <Link to={"/api/v1/user-info/management"}>
+                                                <span style={{ fontWeight: '900', fontSize: '16px' }} className='hover:shadow-lg '> My Account</span>
+                                            </Link>
+                                            <div className='h-2'></div>
+                                            <Link to={"/api/v1/orders/paging/" + localStorage.userId + "/%20/%20"} >
+                                                <span style={{ fontWeight: '900', fontSize: '16px' }} className='hover:shadow-lg '> My Orders</span>
+                                            </Link>
+                                        </div>
+
+                                }
+
 
 
                             </div>
                             <div className='mt-2'>
                                 <ButtonTeal
                                     label='Sign out'
-                                    _onClick={_signOut}
+                                    _onClick={() => {
+                                        _signOut()
+                                        navigate("/")
+                                    }}
                                 />
                             </div>
                         </div>

@@ -186,7 +186,6 @@ function ProductInfo(props) {
                         }).then((res) => {
                             setResAdd(res.data.resultText)
                             console.log(res);
-                            setToggleAddCart(true)
                             navigate("/api/v1/carts/" + localStorage.userId)
                         })
                     } catch (err) {
@@ -196,7 +195,6 @@ function ProductInfo(props) {
 
 
             } catch (e) {
-                console.log("a");
                 dispatch(userActions.toggleSignIn())
             }
     }
@@ -215,7 +213,6 @@ function ProductInfo(props) {
                         'Authorization': `Bearer ${localStorage.token}`
                     }
                 })
-                    .then((res) => console.log(res))
 
                 if (user.data.userId === localStorage.userId) {
                     try {
@@ -236,7 +233,6 @@ function ProductInfo(props) {
 
 
             } catch (e) {
-                console.log("a");
                 dispatch(userActions.toggleSignIn())
             }
 

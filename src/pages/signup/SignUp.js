@@ -59,7 +59,7 @@ function SignUp(props) {
             dispatch({
                 type: actionTypes.SIGN_UP_SUCCESS
             })
-            navigate('ap1/v1/user-confirm')
+            navigate('/ap1/v1/user-confirm')
             // return () => clearTimeout(timer)
         }).catch((error) => {
             const res = error.response.data;

@@ -64,6 +64,7 @@ function SignIn(props) {
             // const timer = setTimeout(() => {
             //     setIsAlert(false)
             dispatch(userActions.toggleSignIn())
+            window.location.reload()
 
             // }, 1000);
             // return () => clearTimeout(timer)
@@ -182,7 +183,11 @@ function SignIn(props) {
             </div>
             {
                 isSignIn ?
-                    <div className='mt-5'> <LinearProgress /></div>
+                    <div className='mt-5'>
+                        <h4>Please wait...</h4>
+
+                        <LinearProgress />
+                    </div>
                     : null
             }
             <div

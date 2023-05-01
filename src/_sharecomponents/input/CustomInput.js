@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 function CustomInput(props) {
 
 
-    const { refInput, name, type, Icon, Icon2, Icon3, placeholder, _getInputValue, valueStart = '' } = props
+    const { refInput, name, type, Icon, Icon2, Icon3, placeholder, _getInputValue, valueStart = '', disabled = false } = props
 
 
     const [value, setValue] = useState(valueStart);
@@ -15,7 +15,7 @@ function CustomInput(props) {
         setIsChangeType(!isChangeType)
 
     }
-
+    console.log(valueStart);
 
     const _handleChange = (e) => {
         setValue(e.target.value);
@@ -32,6 +32,10 @@ function CustomInput(props) {
     useEffect(() => {
         _getInputValue(name, value);
     }, [value])
+
+    useEffect(() => {
+        setValue(valueStart);
+    }, [])
 
     return (
         <div
@@ -75,6 +79,7 @@ function CustomInput(props) {
                 onBlur={_onBlur}
                 ref={refInput}
                 required
+                disabled={disabled}
             />
             {
                 Icon2 && Icon3 != null

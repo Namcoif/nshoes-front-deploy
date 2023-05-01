@@ -16,6 +16,7 @@ import OrdersManagement from './container/manager/OrdersManagement';
 import StatisticalManagement from './container/manager/StatisticalManagement';
 import SignUpSuccess from './pages/signupsuccess/SignUpSuccess';
 import AdminPage from './pages/admin/AdminPage';
+import InfoManagement from './container/customer/InfoManagement';
 function App() {
 
   const selector = useSelector(state => state);
@@ -39,6 +40,8 @@ function App() {
           <Route path='api/v1/categories/management' element={<CategoriesManagement />} />
           <Route path='/api/v1/orders-management/:orderStatus/:pageNumber' element={<OrdersManagement />} />
           <Route path='/api/v1/statistical/management' element={<StatisticalManagement />} />
+          <Route path='/api/v1/user-info/management' element={<InfoManagement />} />
+
         </Route>
         <Route path='ap1/v1/user-confirm' element={<SignUpSuccess />} />
         <Route path='api/v1/admin' element={<AdminPage />} />

@@ -1,12 +1,27 @@
-import { Button } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import listAPI_Back from '../../api/API';
+import FormCreateAcc from '../../_sharecomponents/form/FormCreateAcc';
+import FormuUpdateAcc from '../../_sharecomponents/form/FormuUpdateAcc';
+import FormDeleteAcc from '../../_sharecomponents/form/FormDeleteAcc';
+import { useDispatch } from 'react-redux';
+import actionTypes from '../../redux/constant/constant';
 
 function AccountsManagement(props) {
 
+    const dispatch = useDispatch();
+
     const [currentInfo, setCurrentInfo] = useState('List Accounts');
     const [listUsers, setListUsers] = useState([]);
+    const [isCreate, setIsCreate] = useState(false);
+    const [isUpdate, setIsUpdate] = useState(false);
+    const [isDelete, setIsDelete] = useState(false);
+    const [isLock, setIsLock] = useState(false);
+    const [isUnLock, setIsUnLock] = useState(false);
+
+    const [accUpdate, setAccUpdate] = useState({});
+
     const moreInfo = [
         "List Accounts", "Create Manager Account"
     ]
@@ -22,7 +37,55 @@ function AccountsManagement(props) {
     }
 
     const _lockAccount = async (user) => {
+        dispatch({
+            type: actionTypes.SIGN_UP_REQUEST
+        })
 
+        await axios.put(listAPI_Back.LOCK_USER + user.userId, {},
+            {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.token}`
+                }
+            }).then((res) => {
+
+
+                dispatch({
+                    type: actionTypes.SIGN_UP_SUCCESS
+                })
+                console.log(res);
+                window.location.reload()
+            }).catch((error) => {
+
+                dispatch({
+                    type: actionTypes.SIGN_UP_FAIL
+                })
+            })
+    }
+
+    const _unLockAccount = async (user) => {
+        dispatch({
+            type: actionTypes.SIGN_UP_REQUEST
+        })
+
+        await axios.put(listAPI_Back.UN_LOCK_USER + user.userId, {},
+            {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.token}`
+                }
+            }).then((res) => {
+
+
+                dispatch({
+                    type: actionTypes.SIGN_UP_SUCCESS
+                })
+                console.log(res);
+                window.location.reload()
+            }).catch((error) => {
+
+                dispatch({
+                    type: actionTypes.SIGN_UP_FAIL
+                })
+            })
     }
 
     useEffect(() => {
@@ -39,6 +102,109 @@ function AccountsManagement(props) {
             my-5
             
             '>
+                <Dialog
+                    open={isLock}
+                    onClose={() => { setIsLock(false) }}
+                    fullWidth
+                >
+                    <DialogContent>
+                        <div className='flex flex-row items-center justify-center text-red-600'>
+                            Are you sure you want to LOCK account &nbsp;  <span className='text-3xl'> {accUpdate.username}</span> &nbsp; ?
+                        </div>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            color='error'
+                            variant='outlined'
+                            onClick={() => {
+                                _lockAccount(accUpdate)
+                            }}
+                        >
+                            Lock
+                        </Button>
+                        <Button
+                            color='success'
+                            variant='contained'
+                            onClick={() => setIsLock(false)}
+                        >
+                            Cancel
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+                <Dialog
+                    open={isUnLock}
+                    onClose={() => { setIsUnLock(false) }}
+                    fullWidth
+                >
+                    <DialogContent>
+                        <div className='flex flex-row items-center justify-center text-red-600'>
+                            Are you sure you want to UNLOCK account &nbsp;  <span className='text-3xl'> {accUpdate.username}</span> &nbsp; ?
+                        </div>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            color='error'
+                            variant='outlined'
+                            onClick={() => {
+                                _unLockAccount(accUpdate)
+                            }}
+                        >
+                            UnLock
+                        </Button>
+                        <Button
+                            color='success'
+                            variant='contained'
+                            onClick={() => setIsUnLock(false)}
+                        >
+                            Cancel
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+                <Dialog
+                    open={isCreate}
+                    onClose={() => { setIsCreate(false) }}
+                    fullWidth
+                >
+                    <DialogContent>
+                        <FormCreateAcc
+                            _onClick={() => {
+                                setIsCreate(false)
+                            }}
+                        />
+                    </DialogContent>
+
+                </Dialog>
+                <Dialog
+                    open={isUpdate}
+                    onClose={() => { setIsUpdate(false) }}
+                    fullWidth
+                >
+                    <DialogContent>
+                        <FormuUpdateAcc
+                            account={accUpdate}
+                            _onClick={() => {
+                                setIsUpdate(false)
+                            }}
+                        />
+                    </DialogContent>
+
+                </Dialog>
+                <Dialog
+                    open={isDelete}
+                    onClose={() => { setIsDelete(false) }}
+                    fullWidth
+                >
+                    <DialogContent>
+                        <FormDeleteAcc
+                            account={accUpdate}
+
+                            _onClick={() => {
+                                setIsDelete(false)
+                            }}
+                        />
+                    </DialogContent>
+
+                </Dialog>
                 {
                     moreInfo.map((item) => {
                         if (currentInfo == item) {
@@ -59,7 +225,7 @@ function AccountsManagement(props) {
                                 <Button
                                     color='inherit'
                                     onClick={() => {
-
+                                        setIsCreate(true)
                                         setCurrentInfo(item)
                                     }}
                                 >
@@ -92,42 +258,90 @@ function AccountsManagement(props) {
                                 <td>{item.fullName}</td>
                                 <td>{item.email}</td>
                                 <td>{item.username}</td>
-                                <td>{item.userRole.role}</td>
+                                <td>{item.userRole !== null ? item.userRole.role : 'null'}</td>
                                 <td>{item.status}</td>
                                 <td>
                                     {
-                                        item.userRole.role !== "CUSTOMER"
+                                        item.userRole !== null
                                             ?
-                                            <Button
-                                                color='success'
-                                                variant='outlined'
+                                            (
+                                                item.userRole.role !== "CUSTOMER"
+                                                    ?
+                                                    <Button
+                                                        color='success'
+                                                        variant='outlined'
+                                                        onClick={() => {
+                                                            setAccUpdate(item)
+                                                            setIsUpdate(true)
+                                                        }}
+                                                    >
+                                                        Update
+                                                    </Button>
+                                                    :
+                                                    (
+                                                        item.status !== "NOT_ACTIVE"
+                                                            ?
+                                                            <Button
+                                                                color='error'
+                                                                variant='outlined'
+                                                                onClick={() => {
+                                                                    setAccUpdate(item)
+                                                                    setIsLock(true)
+                                                                }}
+                                                            >
+                                                                Lock
+                                                            </Button>
+                                                            :
+                                                            <Button
+                                                                color='success'
+                                                                variant='contained'
+                                                                onClick={() => {
+                                                                    setAccUpdate(item)
+                                                                    setIsUnLock(true)
+                                                                }}
+                                                            >
+                                                                Unlock
+                                                            </Button>
 
-                                            >
-                                                Update
-                                            </Button>
-                                            : <Button
-                                                color='error'
-                                                variant='outlined'
+                                                    )
+                                            )
+                                            :
+                                            null
 
-                                            >
-                                                Lock
-                                            </Button>
                                     }
 
                                 </td>
                                 <td>
                                     {
-                                        item.userRole.role !== "ADMIN"
+                                        item.userRole !== null
                                             ?
+                                            (
+                                                item.userRole.role !== "ADMIN"
+                                                    ?
+                                                    <Button
+                                                        color='error'
+                                                        variant='contained'
+                                                        onClick={() => {
+                                                            setAccUpdate(item)
+                                                            setIsDelete(true)
+                                                        }}
+                                                    >
+                                                        Delete
+                                                    </Button>
+                                                    :
+                                                    null
+                                            )
+                                            :
                                             <Button
                                                 color='error'
                                                 variant='contained'
-
+                                                onClick={() => {
+                                                    setAccUpdate(item)
+                                                    setIsDelete(true)
+                                                }}
                                             >
                                                 Delete
                                             </Button>
-                                            :
-                                            null
                                     }
 
                                 </td>

@@ -4,14 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import actionTypes from '../../redux/constant/constant';
 import axios from 'axios';
 import listAPI_Back from '../../api/API';
-import userActions from './../../redux/actions/userActions';
 import CustomInput from '../input/CustomInput';
 import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineLock, AiOutlineMail, AiOutlineUser } from 'react-icons/ai';
-import CustomButton from '../button/CustomButton';
 import { Alert, LinearProgress, MenuItem, Select } from '@mui/material';
 import ButtonTeal from '../button/ButtonTeal';
+import CustomButton from '../button/CustomButton';
 
-function FormCreateAcc(props) {
+function FormuUpdateAcc(props) {
+    const { account, _onClick } = props
+    console.log(account);
+    const [accountUpdate, setAccountUpdate] = useState({});
+
 
     const navigate = useNavigate();
 
@@ -21,14 +24,6 @@ function FormCreateAcc(props) {
     const refInput = useRef();
     const refSubmit = useRef();
 
-
-    const [signUpInfo, setSignUpInfo] = useState({
-        email: '',
-        username: '',
-        fullName: '',
-        password: '',
-        roleId: 2
-    })
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -43,55 +38,56 @@ function FormCreateAcc(props) {
         succeeded: ''
     })
 
-    const _siginUp = async () => {
+    const _UpdateAccount = async () => {
         dispatch({
             type: actionTypes.SIGN_UP_REQUEST
         })
-        await axios.post(listAPI_Back.SIGN_UP_MANAGER, signUpInfo).then((res) => {
+        await axios.put(listAPI_Back.UPDATE_USER + accountUpdate.userId, accountUpdate,
+            {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.token}`
+                }
+            }).then((res) => {
 
-            localStorage.setItem('emailRegister', signUpInfo.email)
+                localStorage.setItem('emailRegister', accountUpdate.email)
 
-            dispatch({
-                type: actionTypes.SIGN_UP_SUCCESS
-            })
-            navigate('/ap1/v1/user-confirm')
-        }).catch((error) => {
-            const res = error.response.data;
-            console.log(res);
-            dispatch({
-                type: actionTypes.SIGN_UP_FAIL
-            })
-
-            if (res.auth !== undefined) {
-                setNotification({
-                    auth: res.auth
+                dispatch({
+                    type: actionTypes.SIGN_UP_SUCCESS
                 })
-            }
-            else {
-                setNotification({
-                    emailErr: res.email,
-                    usernameErr: res.username,
-                    fullNameErr: res.fullName,
-                    passwordErr: res.password,
+                window.location.reload()
+            }).catch((error) => {
+                const res = error.response.data;
+                console.log(res);
+                dispatch({
+                    type: actionTypes.SIGN_UP_FAIL
                 })
-            }
-            setIsAlert(true)
-            const timer = setTimeout(() => {
-                setIsAlert(false)
 
-            }, 3000);
-            return () => clearTimeout(timer)
-        })
-        console.log(signUpInfo);
+                if (res.auth !== undefined) {
+                    setNotification({
+                        auth: res.auth
+                    })
+                }
+                else {
+                    setNotification({
+                        emailErr: res.email,
+                        usernameErr: res.username,
+                        fullNameErr: res.fullName,
+                        passwordErr: res.password,
+                    })
+                }
+                setIsAlert(true)
+
+            })
+        console.log(accountUpdate);
     }
 
     const _getSignUpInfo = (name, value) => {
-        setSignUpInfo({
-            ...signUpInfo,
+        setAccountUpdate({
+            ...accountUpdate,
             [name]: value
 
         })
-        console.log(signUpInfo);
+        console.log(accountUpdate);
 
     }
 
@@ -102,11 +98,14 @@ function FormCreateAcc(props) {
     }
     useEffect(() => {
         refInput.current.focus()
+        setAccountUpdate(account)
+
     }, [])
 
     useEffect(() => {
         setIsLoading(selector.page.isLoading)
     }, [selector.page.isLoading])
+
 
     return (
         <div
@@ -126,8 +125,7 @@ function FormCreateAcc(props) {
                         font-sans
                         font-medium
                         text-red-vio'>
-                <h1>Create Manager</h1>
-
+                <h1>Update Account</h1>
             </div>
             <div
                 id='body-sign'
@@ -149,6 +147,8 @@ function FormCreateAcc(props) {
                         placeholder="example@gmail.com"
                         name="email"
                         refInput={refInput}
+                        disabled={true}
+                        valueStart={account.email}
                     />
                 </div>
                 <div
@@ -161,6 +161,8 @@ function FormCreateAcc(props) {
                         _getInputValue={_getSignUpInfo}
                         placeholder="John, Tom,..."
                         name="fullName"
+                        valueStart={account.fullName}
+
                     />
                 </div>
                 <div
@@ -174,6 +176,8 @@ function FormCreateAcc(props) {
                         _getInputValue={_getSignUpInfo}
                         placeholder="Type your usename"
                         name="username"
+                        disabled={true}
+                        valueStart={account.username}
 
                     />
                 </div>
@@ -192,22 +196,26 @@ function FormCreateAcc(props) {
 
                     />
                 </div>
-                <div>
+                {/* <div>
                     <label>Status</label>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value='2'
+                        value={account.userRole.id}
                     >
-                        <MenuItem value={'2'} selected>MANAGER</MenuItem>
+                        <MenuItem value={account.userRole.id} selected>{account.userRole.role}</MenuItem>
                     </Select>
 
-                </div>
-                <div className='flex flex-col items-center w-full mt-5'>
-                    <ButtonTeal
-                        _onClick={() => _siginUp()}
-                        label="Create"
+                </div> */}
+                <div className='flex flex-row items-center justify-between w-full mt-5'>
+                    <CustomButton
+                        _onClick={() => _UpdateAccount()}
+                        label="Update"
                         refButton={refSubmit}
+                    />
+                    <ButtonTeal
+                        label="Cancel"
+                        _onClick={_onClick}
                     />
                 </div>
 
@@ -256,9 +264,8 @@ function FormCreateAcc(props) {
                     </Alert>
                     : null}
             </div>
-        </div>
+        </div >
     );
-
 }
 
-export default FormCreateAcc;
+export default FormuUpdateAcc;
