@@ -9,7 +9,7 @@ import { CiHome, CiPhone } from 'react-icons/ci'
 import ButtonTeal from './../_sharecomponents/button/ButtonTeal';
 function ShippingInfo(props) {
 
-    const { _getShippingInfoToOrder } = props
+    const { _getShippingInfoToOrder, toggleAddInfo } = props
 
     const [shippingInfoList, setShippingInfoList] = useState([
         {
@@ -162,6 +162,10 @@ function ShippingInfo(props) {
         setEditedInfo(currentInfo)
         _getShippingInfoToOrder(currentInfo)
     }, [currentInfo])
+
+    useEffect(() => {
+        setIsAddNewInfo(toggleAddInfo)
+    }, [toggleAddInfo])
     return (
         <div>
             <div className='flex flex-row justify-between items-center shadow-lg mt-3'>

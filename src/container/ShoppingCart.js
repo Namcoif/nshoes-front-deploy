@@ -32,6 +32,8 @@ function ShoppingCart(props) {
 
     const [togglePayment, setTogglePayment] = useState(false);
 
+    const [toggleAddInfo, setToggleAddInfo] = useState(false);
+
     const [statusOrder, setStatusOrder] = useState('');
 
     const [toggleMessageOrder, setToggleMessageOrder] = useState(false);
@@ -304,13 +306,21 @@ function ShoppingCart(props) {
                         <div className=' flex flex-col items-center pt-5'>
                             <CustomButton
                                 label="Order"
-                                _onClick={() => setTogglePayment(true)}
+                                _onClick={() => {
+                                    if (shippingInfo.id === '') {
+                                        setToggleAddInfo(true)
+
+                                    }
+                                    else
+                                        setTogglePayment(true)
+                                }}
                             />
                         </div>
                         <div className='h-3'></div>
 
                     </div>
                     <ShippingInfo
+                        toggleAddInfo={toggleAddInfo}
                         _getShippingInfoToOrder={_getShippingInfoToOrder}
                     />
                 </div>
